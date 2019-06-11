@@ -18,8 +18,7 @@
     <aura:method name="focusInput" action="{!c.onFocusInput}"/>
 
     <c:UtilsComponent aura:id="UtilsService"/>
-    <lightning:input aura:id="lookupInput"
-            disabled="{!empty(v.dependentValue)}" name="text-input-id-1" variant="label-hidden" type="text" value="{!v.search}"
+    <lightning:input aura:id="lookupInput" name="text-input-id-1" variant="label-hidden" type="text" value="{!v.search}"
             onchange="{!c.handleSearch}"
             onclick="{!c.handleOpenResultList}"
             onfocus="{!c.handleOpenResultList}"
@@ -27,11 +26,6 @@
     />
 
         <div class="slds-input__icon-group slds-input__icon-group_right">
-
-            <aura:if isTrue="{!and(equals(v.dependentValue, 'Other'), not(empty(v.search)))}">
-                <lightning:buttonIcon class="slds-input__icon slds-input__icon_right" iconName="utility:add"
-                                      size="x-small" onclick="{!c.handleAddNewCustomProfileOnClick}"/>
-                <aura:set attribute="else">
                     <aura:if isTrue="{!v.isLoading}">
                         <div role="status" class="slds-spinner slds-spinner_brand slds-spinner_x-small slds-input__spinner">
                             <span class="slds-assistive-text">Loading</span>
@@ -41,11 +35,8 @@
                     </aura:if>
                     <lightning:icon class="slds-input__icon slds-input__icon_right" iconName="utility:search"
                                     size="x-small"/>
-                </aura:set>
-            </aura:if>
-
         </div>
-        <aura:if isTrue="{!and(v.isResultListVisible, not(empty(v.dependentValue)))}">
+        <aura:if isTrue="{!and(v.isResultListVisible)}">
             <c:InputLookupResultList
                     records="{!v.currentRecords}"
                     recordLineIconName="{!v.recordLineIconName}"

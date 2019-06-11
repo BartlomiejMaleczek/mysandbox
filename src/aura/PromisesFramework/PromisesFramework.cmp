@@ -1,7 +1,8 @@
-<aura:component extensible="true" description="PromisesFramework">
+<aura:component description="PromisesFramework">
     <aura:method name="callPromises" action="{!c.onCallPromises}">
         <aura:attribute name="component" type="Aura.Component"/>
         <aura:attribute name="helper" type="Object" />
         <aura:attribute name="methods" type="Object" />
+        <aura:attribute name="onFinalMethod" type="String"/>
     </aura:method>
 </aura:component>

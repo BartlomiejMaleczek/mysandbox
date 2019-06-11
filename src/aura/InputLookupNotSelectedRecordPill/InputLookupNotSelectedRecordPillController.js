@@ -29,7 +29,7 @@
         cmp.find('UtilsService').setTimeout(
             cmp,
             function () {
-                if (cmp.find('UtilsService').isValueNotUndefinedOrNull(search)) {
+                if (search) {
                     results = items.filter(function (item) {
                         for (var i = 0; i < fieldsToSearch.length; i++) {
                             var value = cmp.find('UtilsService').fetchByString(item, fieldsToSearch[i]);
@@ -52,23 +52,23 @@
         );
     },
 
-    handleAddNewCustomProfileOnClick: function (cmp, evt, helper) {
-        var customProfileName = cmp.get("v.search");
-        var defaultCustomProfile = helper.getDefaultCustomProfile(cmp, helper, customProfileName);
+    // handleAddNewCustomProfileOnClick: function (cmp, evt, helper) {
+    //     var customProfileName = cmp.get("v.search");
+    //     var defaultCustomProfile = helper.getDefaultCustomProfile(cmp, helper, customProfileName);
+    //
+    //     cmp.find('InputLookupEvtHandler').fireSelectRecordLookupEvt(defaultCustomProfile);
+    // },
 
-        cmp.find('InputLookupEvtHandler').fireSelectRecordLookupEvt(defaultCustomProfile);
-    },
-
-    handleAddNewCustomProfileOnEnter: function (cmp, evt, helper) {
-        var dependentValue = cmp.get("v.dependentValue");
-        var customProfileName = cmp.get("v.search");
-
-        if(dependentValue == 'Other' && customProfileName && evt.which == 13) {
-            var defaultCustomProfile = helper.getDefaultCustomProfile(cmp, helper, customProfileName);
-
-            cmp.find('InputLookupEvtHandler').fireSelectRecordLookupEvt(defaultCustomProfile);
-        }
-    },
+    // handleAddNewCustomProfileOnEnter: function (cmp, evt, helper) {
+    //     var dependentValue = cmp.get("v.dependentValue");
+    //     var customProfileName = cmp.get("v.search");
+    //
+    //     if(dependentValue == 'Other' && customProfileName && evt.which == 13) {
+    //         var defaultCustomProfile = helper.getDefaultCustomProfile(cmp, helper, customProfileName);
+    //
+    //         cmp.find('InputLookupEvtHandler').fireSelectRecordLookupEvt(defaultCustomProfile);
+    //     }
+    // },
 
     onFocusInput: function (cmp, evt, helper) {
         var lookupInput = cmp.find('lookupInput');

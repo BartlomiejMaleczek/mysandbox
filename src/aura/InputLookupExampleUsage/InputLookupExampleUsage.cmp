@@ -1,0 +1,22 @@
+<aura:component description="InputLookupExampleUsage" implements="flexipage:availableForRecordHome,force:hasRecordId,force:hasSObjectName,forceCommunity:availableForAllPageTypes">
+    <aura:attribute name="whereParams" type="List" default="['Test Account1']"/>
+    <aura:attribute name="selectedAccount" type="Object" />
+
+    <lightning:card >
+        <c:InputLookup aura:id="ProfileLookup"
+                       isFirstRecordDefault="false"
+                       selectedRecord="{!v.selectedAccount}"
+                       recordLineIconName="standard:account"
+                       allRecordsQueryOnce="true"
+                       numberOfElementsToDisplay="15"
+                       title="Account"
+                       hasError="false"
+                       whereParams="{!v.whereParams}"
+                       isRequired="true"
+                       additionalFieldsToDisplay="[
+                                    {'label': 'Name', 'apiName': 'Name'}
+                                ]"
+        />
+    </lightning:card>
+
+</aura:component>

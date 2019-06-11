@@ -18,7 +18,7 @@
                 },
                 function onFailure(result) {
                     reject('Failure');
-                    helper.fireInputLookupErrorEvt(cmp, result);
+                    // helper.fireInputLookupErrorEvt(cmp, result);
                 }
             )
         });
@@ -31,6 +31,8 @@
     },
 
     fireInputLookupErrorEvt: function (cmp, errorMsg) {
+        console.log('fireInputLookupErrorEvt');
+        console.log(cmp.find('InputLookupEvtHandler'));
         cmp.find('InputLookupEvtHandler').fireAddErrorMsgLookupEvt(errorMsg);
     },
 
