@@ -1,0 +1,12 @@
+<!--
+ - Created by BMaleczek on 25.08.2017.
+ -->
+
+<aura:component description="ComponentDefRef2">
+    <c:Comonentdefref var="item" items="[1,2,3,4]">
+        <aura:set attribute="template">
+            Test template {!item}
+        </aura:set>
+    </c:Comonentdefref>
+    dupa
+</aura:component>

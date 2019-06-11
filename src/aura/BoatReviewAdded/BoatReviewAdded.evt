@@ -1,0 +1,3 @@
+<aura:event type="COMPONENT" description="BoatReviewAdded">
+    <aura:attribute name="boatReview" type="BoatReview__c" access="private"/>
+</aura:event>

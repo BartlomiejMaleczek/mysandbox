@@ -1,0 +1,19 @@
+<aura:component description="accDisplay" implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,flexipage:availableForRecordHome,force:hasRecordId,force:hasSObjectName" access="global">
+
+    <aura:attribute name="recordId" type="Object" description="The record object to be displayed"/>
+
+    <aura:attribute name="fields" type="String[]" />
+    <aura:handler name="init" value="{!this}" action="{!c.handleInit}"/>
+
+    <aura:attribute name="queriedRecord" type="Object"/>
+
+    <c:SimpleCRUDService aura:id="simpleCRUDService" />
+
+    <p>IDDD: {!v.recordId}</p>
+
+    <lightning:button title="Add ID" label="Add ID" onclick="{!c.handleAddId}"/>
+    <lightning:button title="Query Record" label="Query Record" onclick="{!c.handleQueryAccount}"/>
+
+    <lightning:button title="Clone and insert Queried Record" label="Clone and insert Queried Record" onclick="{!c.handleCloneAndInsert}"/>
+    <lightning:button title="Edit Queried Record" label="Edit Queried Record" onclick="{!c.handleEdit}"/>
+</aura:component>

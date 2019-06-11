@@ -1,0 +1,90 @@
+<!--
+ - Created by BMaleczek on 31.01.2018.
+ -->
+
+<aura:component description="DataTableOTA" implements="flexipage:availableForAllPageTypes" access="global">
+    <!--Handlers-->
+    <aura:handler name="init" value="{!this}" action="{!c.handleInit}"/>
+    <aura:handler name="change" value="{!v.filter}" action="{!c.handleFilterChange}"/>
+    <aura:handler name="change" value="{!v.search}" action="{!c.handleSearch}"/>
+
+
+    <aura:attribute name="mydata" type="Object" default="[{}]"/>
+    <aura:attribute name="currentMyData" type="Object" default="[{}]"/>
+    <aura:attribute access="private" type="Map" name="filter" default="{}"/>
+    <aura:attribute access="private" type="Integer" name="page" default="0"/>
+    <aura:attribute access="private" type="Integer" name="limit" default="25"/>
+    <aura:attribute name="sortedByField" type="String"/>
+    <aura:attribute name="sortedDirection" type="String" default="asc"/>
+    <aura:attribute name="columns" type="List" default="[]"/>
+    <aura:attribute name="search" type="String" default=""/>
+
+    <!--Services-->
+    <!--<c:ServiceComponentApexCall aura:id="ApexService"/>-->
+
+
+    <lightning:card title="Data Title" class="slds-is-relative slds-m-bottom--xx-large">
+        <aura:set attribute="actions">
+
+            <lightning:buttonIcon iconName="utility:refresh"
+                                  variant="bare"
+                                  size="large"
+                                  alternativeText="Refresh"
+                                  onclick="{!c.handleInit}"
+            />
+        </aura:set>
+        <!--<lightning:spinner aura:id="spinner"/>-->
+
+        <!--<table class="slds-table slds-table_bordered slds-table_cell-buffer">-->
+        <div class="slds-grid slds-m-around_small">
+            <div style="width: 100%;">
+                <lightning:input type="search" name="search" value="{!v.search}"/>
+            </div>
+            <!--<div class="slds-m-left&#45;&#45;medium">-->
+            <!--<lightning:button onclick="{!c.handleSearch}">Search</lightning:button>-->
+            <!--</div>-->
+        </div>
+        <table class="slds-table slds-table_bordered slds-table_cell-buffer slds-table_fixed-layout">
+            <thead>
+            <tr>
+                <th width="5%">
+                    <lightning:input type="checkbox" label=" " name="checked" checked="false"
+                                     onchange="{!c.handleSelectAll}"/>
+                </th>
+                <aura:iteration var="col" items="{!v.columns}">
+                    <th scope="col">
+                        <div style="padding: 0px 0px 0px 0px" data-sortfield="{!col.fieldName}"
+                             onclick="{!c.handleSorting}"
+                             class="slds-th__action slds-text-link_reset">{!col.label}
+                            <aura:if isTrue="{!col.fieldName == v.sortedByField}">
+                                <lightning:icon iconName="{!v.sortedDirection == 'asc' ? 'utility:arrowup' : 'utility:arrowdown'}"
+                                        size="xx-small"
+                                        alternativeText="Indicates approval"/>
+                            </aura:if>
+                        </div>
+
+                    </th>
+                </aura:iteration>
+            </tr>
+            </thead>
+
+            <tbody>
+            <aura:iteration var="elem" items="{!v.currentMyData}" start="{!v.page * v.limit}"
+                            end="{!(v.page+1) * v.limit}">
+                <tr class="{!elem.isVisible == true ? '': 'slds-hide'}">
+                    <!--<td><a href="{!'/' + job.id }">{!job.name}</a></td>-->
+                    <td>
+                        <lightning:input type="checkbox" label=" " name="checked" checked="{!elem.isSelected}"/>
+                    </td>
+                    <td>{!elem.opportunityName}</td>
+                    <td>{!elem.confidence}</td>
+                    <td>{!elem.amount}</td>
+                    <td>{!elem.contact}</td>
+                    <td>{!elem.phone}</td>
+                </tr>
+            </aura:iteration>
+            </tbody>
+        </table>
+        <c:Pagination page="{!v.page}" pageSize="{!v.limit}" itemsLength="{!v.currentMyData.length}"/>
+    </lightning:card>
+</aura:component>

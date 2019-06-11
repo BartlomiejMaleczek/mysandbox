@@ -1,0 +1,9 @@
+<aura:component description="AccountMembersManagerButton" implements="force:hasSObjectName,flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickActionWithoutHeader" access="global">
+    <aura:attribute name="recordId" type="String"/>
+
+    <c:UtilsComponent aura:id="UtilsService"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.handleInit}"/>
+
+    <lightning:spinner aura:id="spinner" class="quick-action-spinner" alternativeText="Loading"/>
+</aura:component>

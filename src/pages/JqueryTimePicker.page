@@ -1,0 +1,37 @@
+<!--
+ - Created by BMaleczek on 06.06.2017.
+ -->
+
+<apex:page id="JqueryTimePicker">
+
+    <apex:includeScript value="{!$Resource.jquery321}"/>
+
+    <apex:includeScript value="{!URLFOR($Resource.timepicker, 'jquery-timepicker-master/jquery.timepicker.min.js')}"/>
+    <link href="{!URLFOR($Resource.timepicker, 'jquery-timepicker-master/jquery.timepicker.css')}" rel="stylesheet"/>
+
+    <apex:includeScript value="{!URLFOR($Resource.timepicker, 'jquery-timepicker-master/lib/bootstrap-datepicker.js')}"/>
+    <link href="{!URLFOR($Resource.timepicker, 'jquery-timepicker-master/lib/bootstrap-datepicker.css')}" rel="stylesheet"/>
+
+    <apex:includeScript value="{!URLFOR($Resource.timepicker, 'jquery-timepicker-master/lib/site.js')}"/>
+    <link href="{!URLFOR($Resource.timepicker, 'jquery-timepicker-master/lib/site.css')}" rel="stylesheet"/>
+
+
+    <!--<section id="examples">-->
+        <!--<article>-->
+                <input id="timeformatExample1" type="text" class="time" />
+                <input id="timeformatExample2" type="text" class="time" />
+
+            <script>
+                $(function() {
+                    $('#timeformatExample1').timepicker({ 'timeFormat': 'H:i:s' });
+                    $('#timeformatExample2').timepicker({ 'timeFormat': 'H:i s' });
+                });
+            </script>
+
+
+            <!--<pre class="code" data-language="javascript">$('#basicExample').timepicker();</pre>-->
+        <!--</article>-->
+    <!--</section>-->
+
+
+</apex:page>

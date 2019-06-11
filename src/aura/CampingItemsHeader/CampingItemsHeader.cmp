@@ -1,0 +1,18 @@
+<aura:component description="CampingItemsHeader">
+    <div class="slds-tabs--default">
+        <ul class="slds-tabs--default__nav" role="tablist">
+            <li onclick="{!c.changeActiveTab}" class="slds-tabs--default__item slds-text-heading--label slds-active" id="tab-default__item_li-1" title="Item One" role="presentation">
+                <a name="firstTab" class="slds-tabs--default__link"  href="#void" role="tab" tabindex="0" aria-selected="true" aria-controls="tab-default-1" data-data="tab-default-1__item" id="tab-default-1__item">New Checklists</a>
+            </li>
+            <li onclick="{!c.changeActiveTab}"  id="tab-default__item_li-2" class="slds-tabs--default__item slds-text-heading--label" title="Item Two" role="presentation">
+                <a class="slds-tabs--default__link" href="#void" role="tab" tabindex="-1" aria-selected="false" aria-controls="tab-default-2" data-data="tab-default-2__item"  id="tab-default-2__item">Existing Checklist</a>
+            </li>
+        </ul>
+        <div id="tab-default-1" class="slds-tabs--default__content slds-show" role="tabpanel" aria-labelledby="tab-default-1__item">
+            <h2>Item One Content</h2>
+        </div>
+        <div id="tab-default-2" class="slds-tabs--default__content slds-hide" role="tabpanel" aria-labelledby="tab-default-2__item">
+            <h2>Item Two Content</h2>
+        </div>
+    </div>
+</aura:component>

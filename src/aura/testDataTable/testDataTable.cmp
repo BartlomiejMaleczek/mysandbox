@@ -1,0 +1,26 @@
+<!--
+ - Created by BMaleczek on 29.08.2017.
+ -->
+
+<aura:component description="testDataTable"  >
+    <aura:attribute name="items" type="Object[]" ></aura:attribute>
+    <aura:handler name="init" action="{!c.init}" value="{!this}" />
+
+    <!--<c:datatablePK items="{!v.items}">-->
+    <!--<aura:set attribute="columns">-->
+    <!--<c:columnPK label="test" field="Name" />-->
+    <!--<c:columnPK label="test2" field="Type" />-->
+    <!--</aura:set>-->
+    <!--</c:datatablePK>-->
+
+    <c:finalLightningDesignSystem items="{!v.items}">
+        <aura:set attribute="columns">
+            <c:columnPK label="Name" field="Name" />
+            <c:columnPK label="Type" field="Type" />
+            <c:columnPK label="Stage" field="Stage" />
+            <c:columnPK label="Confidence" field="Confidence" />
+            <c:columnPK label="Amount" field="Amount" />
+            <c:columnPK label="Contact" field="Contact" />
+        </aura:set>
+    </c:finalLightningDesignSystem>
+</aura:component>

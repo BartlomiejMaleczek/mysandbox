@@ -1,0 +1,22 @@
+<!--
+ - Created by BMaleczek on 16.08.2017.
+ -->
+
+<aura:component description="datatableSearchPK">
+    <!--<aura:registerEvent type="c:datatableQueryEvent" name="datatableQuery" />-->
+
+    <div>
+        <lightning:layout >
+
+            <lightning:layoutItem size="3" padding="around-small">
+                <lightning:Input aura:id="queryInput" type="text" label="Search for record" name="query" placeholder="Search for record"></lightning:Input>
+            </lightning:layoutItem>
+
+            <lightning:layoutItem size="3" padding="around-small">
+                <lightning:button label="Search" onclick="{!c.query}"></lightning:button>
+                <lightning:button label="View All" variant="brand" onclick="{!c.viewAll}"></lightning:button>
+            </lightning:layoutItem>
+
+        </lightning:layout>
+    </div>
+</aura:component>

@@ -1,0 +1,362 @@
+<apex:page standardController="Contact" extensions="FormSmiciarzController" docType="html-5.0">
+    <apex:form >
+        <table style="width:100%" class="detailList" border="0" cellpadding="0" cellspacing="0">
+            <tbody>
+            <tr>
+                <td class="data2Col  first " colspan="2">Reachable 24/7
+                    <input type="checkbox" name="j_id0:j_id1:j_id2:j_id3:j_id4"/>
+                </td>
+            </tr>
+            <tr>
+                <td class="labelCol empty">&nbsp;</td>
+                <td class="dataCol empty">&nbsp;</td>
+            </tr>
+            <tr>
+                <td class="data2Col " colspan="2">
+                   <table width="100%">
+                        <tbody>
+                        <tr>
+                            <td>Reachable
+                                <input type="checkbox" name="j_id0:j_id1:j_id2:j_id3:j_id7:j_id9"/>
+                            </td>
+                            <td>
+                                <table>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </td>
+                            <td>
+                                <table cellpadding="3">
+                                    <tbody>
+                                    <tr align="left">
+                                        <td><label for="j_id0:j_id1:j_id2:j_id3:j_id7:first">
+                                            Mondag</label></td>
+                                        <td><input type="time" name="j_id0:j_id1:j_id2:j_id3:j_id7:j_id14"/></td>
+                                        <td><input type="time" name="j_id0:j_id1:j_id2:j_id3:j_id7:j_id15"/></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                            <td>
+                                <table>
+                                    <tbody>
+                                    <tr align="center">
+                                        <td><input type="time" name="j_id0:j_id1:j_id2:j_id3:j_id7:j_id17"/></td>
+                                        <td><input type="time" name="j_id0:j_id1:j_id2:j_id3:j_id7:j_id18"/></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                            <td>
+                                <table>
+                                    <tbody>
+                                    <tr align="right">
+                                        <td><input type="time" name="j_id0:j_id1:j_id2:j_id3:j_id7:j_id20"/></td>
+                                        <td><input type="time" name="j_id0:j_id1:j_id2:j_id3:j_id7:j_id21"/></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td class="data2Col " colspan="2">
+                    <table width="100%">
+                        <tbody>
+                        <tr>
+                            <td>Reachable<input type="checkbox" name="j_id0:j_id1:j_id2:j_id3:j_id22:j_id24"/></td>
+                            <td>
+                                <table>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </td>
+                            <td>
+                                <table>
+                                    <tbody>
+                                    <tr align="right">
+                                        <td><label for="j_id0:j_id1:j_id2:j_id3:j_id22:first">
+                                            Dinsdag</label></td>
+                                        <td><input type="time" name="j_id0:j_id1:j_id2:j_id3:j_id22:j_id29"/></td>
+                                        <td><input type="time" name="j_id0:j_id1:j_id2:j_id3:j_id22:j_id30"/></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                            <td>
+                                <table>
+                                    <tbody>
+                                    <tr align="right">
+                                        <td><input type="time" name="j_id0:j_id1:j_id2:j_id3:j_id22:j_id32"/></td>
+                                        <td><input type="time" name="j_id0:j_id1:j_id2:j_id3:j_id22:j_id33"/></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                            <td>
+                                <table>
+                                    <tbody>
+                                    <tr align="right">
+                                        <td><input type="time" name="j_id0:j_id1:j_id2:j_id3:j_id22:j_id35"/></td>
+                                        <td><input type="time" name="j_id0:j_id1:j_id2:j_id3:j_id22:j_id36"/></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td class="data2Col " colspan="2">
+                    <table width="100%">
+                        <tbody>
+                        <tr >
+                            <td>Reachable<input type="checkbox" name="j_id0:j_id1:j_id2:j_id3:j_id37:j_id39"/></td>
+                            <td>
+                                <table>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </td>
+                            <td>
+                                <table>
+                                    <tbody>
+                                    <tr align="right">
+                                        <td><label for="j_id0:j_id1:j_id2:j_id3:j_id37:first">
+                                            Woensdag</label></td>
+                                        <td><input type="time" name="j_id0:j_id1:j_id2:j_id3:j_id37:j_id44"/></td>
+                                        <td><input type="time" name="j_id0:j_id1:j_id2:j_id3:j_id37:j_id45"/></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                            <td>
+                                <table>
+                                    <tbody>
+                                    <tr align="right">
+                                        <td><input type="time" name="j_id0:j_id1:j_id2:j_id3:j_id37:j_id47"/></td>
+                                        <td><input type="time" name="j_id0:j_id1:j_id2:j_id3:j_id37:j_id48"/></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                            <td>
+                                <table>
+                                    <tbody>
+                                    <tr align="right">
+                                        <td><input type="time" name="j_id0:j_id1:j_id2:j_id3:j_id37:j_id50"/></td>
+                                        <td><input type="time" name="j_id0:j_id1:j_id2:j_id3:j_id37:j_id51"/></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td class="data2Col " colspan="2">
+                    <table width="100%">
+                        <tbody>
+                        <tr >
+                            <td>Reachable<input type="checkbox" name="j_id0:j_id1:j_id2:j_id3:j_id52:j_id54"/></td>
+                            <td>
+                                <table>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </td>
+                            <td>
+                                <table>
+                                    <tbody>
+                                    <tr align="right">
+                                        <td><label for="j_id0:j_id1:j_id2:j_id3:j_id52:first">
+                                            Donderdag</label></td>
+                                        <td><input type="time" name="j_id0:j_id1:j_id2:j_id3:j_id52:j_id59"/></td>
+                                        <td><input type="time" name="j_id0:j_id1:j_id2:j_id3:j_id52:j_id60"/></td>
+                                    </tr >
+                                    </tbody>
+                                </table>
+                            </td>
+                            <td>
+                                <table>
+                                    <tbody>
+                                    <tr>
+                                        <td><input type="time" name="j_id0:j_id1:j_id2:j_id3:j_id52:j_id62"/></td>
+                                        <td><input type="time" name="j_id0:j_id1:j_id2:j_id3:j_id52:j_id63"/></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                            <td>
+                                <table>
+                                    <tbody>
+                                    <tr align="right">
+                                        <td><input type="time" name="j_id0:j_id1:j_id2:j_id3:j_id52:j_id65"/></td>
+                                        <td><input type="time" name="j_id0:j_id1:j_id2:j_id3:j_id52:j_id66"/></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td class="data2Col " colspan="2">
+                    <table width="100%">
+                        <tbody>
+                        <tr >
+                            <td>Reachable<input type="checkbox" name="j_id0:j_id1:j_id2:j_id3:j_id67:j_id69"/></td>
+                            <td>
+                                <table>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </td>
+                            <td>
+                                <table>
+                                    <tbody>
+                                    <tr align="right">
+                                        <td><label for="j_id0:j_id1:j_id2:j_id3:j_id67:first">
+                                            Vrijdag</label></td>
+                                        <td><input type="time" name="j_id0:j_id1:j_id2:j_id3:j_id67:j_id74"/></td>
+                                        <td><input type="time" name="j_id0:j_id1:j_id2:j_id3:j_id67:j_id75"/></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                            <td>
+                                <table>
+                                    <tbody>
+                                    <tr align="right">
+                                        <td><input type="time" name="j_id0:j_id1:j_id2:j_id3:j_id67:j_id77"/></td>
+                                        <td><input type="time" name="j_id0:j_id1:j_id2:j_id3:j_id67:j_id78"/></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                            <td>
+                                <table>
+                                    <tbody>
+                                    <tr align="right">
+                                        <td><input type="time" name="j_id0:j_id1:j_id2:j_id3:j_id67:j_id80"/></td>
+                                        <td><input type="time" name="j_id0:j_id1:j_id2:j_id3:j_id67:j_id81"/></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td class="data2Col " colspan="2">
+                    <table width="100%">
+                        <tbody>
+                        <tr>
+                            <td>Reachable<input type="checkbox" name="j_id0:j_id1:j_id2:j_id3:j_id82:j_id84"/></td>
+                            <td>
+                                <table>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </td>
+                            <td>
+                                <table>
+                                    <tbody>
+                                    <tr align="right">
+                                        <td><label for="j_id0:j_id1:j_id2:j_id3:j_id82:first">
+                                            Zaterdag</label></td>
+                                        <td><input type="time" name="j_id0:j_id1:j_id2:j_id3:j_id82:j_id89"/></td>
+                                        <td><input type="time" name="j_id0:j_id1:j_id2:j_id3:j_id82:j_id90"/></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                            <td>
+                                <table>
+                                    <tbody>
+                                    <tr align="right">
+                                        <td><input type="time" name="j_id0:j_id1:j_id2:j_id3:j_id82:j_id92"/></td>
+                                        <td><input type="time" name="j_id0:j_id1:j_id2:j_id3:j_id82:j_id93"/></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                            <td>
+                                <table>
+                                    <tbody>
+                                    <tr align="right">
+                                        <td><input type="time" name="j_id0:j_id1:j_id2:j_id3:j_id82:j_id95"/></td>
+                                        <td><input type="time" name="j_id0:j_id1:j_id2:j_id3:j_id82:j_id96"/></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td class="data2Col  last " colspan="2">
+                    <table width="100%">
+                        <tbody>
+                        <tr>
+                            <td>Reachable<input type="checkbox" name="j_id0:j_id1:j_id2:j_id3:j_id97:j_id99"/></td>
+                            <td>
+                                <table>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </td>
+                            <td>
+                                <table>
+                                    <tbody>
+                                    <tr align="right">
+                                        <td><label for="j_id0:j_id1:j_id2:j_id3:j_id97:first">
+                                            Zondag</label></td>
+                                        <td><input type="time" name="j_id0:j_id1:j_id2:j_id3:j_id97:j_id104"/></td>
+                                        <td><input type="time" name="j_id0:j_id1:j_id2:j_id3:j_id97:j_id105"/></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                            <td>
+                                <table>
+                                    <tbody>
+                                    <tr align="right">
+                                        <td><input type="time" name="j_id0:j_id1:j_id2:j_id3:j_id97:j_id107"/></td>
+                                        <td><input type="time" name="j_id0:j_id1:j_id2:j_id3:j_id97:j_id108"/></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                            <td>
+                                <table>
+                                    <tbody>
+                                    <tr align="right">
+                                        <td><input type="time" name="j_id0:j_id1:j_id2:j_id3:j_id97:j_id110"/></td>
+                                        <td><input type="time" name="j_id0:j_id1:j_id2:j_id3:j_id97:j_id111"/></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </apex:form>
+</apex:page>

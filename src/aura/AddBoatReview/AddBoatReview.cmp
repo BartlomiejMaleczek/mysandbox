@@ -1,0 +1,42 @@
+<aura:component description="AddBoatReview">
+    <aura:attribute name="boat" type="Boat__c" access="public"/>
+    <aura:attribute name="boatReview" type="BoatReview__c" access="private" />
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:registerEvent name="boatReviewAdded" type="c:BoatReviewAdded"/>
+
+    <aura:attribute name="record" type="Object" access="public"/>
+    <aura:attribute name="targetFieldsStr" type="String[]" default="['Id', 'Name', 'Comment__c', 'Boat__c', 'Rating__c']"/>
+    <aura:attribute name="targetFieldsRecord" type="Object" access="public"/>
+    <!--<aura:attribute name="targetFields" type="BoatReview__c" access="public"/>-->
+    <aura:attribute name="recordError" type="String" access="private"/>
+
+    <force:recordData aura:id="service"
+                      layoutType="FULL"
+                      mode="EDIT"
+                      fields="{!v.targetFieldsStr}"
+                      recordId=""
+                      targetError="{!v.recordError}"
+                      targetFields ="{!v.boatReview}"
+                      targetRecord="{!v.record}"
+                      recordUpdated="{!c.onRecordUpdated}"
+    />
+
+    <lightning:layout horizontalAlign="center" multipleRows="true">
+        <lightning:layoutItem class="slds-size--1-of-1 ">
+            <lightning:input name="title" class="slds-m-right--small slds-m-left--small" label="Title" value="{!v.boatReview.Name}"/>
+        </lightning:layoutItem>
+
+        <lightning:layoutItem  class="slds-size--1-of-1">
+            <lightning:inputRichText class="slds-m-right--small slds-m-left--small" disabledCategories="FORMAT_FONT" labelVisible="true" label="Description" value="{!v.boatReview.Comment__c}" placeholder="Comment"/>
+        </lightning:layoutItem>
+
+        <lightning:layoutItem class="slds-size--1-of-1">
+            <c:FiveStarRating value="{!v.boatReview.Rating__c}"/>
+        </lightning:layoutItem>
+
+        <lightning:layoutItem class="slds-size--1-of-1 slds-align--absolute-center">
+            <lightning:button label="Submit" iconName="utility:save" onclick="{!c.onSave}"/>
+        </lightning:layoutItem>
+    </lightning:layout>
+</aura:component>

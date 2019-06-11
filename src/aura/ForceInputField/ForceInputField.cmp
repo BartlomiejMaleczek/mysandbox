@@ -1,0 +1,21 @@
+<aura:component description="ForceInputField">
+    <aura:attribute name="accountTeamMember" type="AccountTeamMember" default="{'sobjectType': 'AccountTeamMember'}"/>
+    <aura:attribute name="isAddButtonDisabled" type="Boolean" default="true"/>
+
+    <aura:handler name="change" value="{!v.accountTeamMember}" action="{!c.handleOnChangeAccountTeamMember}"/>
+
+    <aura:registerEvent name="forceInputFieldEvt" type="c:ForceInputFieldEvt"/>
+
+    <c:UtilsComponent aura:id="UtilsService"/>
+
+    <div class="slds-grid slds-gutters slds-m-top--medium">
+        <div aura:id="iconAddUserButtonContiner" class="slds-col slds-size--1-of-12 slds-text-align--right slds-p-top--x-small">
+            <span> <lightning:buttonIcon size="medium" disabled="{!v.isAddButtonDisabled}"  onclick="{!c.handleAddAccountTeamMember}" iconName="utility:add" variant="bare" alternativeText="Add"/></span>
+        </div>
+        <div aura:id="userLookupContainer" class="slds-col slds-size-12-of-12">
+            <span> <force:inputField class="slds-input" aura:id="inputField" value="{!v.accountTeamMember.UserId}" /></span>
+        </div>
+    </div>
+
+    <aura:method name="getLookupFieldValue" action="{!c.getLookupFieldValue}"/>
+</aura:component>

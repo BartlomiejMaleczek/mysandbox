@@ -1,0 +1,30 @@
+<!--
+ - Created by Lenovo on 22.03.2017.
+ -->
+
+<apex:page controller="PrintAllCustomersController">
+
+    <apex:form >
+
+        <apex:pageBlock >
+            <apex:pageBlockTable value="{!allCustomers}" var="customer">
+                <apex:column value="{!customer.Name}"/>
+                <apex:column headerValue="Customer description">
+                    <apex:outputField value="{!customer.APEX_Customer_Description__c}"/>
+                </apex:column>
+                <apex:inlineEditSupport event="ondblClick"
+                                        showOnEdit="saveButton" hideOnEdit="editButton"/>
+            </apex:pageBlockTable>
+
+            <apex:pageBlockButtons >
+                <apex:commandButton action="{!createNewCustomer}" value="Create new customer"/>
+                <apex:commandButton value="Save" action="{!save}" id="saveButton" />
+            </apex:pageBlockButtons>
+        </apex:pageBlock>
+    </apex:form>
+
+    <form action="https://eu11.salesforce.com/services/apexrest/v1/accounts/">
+        
+    </form>
+
+</apex:page>

@@ -1,0 +1,41 @@
+<!--
+ - Created by BMaleczek on 31.01.2018.
+ -->
+
+<aura:component description="Pagination">
+    <aura:attribute name="itemsLength" type="Integer"></aura:attribute>
+    <aura:attribute name="pageSize" type="Integer" default="10"></aura:attribute>
+    <aura:attribute name="page" type="Integer" default="0"></aura:attribute>
+    <aura:attribute name="paginationItems" type="Object[]" access="private"></aura:attribute>
+
+    <aura:handler name="change" value="{!v.itemsLength}" action="{!c.handlePageSizeChange}"/>
+    <aura:handler name="change" value="{!v.pageSize}" action="{!c.handlePageSizeChange}"/>
+    <aura:handler name="change" value="{!v.page}" action="{!c.handlePageChange}"/>
+
+
+    <div>
+        <div class="slds-float--right" style="position:absolute; right: 10px;">
+            <lightning:select name="select1" label="Display Record:" value="{!v.pageSize}">
+                <option value="10">10</option>
+                <option value="25">25</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+            </lightning:select>
+        </div>
+        <div class="inline slds-align_absolute-center slds-p-top_small">
+            <lightning:buttonGroup >
+                <lightning:button label="First}" onclick="{!c.goToFirst}"/>
+                <lightning:button label="Previous" onclick="{!c.goToPrevious}"/>
+
+                <aura:iteration items="{!v.paginationItems}" var="item">
+                    <lightning:button class="{!(v.page == item.value?'currentPage':'') }"
+                                      name="{!item.value}"
+                                      onclick="{!c.goToPage}">{!item.label}</lightning:button>
+                </aura:iteration>
+
+                <lightning:button label="Next" onclick="{!c.goToNext}"/>
+                <lightning:button label="Last" onclick="{!c.goToLast}"/>
+            </lightning:buttonGroup>
+        </div>
+    </div>
+</aura:component>

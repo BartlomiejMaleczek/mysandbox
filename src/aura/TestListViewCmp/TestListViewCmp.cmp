@@ -1,0 +1,12 @@
+<aura:component description="TestListViewCmp">
+    <aura:attribute name="selected" type="Opportunity[]" access="global"/>
+    <aura:handler name="init" value="{!this}" action="{!c.handleInit}"/>
+
+
+    <p>SIEMKA</p>
+    <aura:iteration items="{!v.selected}" var="item">
+        <ui:inputText disabled="true" label="Name" class="field" value="{!item.Id}"/>
+    </aura:iteration>
+
+
+</aura:component>

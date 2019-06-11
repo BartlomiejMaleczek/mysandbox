@@ -1,0 +1,51 @@
+<aura:component description="paginationPK">
+    <aura:attribute name="itemsLength" type="Integer"></aura:attribute>
+    <aura:attribute name="pageSize" type="Integer" default="10" ></aura:attribute>
+    <aura:attribute name="page" type="Integer" default="0" ></aura:attribute>
+    <aura:attribute name="paginationItems" type="Object[]" access="private"></aura:attribute>
+
+    <aura:handler name="change" value="{!v.itemsLength}" action="{!c.handlePageSizeChange}" />
+    <aura:handler name="change" value="{!v.page}" action="{!c.handlePageChange}" />
+    <aura:handler name="change" value="{!v.pageSize}" action="{!c.handlePageSizeChange}" />
+
+    <aura:attribute name="currentPageItems" type="Object[]"></aura:attribute>
+    <aura:attribute name="items" type="List" default="[]"/>
+    <aura:attribute name="columnDefs" type="Object[]"/>
+
+    <div class="slds-p-top_medium">
+        <div class="slds-float--right">
+            <lightning:select name="select1" label="Display records per page:" value="{!v.pageSize}">
+                <option value="10">10</option>
+                <option value="25">25</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+                <option value="200">200</option>
+            </lightning:select>
+        </div>
+
+        <div class="inline">
+
+
+
+
+            <lightning:buttonGroup >
+                <lightning:button label="First" onclick="{!c.goToFirst}" />
+                <lightning:button label="Previous" onclick="{!c.goToPrevious}" />
+
+                <aura:iteration items="{!v.paginationItems}" var="item">
+                    <button class="{! 'slds-button slds-button--neutral ' + (v.page == item.value?'currentPage':'') }" data-page="{!item.value}"
+                            onclick="{!c.goToPage}">{!item.label}</button>
+                </aura:iteration>
+
+                <lightning:button label="Next" onclick="{!c.goToNext}" />
+                <lightning:button label="Last" onclick="{!c.goToLast}" />
+            </lightning:buttonGroup>
+
+            <!--<aura:iteration items="{!v.currentPageItems}" var="item">-->
+                <!--<p>{!item.Name}</p>-->
+                <!--&lt;!&ndash;<p>{!item.Type}</p>&ndash;&gt;-->
+            <!--</aura:iteration>-->
+
+        </div>
+    </div>
+</aura:component>

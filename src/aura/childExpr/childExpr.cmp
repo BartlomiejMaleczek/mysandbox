@@ -1,0 +1,23 @@
+<!--
+ - Created by BMaleczek on 18.08.2017.
+ -->
+
+<aura:component description="childExpr">
+    <aura:attribute name="childAtr" type="Object"></aura:attribute>
+    <aura:attribute name="childItems" type="Object[]" default="[]"/>
+    <p>W childzie1</p>
+
+    <aura:iteration items="{!v.childItems}" var="item">
+        <p>{!item.Name}</p>
+        <p>{!item.Type}</p>
+    </aura:iteration>
+
+
+    <p><lightning:button label="Update childAttr"
+                         onclick="{!c.updateChildAttr}"/>
+    </p>
+
+
+
+
+</aura:component>

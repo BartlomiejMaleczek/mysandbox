@@ -1,0 +1,33 @@
+<aura:component description="UtilsComponent">
+    <aura:method name="showToast" action="{!c.onShowToast}">
+        <aura:attribute name="title" type="String"/>
+        <aura:attribute name="msg" type="String"/>
+        <aura:attribute name="type" type="String"/>
+    </aura:method>
+    <aura:method name="showElement" action="{!c.onShowElement}">
+        <aura:attribute name="component" type="Object"/>
+        <aura:attribute name="auraId" type="String"/>
+    </aura:method>
+    <aura:method name="hideElement" action="{!c.onHideElement}">
+        <aura:attribute name="component" type="Object"/>
+        <aura:attribute name="auraId" type="String"/>
+    </aura:method>
+    <aura:method name="navigateToDetailPage" action="{!c.onNavigateToDetailPage}">
+        <aura:attribute name="Id" type="String"/>
+    </aura:method>
+    <aura:method name="isInputDatesValid" action="{!c.onValidInputDates}">
+        <aura:attribute name="inputDates" type="Object[]"/>
+    </aura:method>
+    <aura:method name="isInputDateValid" action="{!c.onValidInputDate}">
+        <aura:attribute name="inputDate" type="Object"/>
+    </aura:method>
+    <aura:method name="fetchByString" action="{!c.onFetchByString}">
+        <aura:attribute name="record" type="Object"/>
+        <aura:attribute name="fieldName" type="String"/>
+    </aura:method>
+    <aura:method name="setTimeout" action="{!c.onSetTimeout}">
+        <aura:attribute name="component" type="Object"/>
+        <aura:attribute name="callback" type="Object"/>
+        <aura:attribute name="timeout" type="Integer"/>
+    </aura:method>
+</aura:component>

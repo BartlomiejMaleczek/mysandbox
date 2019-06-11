@@ -1,0 +1,7 @@
+<!--
+ - Created by BMaleczek on 29.03.2018.
+ -->
+
+<aura:component description="modalContent">
+    <p>ODPALAM SIE</p>
+</aura:component>

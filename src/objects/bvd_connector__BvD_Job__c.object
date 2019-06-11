@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <deprecated>false</deprecated>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableChangeDataCapture>false</enableChangeDataCapture>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <enableSearch>false</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>bvd_connector__Execution_Time__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Datetime when BvD Job was executed.</description>
+        <encrypted>false</encrypted>
+        <externalId>false</externalId>
+        <label>Execution Time</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>bvd_connector__Failure_Reason__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Status Detail</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Field Mapping Conflict</fullName>
+                    <default>false</default>
+                    <label>Field Mapping Conflict</label>
+                </value>
+                <value>
+                    <fullName>Orbis Authorization Error</fullName>
+                    <default>false</default>
+                    <label>Orbis Authorization Error</label>
+                </value>
+                <value>
+                    <fullName>Service Error</fullName>
+                    <default>false</default>
+                    <label>Service Error</label>
+                </value>
+                <value>
+                    <fullName>Execution Error</fullName>
+                    <default>false</default>
+                    <label>Execution Error</label>
+                </value>
+                <value>
+                    <fullName>Manual Field Mapping</fullName>
+                    <default>false</default>
+                    <label>Manual Field Mapping</label>
+                </value>
+                <value>
+                    <fullName>Manual Start</fullName>
+                    <default>false</default>
+                    <label>Manual Start</label>
+                </value>
+                <value>
+                    <fullName>Invalid Field Mapping</fullName>
+                    <default>false</default>
+                    <label>Invalid Field Mapping</label>
+                </value>
+                <value>
+                    <fullName>Value assignment Error</fullName>
+                    <default>false</default>
+                    <label>Value assignment Error</label>
+                </value>
+                <value>
+                    <fullName>DML Error</fullName>
+                    <default>false</default>
+                    <label>DML Error</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>bvd_connector__Object__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Object</label>
+        <required>true</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Account</fullName>
+                    <default>false</default>
+                    <label>Account</label>
+                </value>
+                <value>
+                    <fullName>Contact</fullName>
+                    <default>false</default>
+                    <label>Contact</label>
+                </value>
+                <value>
+                    <fullName>Lead</fullName>
+                    <default>false</default>
+                    <label>Lead</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>bvd_connector__Processing__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Processing</label>
+        <required>true</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Manual</fullName>
+                    <default>false</default>
+                    <label>Manual Start</label>
+                </value>
+                <value>
+                    <fullName>Automatic</fullName>
+                    <default>false</default>
+                    <label>Automatic Start</label>
+                </value>
+                <value>
+                    <fullName>Dry Run</fullName>
+                    <default>false</default>
+                    <label>Dry Run</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>bvd_connector__Status__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Status</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Error</fullName>
+                    <default>false</default>
+                    <label>Error</label>
+                </value>
+                <value>
+                    <fullName>Scheduled</fullName>
+                    <default>true</default>
+                    <label>Scheduled</label>
+                </value>
+                <value>
+                    <fullName>Action Required</fullName>
+                    <default>false</default>
+                    <label>Action Required</label>
+                </value>
+                <value>
+                    <fullName>Success</fullName>
+                    <default>false</default>
+                    <label>Success</label>
+                </value>
+                <value>
+                    <fullName>In progress</fullName>
+                    <default>false</default>
+                    <label>In progress</label>
+                </value>
+                <value>
+                    <fullName>Not Started</fullName>
+                    <default>false</default>
+                    <isActive>false</isActive>
+                    <label>Not Started</label>
+                </value>
+                <value>
+                    <fullName>Not processed</fullName>
+                    <default>false</default>
+                    <isActive>false</isActive>
+                    <label>Not processed</label>
+                </value>
+                <value>
+                    <fullName>Processed</fullName>
+                    <default>false</default>
+                    <isActive>false</isActive>
+                    <label>Processed</label>
+                </value>
+                <value>
+                    <fullName>Retrying</fullName>
+                    <default>false</default>
+                    <isActive>false</isActive>
+                    <label>Retrying</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>bvd_connector__Type__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Insert - Fetch the latest data from Orbis and insert records in Salesforce
+            Update - Fetch the latest data from Orbis and update records in Salesforce
+            Unlink - This will trigger outbound web service call to unlink data in Orbis</description>
+        <externalId>false</externalId>
+        <label>Type</label>
+        <required>true</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Insert</fullName>
+                    <default>false</default>
+                    <label>Insert</label>
+                </value>
+                <value>
+                    <fullName>Update</fullName>
+                    <default>false</default>
+                    <label>Update</label>
+                </value>
+                <value>
+                    <fullName>Link</fullName>
+                    <default>false</default>
+                    <label>Link</label>
+                </value>
+                <value>
+                    <fullName>Unlink</fullName>
+                    <default>false</default>
+                    <label>Unlink</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <label>BvD Job</label>
+    <listViews>
+        <fullName>bvd_connector__All</fullName>
+        <columns>NAME</columns>
+        <columns>bvd_connector__Execution_Time__c</columns>
+        <columns>bvd_connector__Failure_Reason__c</columns>
+        <columns>bvd_connector__Object__c</columns>
+        <columns>bvd_connector__Processing__c</columns>
+        <columns>bvd_connector__Status__c</columns>
+        <columns>bvd_connector__Type__c</columns>
+        <filterScope>Mine</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <displayFormat>JOB-{00000}</displayFormat>
+        <label>BvD Job Name</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>BvD Jobs</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>Private</sharingModel>
+    <visibility>Public</visibility>
+</CustomObject>

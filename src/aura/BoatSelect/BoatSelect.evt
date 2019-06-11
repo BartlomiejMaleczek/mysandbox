@@ -1,0 +1,4 @@
+<aura:event type="COMPONENT" description="BoatSelect">
+    <!--<aura:attribute name="boatSelectData" type="Object"/>-->
+    <aura:attribute name="boatId" type="Id"/>
+</aura:event>

@@ -1,0 +1,10 @@
+<!--
+ - Created by BMaleczek on 19.09.2017.
+ -->
+
+<aura:component description="promisesPOCcmp" controller="PromisesPOCCtrl" implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,force:hasSObjectName">
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:attribute name="loading" type="Boolean" default="{!true}"/>
+    <c:PromisesFramework aura:id="promisesFramework"></c:PromisesFramework>
+    <p>HALo</p>
+</aura:component>

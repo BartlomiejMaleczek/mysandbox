@@ -1,0 +1,31 @@
+<aura:component description="BoatSearchForm" implements="flexipage:availableForAllPageTypes" controller="BoatSearchFormController">
+
+    <aura:attribute name="boatTypes" type="Object[]"/>
+    <aura:attribute name="isCreateRecordEventFired" type="Boolean" default="false"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.handleInit}"/>
+    <aura:registerEvent name="boatselect" type="c:BoatSelect"/>
+
+
+    <c:ServiceComponentApexCall aura:id="ApexService"/>
+    <c:UtilsComponent aura:id="UtilsService"/>
+
+    <lightning:layout horizontalAlign="center" verticalAlign="end">
+        <lightning:layoutItem>
+            <lightning:select variant="label-hidden" aura:id="selectBoatType"  name="select" >
+                <option value="">All Types</option>
+                <aura:iteration var="boatType" items="{!v.boatTypes}">
+                    <option value="{!boatType.Id}">{!boatType.Name}</option>
+                </aura:iteration>
+            </lightning:select>
+        </lightning:layoutItem>
+
+        <lightning:layoutItem >
+            <lightning:button name="searchBtn" label="Search" onclick="{!c.onFormSubmit}" variant="brand"></lightning:button>
+            <aura:if isTrue="{!!v.isCreateRecordEventFired}">
+                <lightning:button name="newRecordBtn" label="New" variant="neutral" onclick="{!c.handleCreateNewRecord}"></lightning:button>
+            </aura:if>
+        </lightning:layoutItem>
+
+    </lightning:layout>
+</aura:component>

@@ -1,0 +1,34 @@
+<aura:component description="loginForm" controller="LoginFormController" implements="force:appHostable" >
+    <aura:attribute name="user" type="User" default="{ 'sobjectType': 'User',
+                    'Username': '',
+                    'Password__c': ''
+                     }"/>
+    <aura:registerEvent name="successLogin" type="c:successLoginEvent"/>
+
+    <div class="slds-form-element slds-form_stacked slds-box" style="width:440px;text-align: left;" aura:id="loginForm">
+        <div class="slds-form slds-form_compound">
+            <div class="slds-form slds-form_compound">
+                <div class="slds-form-element__group">
+                    <div class="slds-form-element__control">
+                        <ui:inputText aura:id="username" label="Username"
+                                      class="slds-input"
+                                      labelClass="slds-form-element__label"
+                                      value="{!v.user.Username}"
+                        />
+                    </div>
+                    <div class="slds-form-element ">
+                        <ui:inputText aura:id="password" label="Password"
+                                      class="slds-input"
+                                      labelClass="slds-form-element__label"
+                                      value="{!v.user.Password__c}"
+                        />
+                    </div>
+                    <div class="slds-form-element" style="padding-top: 8px" align="center">
+                        <lightning:button variant="brand" label="Log in" onclick="{!c.submitUser}"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</aura:component>

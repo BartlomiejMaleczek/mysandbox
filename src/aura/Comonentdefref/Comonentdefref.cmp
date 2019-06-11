@@ -1,0 +1,14 @@
+<!--
+ - Created by BMaleczek on 25.08.2017.
+ -->
+
+<aura:component description="Comonentdefref">
+        <aura:attribute name="template" type="Aura.componentdefref[]"></aura:attribute>
+        <aura:attribute name="var" type="String" ></aura:attribute>
+        <aura:attribute name="items" type="Object[]" ></aura:attribute>
+
+        <aura:iteration items="{!v.items}" var="{!v.var}" template="{!v.template}" >
+            <!-- Content doesnt matter but it cannot be empty -->
+            i
+        </aura:iteration>
+</aura:component>

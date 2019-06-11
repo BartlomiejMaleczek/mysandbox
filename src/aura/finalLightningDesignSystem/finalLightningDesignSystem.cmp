@@ -1,0 +1,320 @@
+<aura:component description="finalLightningDesignSystem">
+
+    <aura:attribute name="items" type="List" default="[]"/>
+    <aura:attribute name="selected" type="Map" default="{}"/>
+
+    <!--<aura:attribute name="currentPageItems" type="Object[]" access="public"/>-->
+    <aura:attribute name="currentPageItems" type="Object[]"/>
+    <aura:attribute name="columns" type="Aura.Component[]" access="public"/>
+    <!--<aura:attribute name="columnDefs" type="Object[]" access="private"/>-->
+    <aura:attribute name="columnDefs" type="Object[]"/>
+    <aura:handler name="init" action="{!c.doInit}" value="{!this}"/>
+
+    <aura:handler name="change" value="{!v.items}" action="{!c.handleItemsChange}"/>
+    <!--<aura:handler name="paginationChange" event="c:paginationEvent" action="{!c.handlePaginationChange}"></aura:handler>-->
+
+    <aura:attribute name="page" type="Integer" default="0"/>
+    <aura:attribute name="pageSize" type="Integer" default="20"/>
+
+    <lightning:card >
+        <aura:set attribute="title">
+            <div class="slds-border--bottom slds-p-bottom--small">
+                Mass Asset Update Tool
+            </div>
+        </aura:set>
+
+        <lightning:layout horizontalAlign="center">
+            <lightning:layoutItem padding="horizontal-large" size="12">
+                <div  style="overflow: auto">
+
+                <!--<ui:scrollerWrapper class="scrollerSize">-->
+
+    <table class="slds-table slds-table_bordered slds-table_cell-buffer">
+        <thead>
+        <tr class="slds-text-title_caps">
+            <th scope="col">
+                <lightning:input type="checkbox" label=" " name="checked" checked="true"/>
+            </th>
+            <th scope="col">
+                <lightning:input aura:id="Name"  name="Name"  type="text" onchange="" value="" placeholder="Name"/>
+                <a href="javascript:void(0);" aura:id="Name" onclick="" class="slds-th__action slds-text-link_reset" tabindex="0">
+                    Name
+                </a>
+            </th>
+            <th scope="col">
+                <lightning:input aura:id="dataNumber"  name=""  type="text" onchange="" value="" placeholder="Data Number"/>
+                <a href="javascript:void(0);" id="dataNumber" onclick="" class="slds-th__action slds-text-link_reset" tabindex="0">
+                    Data Number
+                </a>
+            </th>
+            <th scope="col">
+                <lightning:input aura:id="iPAddress"  name=""  type="text" onchange="" value="" placeholder="IP Address"/>
+                <a href="javascript:void(0);" id="iPAddress" onclick="" class="slds-th__action slds-text-link_reset" tabindex="0">
+                    IP Address
+                </a>
+            </th>
+            <th scope="col">
+                <lightning:input aura:id="iccid"  name=""  type="text" onchange="" value="" placeholder="ICCID"/>
+                <a href="javascript:void(0);" id="iccid" onclick="" class="slds-th__action slds-text-link_reset" tabindex="0">
+                    ICCID
+                </a>
+            </th>
+            <th scope="col">
+                <lightning:input aura:id="gradeName"  name=""  type="text" onchange="" value="" placeholder="Grade"/>
+                <a href="javascript:void(0);" id="gradeName" onclick="" class="slds-th__action slds-text-link_reset" tabindex="0">
+                    Grade
+                </a>
+            </th>
+            <th scope="col">
+                <lightning:input aura:id="pollMiss"  name=""  type="text" onchange="" value="" placeholder="Poll Miss"/>
+                <a href="javascript:void(0);" id="pollMiss" onclick="" class="slds-th__action slds-text-link_reset" tabindex="0">
+                    Poll Miss
+                </a>
+            </th>
+            <th scope="col">
+                <lightning:input aura:id="pollMissAcSub"  name=""  type="text" onchange="" value="" placeholder="Poll Miss (AC SUB)"/>
+                <a href="javascript:void(0);" id="pollMissAcSub" onclick="" class="slds-th__action slds-text-link_reset" tabindex="0">
+                    Poll Miss (AC SUB)
+                </a>
+            </th>
+            <th scope="col">
+                <lightning:input aura:id="interimPollingGprs"  name=""  type="text" onchange="" value="" placeholder="Interim Polling GPRS"/>
+                <a href="javascript:void(0);" id="interimPollingGprs" onclick="" class="slds-th__action slds-text-link_reset" tabindex="0">
+                    Interim Polling GPRS
+                </a>
+            </th>
+            <th scope="col">
+                <lightning:input aura:id="interimPollingGsm"  name=""  type="text" onchange="" value="" placeholder="Interim Polling GSM"/>
+                <a href="javascript:void(0);" id="interimPollingGsm" onclick="" class="slds-th__action slds-text-link_reset" tabindex="0">
+                    Interim Polling GSM
+                </a>
+            </th>
+            <th scope="col">
+                <lightning:input aura:id="interimPollingLan"  name=""  type="text" onchange="" value="" placeholder="Priority Polling GPRS"/>
+                <a href="javascript:void(0);" id="interimPollingLan" onclick="" class="slds-th__action slds-text-link_reset" tabindex="0">
+                    Interim Polling LAN
+                </a>
+            </th>
+            <th scope="col">
+                <lightning:input aura:id="interimPollingPtsn"  name=""  type="text" onchange="" value="" placeholder="Interim Polling PTSN"/>
+                <a href="javascript:void(0);" id="interimPollingPtsn" onclick="" class="slds-th__action slds-text-link_reset" tabindex="0">
+                    Interim Polling PTSN
+                </a>
+            </th>
+
+            <th scope="col">
+                <lightning:input aura:id="priorityPollingGprs"  name=""  type="text" onchange="" value="" placeholder="Priority Polling GPRS"/>
+                <a href="javascript:void(0);" id="priorityPollingGprs" onclick="" class="slds-th__action slds-text-link_reset" tabindex="0">
+                    Priority Polling GPRS
+                </a>
+            </th>
+
+            <th scope="col">
+                <lightning:input aura:id="priorityPollingGsm"  name=""  type="text" onchange="" value="" placeholder="Priority Polling GSM"/>
+                <a href="javascript:void(0);" id="priorityPollingGsm" onclick="" class="slds-th__action slds-text-link_reset" tabindex="0">
+                    Priority Polling GSM
+                </a>
+            </th>
+
+            <th scope="col">
+                <lightning:input aura:id="priorityPollingLan"  name=""  type="text" onchange="" value="" placeholder="Priority Polling LAN"/>
+                <a href="javascript:void(0);" id="priorityPollingLan" onclick="" class="slds-th__action slds-text-link_reset" tabindex="0">
+                    Priority Polling LAN
+                </a>
+            </th>
+            <th scope="col">
+                <lightning:input aura:id="priorityPollingPtsn"  name=""  type="text" onchange="" value="" placeholder="Priority Polling PTSN"/>
+                <a href="javascript:void(0);" id="priorityPollingPtsn" onclick="" class="slds-th__action slds-text-link_reset" tabindex="0">
+                    Priority Polling PTSN
+                </a>
+            </th>
+            <th scope="col">
+                <lightning:input aura:id="priorityPollMissGsm"  name=""  type="text" onchange="" value="" placeholder="Priority Poll Miss GSM"/>
+                <a href="javascript:void(0);" id="priorityPollMissGsm" onclick="" class="slds-th__action slds-text-link_reset" tabindex="0">
+                    Priority Poll Miss GSM
+                </a>
+            </th>
+
+            <th scope="col">
+                <lightning:input aura:id="priorityPollMissGprs"  name=""  type="text" onchange="" value="" placeholder="Priority Poll Miss GPRS"/>
+                <a href="javascript:void(0);" id="priorityPollMissGprs" onclick="" class="slds-th__action slds-text-link_reset" tabindex="0">
+                    Priority Poll Miss GPRS
+                </a>
+            </th>
+            <th scope="col">
+                <lightning:input aura:id="priorityPollMissLan"  name=""  type="text" onchange="" value="" placeholder="Priority Poll Miss LAN"/>
+                <a href="javascript:void(0);" id="priorityPollMissLan" onclick="" class="slds-th__action slds-text-link_reset" tabindex="0">
+                    Priority Poll Miss LAN
+                </a>
+            </th>
+            <th scope="col">
+                <lightning:input aura:id="priorityPollMissPtsn"  name=""  type="text" onchange="" value="" placeholder="Priority Poll Miss PTSN"/>
+                <a href="javascript:void(0);" id="priorityPollMissPtsn" onclick="" class="slds-th__action slds-text-link_reset" tabindex="0">
+                    Priority Poll Miss PTSN
+                </a>
+            </th>
+            <th scope="col">
+                <lightning:input aura:id="standardPollingGprs"  name=""  type="text" onchange="" value="" placeholder="Standard Polling GPRS"/>
+                <a href="javascript:void(0);" id="standardPollingGprs" onclick="" class="slds-th__action slds-text-link_reset" tabindex="0">
+                    Standard Polling GPRS
+                </a>
+            </th>
+            <th scope="col">
+                <lightning:input aura:id="standardPollingGsm"  name=""  type="text" onchange="" value="" placeholder="Standard Polling GSM"/>
+                <a href="javascript:void(0);" id="standardPollingGsm" onclick="" class="slds-th__action slds-text-link_reset" tabindex="0">
+                    Standard Polling GSM
+                </a>
+            </th>
+            <th scope="col">
+                <lightning:input aura:id="standardPollingsLan"  name=""  type="text" onchange="" value="" placeholder="Standard Polling LAN"/>
+                <a href="javascript:void(0);" id="standardPollingsLan" onclick="" class="slds-th__action slds-text-link_reset" tabindex="0">
+                    Standard Polling LAN
+                </a>
+            </th>
+            <th scope="col">
+                <lightning:input aura:id="standardPollingPtsn"  name=""  type="text" onchange="" value="" placeholder="Standard Polling PTSN"/>
+                <a href="javascript:void(0);" id="standardPollingPtsn" onclick="" class="slds-th__action slds-text-link_reset" tabindex="0">
+                    Standard Polling PTSN
+                </a>
+            </th>
+            <th scope="col">
+                <lightning:input aura:id="timeElapsed"  name=""  type="text" onchange="" value="" placeholder="Time Elapsed"/>
+                <a href="javascript:void(0);" id="timeElapsed" onclick="" class="slds-th__action slds-text-link_reset" tabindex="0">
+                    Time Elapsed
+                </a>
+            </th>
+            <th scope="col">
+                <lightning:input aura:id="receiverNumber"  name=""  type="number" onchange="" value="" placeholder="Receiver Number"/>
+                <a href="javascript:void(0);" id="receiverNumber" onclick="" class="slds-th__action slds-text-link_reset" tabindex="0">
+                    Receiver Number
+                </a>
+            </th>
+            <th scope="col">
+                <lightning:input aura:id="callback"  name=""  type="checkbox" onchange="" value="" placeholder="Callback"/>
+                <a href="javascript:void(0);" id="callback" onclick="" class="slds-th__action slds-text-link_reset" tabindex="0">
+                    Callback
+                </a>
+            </th>
+            <th scope="col">
+                <lightning:input aura:id="pollingRate"  name=""  type="text" onchange="" value="" placeholder="Polling Rate"/>
+                <a href="javascript:void(0);" id="pollingRate" onclick="" class="slds-th__action slds-text-link_reset" tabindex="0">
+                    Polling Rate
+                </a>
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <aura:iteration items="{!v.currentPageItems}" var="row">
+            <tr>
+                <th scope="row" data-label="Is selected">
+                    <lightning:input type="checkbox" label=" " name="checked" checked="false"/>
+                </th>
+                <aura:iteration items="{!v.columnDefs}" var="col">
+                    <td data-label="test">
+                        <c:datatableCellPK row="{!row}" field="{!col.field}"/>
+                    </td>
+                </aura:iteration>
+            </tr>
+        </aura:iteration>
+        </tbody>
+
+    </table>
+                </div>
+                <!--</ui:scrollerWrapper>-->
+
+            </lightning:layoutItem>
+        </lightning:layout>
+    </lightning:card>
+
+
+
+
+    <!--<table class="slds-table slds-table_bordered slds-table_resizable-cols slds-table_fixed-layout" role="grid">-->
+        <!--<thead>-->
+        <!--<tr class="slds-line-height_reset">-->
+            <!--<th scope="col" class="slds-text-align_right" style="width: 3.25rem;">-->
+                <!--<div class="slds-th__action slds-th__action_form">-->
+          <!--<span class="slds-checkbox">-->
+              <!--<lightning:input aura:id="checkbox-156" type="checkbox" label=" " name="checked" checked="true" value="on"/>-->
+            <!--&lt;!&ndash;<input type="checkbox" name="options" id="checkbox-156" value="on"/>&ndash;&gt;-->
+            <!--&lt;!&ndash;<label class="slds-checkbox__label" for="checkbox-156">&ndash;&gt;-->
+              <!--&lt;!&ndash;<span class="slds-checkbox_faux"></span>&ndash;&gt;-->
+              <!--&lt;!&ndash;<span class="slds-form-element__label slds-assistive-text">Select All</span>&ndash;&gt;-->
+            <!--&lt;!&ndash;</label>&ndash;&gt;-->
+          <!--</span>-->
+                <!--</div>-->
+            <!--</th>-->
+            <!--<aura:iteration items="{!v.columnDefs}" var="header">-->
+                <!--<th class="slds-is-sortable slds-is-resizable slds-text-title_caps" scope="col" style="">-->
+                    <!--<lightning:input aura:id="inputHeaders"  name="{!header.field}"  type="text" onchange="{!c.onUpdateFields}" value="" placeholder="{!header.field}"/>-->
+                    <!--<a href="javascript:void(0);" class="slds-th__action slds-text-link_reset" tabindex="0">-->
+                        <!--<span class="slds-assistive-text">Sort </span>-->
+                        <!--<span class="slds-truncate" title="Name">{!header.label}</span>-->
+                        <!--<div class="slds-icon_container">-->
+                            <!--&lt;!&ndash;<svg class="slds-icon slds-icon_x-small slds-icon-text-default slds-is-sortable__icon" aria-hidden="true">&ndash;&gt;-->
+                            <!--&lt;!&ndash;<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#arrowdown"></use>&ndash;&gt;-->
+                            <!--&lt;!&ndash;</svg>&ndash;&gt;-->
+                        <!--</div>-->
+                        <!--<span class="slds-assistive-text" aria-live="assertive" aria-atomic="true"></span>-->
+                    <!--</a>-->
+                    <!--<div class="slds-resizable">-->
+                        <!--<label for="cell-resize-handle-162" class="slds-assistive-text">{!header.label} column-->
+                            <!--width</label>-->
+                        <!--<input type="range" min="20" max="1000" class="slds-resizable__input slds-assistive-text"-->
+                               <!--id="cell-resize-handle-162" tabindex="0"/>-->
+                        <!--<span class="slds-resizable__handle">-->
+            <!--<span class="slds-resizable__divider"></span>-->
+          <!--</span>-->
+                    <!--</div>-->
+                <!--</th>-->
+            <!--</aura:iteration>-->
+        <!--</tr>-->
+        <!--</thead>-->
+        <!--<tbody>-->
+        <!--<aura:iteration items="{!v.currentPageItems}" var="row">-->
+            <!--<tr class="slds-hint-parent">-->
+                <!--<td role="gridcell" class="slds-text-align_right" style="width: 3.25rem;">-->
+                    <!--<span class="slds-checkbox">-->
+                        <!--<input type="checkbox" name="options" id="checkbox-78" value="on"/>-->
+                         <!--<label class="slds-checkbox__label" for="checkbox-78">-->
+                            <!--<span class="slds-checkbox_faux"></span>-->
+                            <!--<span class="slds-form-element__label slds-assistive-text">Select item 1</span>-->
+                        <!--</label>-->
+                    <!--</span>-->
+                <!--</td>-->
+                <!--<aura:iteration items="{!v.columnDefs}" var="col">-->
+                    <!--<td role="gridcell">-->
+                        <!--<c:datatableCellPK row="{!row}" field="{!col.field}"/>-->
+                    <!--</td>-->
+                <!--</aura:iteration>-->
+            <!--</tr>-->
+        <!--</aura:iteration>-->
+        <!--</tbody>-->
+    <!--</table>-->
+    <!--<aura:iteration items="{!v.columnDefs}" var="header">-->
+    <!--<th>-->
+    <!--<span class="slds-truncate" title="{!header.label}">{!header.label}</span>-->
+    <!--</th>-->
+    <!--</aura:iteration>-->
+    <!--</tr>-->
+    <!--</thead>-->
+    <!--<tbody>-->
+    <!--&lt;!&ndash;<aura:iteration items="{!v.items}" var="row">&ndash;&gt;-->
+    <!--<aura:iteration items="{!v.currentPageItems}" var="row">-->
+    <!--<tr>-->
+    <!--<td>-->
+    <!--<lightning:input type="checkbox" label=" " name="checked" checked="{!row._selected}"/>-->
+    <!--</td>-->
+    <!--&lt;!&ndash;<p>{!row.Name}</p>&ndash;&gt;-->
+    <!--<aura:iteration items="{!v.columnDefs}" var="col">-->
+    <!--<c:datatableCellPK row="{!row}" field="{!col.field}"/>-->
+    <!--&lt;!&ndash;<c:datatableCellPK row="{!row}" field="{!col.field}"/>&ndash;&gt;-->
+    <!--&lt;!&ndash;<p>{!row.Name}</p>&ndash;&gt;-->
+    <!--</aura:iteration>-->
+    <!--</tr>-->
+    <!--</aura:iteration>-->
+    <!--</tbody>-->
+    <!--</table>-->
+    <c:paginationPK columnDefs="{!v.columnDefs}" items="{!v.items}" currentPageItems="{!v.currentPageItems}"
+                    itemsLength="{!v.items.length}" page="{!v.page}" pageSize="{!v.pageSize}"/>
+</aura:component>

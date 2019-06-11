@@ -1,0 +1,168 @@
+<!--
+ - Created by BMaleczek on 31.07.2017.
+ -->
+
+<aura:component description="dataTableProofOfConcept">
+
+    <!--<ltng:require scripts="{!$Resource.jquery224}"/>-->
+    <!--<ltng:require scripts="{!$Resource.jqueryUi114}"/>-->
+    <!--<ltng:require scripts="{!$Resource.jqueryDataTableJs2}"/>-->
+    <!--<ltng:require scripts="{!$Resource.dataTablesCss}"/>-->
+    <!--<ltng:require scripts="{!$Resource.datableScript}"/>-->
+    <!--/>-->
+
+
+    <!--<ltng:require scripts="{!$Resource.testJquery}"/>-->
+    <!--<ltng:require scripts="{!$Resource.datableScript}"  afterScriptsLoaded="{!c.afterScriptsLoaded}"/>-->
+
+    <ltng:require scripts="/resource/jqueryDataTableJs2/,/resource/jquery224/" afterScriptsLoaded="{!c.jqueryLoaded}" />
+    <!--<ltng:require scripts="" afterScriptsLoaded="{!c.afterScriptsLoaded}" />-->
+
+
+
+
+    <table id="example" class="datableclass">
+        <thead>
+        <tr>
+            <th>ID
+            </th>
+            <th>City
+            </th>
+            <th>Country
+            </th>
+            <th>Continent
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>1</td>
+            <td>Montería</td>
+            <td>Colombia</td>
+            <td>South America</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>Birmingham</td>
+            <td>United Kingdom</td>
+            <td>Europe</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>Bangalore</td>
+            <td>India</td>
+            <td>Asia</td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>Tokyo</td>
+            <td>Japan</td>
+            <td>Asia</td>
+        </tr>
+        <tr>
+            <td>5</td>
+            <td>Kuala Lumpur</td>
+            <td>Malaysia</td>
+            <td>Asia</td>
+        </tr>
+        <tr>
+            <td>6</td>
+            <td>Rio de Janeiro</td>
+            <td>Brazil</td>
+            <td>South America</td>
+        </tr>
+        <tr>
+            <td>7</td>
+            <td>Ipoh</td>
+            <td>Malaysia</td>
+            <td>Asia</td>
+        </tr>
+        <tr>
+            <td>8</td>
+            <td>Tawau</td>
+            <td>Malaysia</td>
+            <td>Asia</td>
+        </tr>
+        <tr>
+            <td>9</td>
+            <td>Hiroshima</td>
+            <td>Japan</td>
+            <td>Asia</td>
+        </tr>
+        <tr>
+            <td>10</td>
+            <td>Cannes</td>
+            <td>France</td>
+            <td>Europe</td>
+        </tr>
+        <tr>
+            <td>11</td>
+            <td>London</td>
+            <td>United Kingdom</td>
+            <td>Europe</td>
+        </tr>
+        <tr>
+            <td>12</td>
+            <td>Saku</td>
+            <td>Japan</td>
+            <td>Asia</td>
+        </tr>
+        <tr>
+            <td>13</td>
+            <td>Nice</td>
+            <td>France</td>
+            <td>Europe</td>
+        </tr>
+
+        <tr>
+            <td>14</td>
+            <td>Manchester</td>
+            <td>United Kingdom</td>
+            <td>Europe</td>
+        </tr>
+        <tr>
+            <td>15</td>
+            <td>Salvador</td>
+            <td>Brazil</td>
+            <td>South America</td>
+        </tr>
+
+        <tr>
+            <td>16</td>
+            <td>Cali</td>
+            <td>Colombia</td>
+            <td>South America</td>
+        </tr>
+        <tr>
+            <td>17</td>
+            <td>Chennai</td>
+            <td>India</td>
+            <td>Asia</td>
+        </tr>
+        <tr>
+            <td>18</td>
+            <td>Brasília</td>
+            <td>Brazil</td>
+            <td>South America</td>
+        </tr>
+        <tr>
+            <td>19</td>
+            <td>Mumbai</td>
+            <td>India</td>
+            <td>Asia</td>
+        </tr>
+        <tr>
+            <td>20</td>
+            <td>Paris</td>
+            <td>France</td>
+            <td>Europe</td>
+        </tr>
+        <tr>
+            <td>21</td>
+            <td>Bello</td>
+            <td>Colombia</td>
+            <td>South America</td>
+        </tr>
+        </tbody>
+    </table>
+</aura:component>

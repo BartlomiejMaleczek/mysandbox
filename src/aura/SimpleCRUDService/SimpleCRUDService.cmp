@@ -1,0 +1,42 @@
+<aura:component description="SimpleCRUDService">
+    <aura:attribute name="handleRecordUpdate" type="Aura.Action" default="{!c.handleRecordUpdated}" access="public" required="false"/>
+
+    <aura:attribute name="record" type="Object" access="public"/>
+    <aura:attribute name="targetFieldsRecord" type="Object" access="public"/>
+    <aura:attribute name="recordError" type="String" access="public"/>
+
+    <force:recordData aura:id="recordData"
+                      layoutType="FULL"
+                      fields=""
+                      recordId=""
+                      targetError="{!v.recordError}"
+                      targetFields ="{!v.targetFieldsRecord}"
+                      targetRecord="{!v.record}"
+                      recordUpdated="{!v.handleRecordUpdate}"/>
+
+    <aura:method name="queryRecord" action="{!c.onQueryRecord}">
+        <aura:attribute name="Id" type="Id"/>
+        <aura:attribute name="fields" type="String[]"/>
+        <aura:attribute name="mode" type="String" description="There are two modes: VIEW and EDIT."/>
+        <aura:attribute name="callback" type="Aura.Action"/>
+    </aura:method>
+
+    <aura:method name="getNewSObject" action="{!c.onGetNewSObject}">
+        <aura:attribute name="sObjectType" type="String"/>
+        <aura:attribute name="recordTypeId" type="Id"/>
+        <aura:attribute name="isCacheSkipped" type="Boolean"/>
+        <aura:attribute name="callback" type="Aura.Action"/>
+    </aura:method>
+
+    <aura:method name="insertRecord" action="{!c.onInsertRecord}">
+        <aura:attribute name="recordToInsert" type="SObject"/>
+        <aura:attribute name="callback" type="Aura.Action"/>
+    </aura:method>
+
+    <aura:method name="editRecord" action="{!c.onEditRecord}">
+        <aura:attribute name="recordToEdit" type="Object"/>
+        <aura:attribute name="callback" type="Aura.Action"/>
+    </aura:method>
+
+
+</aura:component>

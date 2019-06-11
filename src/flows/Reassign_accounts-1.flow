@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Transfer ownership of accounts when a user leaves his/her role.</description>
+    <interviewLabel>Reassign accounts {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Reassign accounts</label>
+    <processType>Flow</processType>
+    <recordLookups>
+        <name>Get_User_1_s_ID</name>
+        <label>Get User 1&apos;s ID</label>
+        <locationX>153</locationX>
+        <locationY>215</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Get_User_2_s_ID</targetReference>
+        </connector>
+        <filters>
+            <field>Username</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>User1_username</elementReference>
+            </value>
+        </filters>
+        <object>User</object>
+        <outputReference>User1</outputReference>
+        <queriedFields>Id</queriedFields>
+        <queriedFields>FirstName</queriedFields>
+        <queriedFields>LastName</queriedFields>
+        <queriedFields>Email</queriedFields>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_User_2_s_ID</name>
+        <label>Get User 2’s ID</label>
+        <locationX>147</locationX>
+        <locationY>340</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Get_User_3_s_ID</targetReference>
+        </connector>
+        <filters>
+            <field>Username</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>User2_username</elementReference>
+            </value>
+        </filters>
+        <object>User</object>
+        <outputReference>User2</outputReference>
+        <queriedFields>Id</queriedFields>
+        <queriedFields>FirstName</queriedFields>
+        <queriedFields>LastName</queriedFields>
+        <queriedFields>Email</queriedFields>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_User_3_s_ID</name>
+        <label>Get User 3’s ID</label>
+        <locationX>312</locationX>
+        <locationY>346</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <filters>
+            <field>Username</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>User3_username</elementReference>
+            </value>
+        </filters>
+        <object>User</object>
+        <outputReference>User3</outputReference>
+        <queriedFields>Id</queriedFields>
+        <queriedFields>FirstName</queriedFields>
+        <queriedFields>LastName</queriedFields>
+        <queriedFields>Email</queriedFields>
+    </recordLookups>
+    <screens>
+        <name>Collect_Usernames</name>
+        <label>Collect Usernames</label>
+        <locationX>147</locationX>
+        <locationY>86</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <connector>
+            <targetReference>Get_User_1_s_ID</targetReference>
+        </connector>
+        <fields>
+            <name>EnterUsernames</name>
+            <fieldText>So you need to reassign some accounts?
+
+No problem! First, we need the username of the person who&apos;s moving on to a new role.</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <name>User1_username</name>
+            <dataType>String</dataType>
+            <fieldText>User whose accounts need to be reassigned</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>other_usernames</name>
+            <fieldText>Then we need the usernames of the people we want to give the accounts to.</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <name>User2_username</name>
+            <dataType>String</dataType>
+            <fieldText>Assign hot accounts to</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>User3_username</name>
+            <dataType>String</dataType>
+            <fieldText>Assign other accounts to</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <variables>
+        <description>Stores the name, ID, and email address of the employee who’s moving on to the new role</description>
+        <name>User1</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+        <objectType>User</objectType>
+    </variables>
+    <variables>
+        <description>Stores the name, ID, and email address of the employee who’s being assigned the hot accounts</description>
+        <name>User2</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+        <objectType>User</objectType>
+    </variables>
+    <variables>
+        <description>Stores the name, ID, and email address of the employee who’s being assigned the warm and cold accounts</description>
+        <name>User3</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+        <objectType>User</objectType>
+    </variables>
+</Flow>

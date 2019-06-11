@@ -1,0 +1,7 @@
+<!--
+ - Created by BMaleczek on 12.05.2017.
+ -->
+
+<aura:component description="helloHeading">
+        <h1>W E L C O M E</h1>
+</aura:component>

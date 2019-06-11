@@ -1,0 +1,20 @@
+<!--
+ - Created by BMaleczek on 17.05.2017.
+ -->
+
+<aura:component description="loginPage" implements="flexipage:availableForAllPageTypes" access="global">
+    <aura:handler name="successLogin" event="c:successLoginEvent" action="{!c.handleSuccessLogin}"/>
+    <div class="slds-grid">
+        <div class="slds-col slds-size--1-of-2">
+            <div align="center" style="padding-top:40px" class="">
+                <h1 style="padding-bottom:20px">
+                    <img src="{!$Resource.logo_resize}"/>
+                </h1>
+                <c:loginForm />
+            </div>
+        </div>
+        <div class="slds-col slds-size--1-of-2">
+            <img src="https://c.salesforce.com/login-messages/uk/backgrounds/uk-bg-login-esmb-research-1200x600.jpg"/>
+        </div>
+    </div>
+</aura:component>

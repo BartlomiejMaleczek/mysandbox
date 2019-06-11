@@ -1,0 +1,12 @@
+<apex:page id="FormSmieciarz3" standardController="Contact" extensions="FormSmiciarzController" docType="html-5.0">
+    <h1>Berekbaarheid {Category}</h1>
+<apex:form >
+    <apex:actionFunction action="{!onProductCategoryChange}" name="onProductChange"/>
+    <apex:selectList onChange="onProductChange()" multiselect="false" size="1">
+        <!--<apex:actionSupport event="onchange" action="{!onProductCategoryChange}" reRender="tableReachabilities"/>-->
+        <apex:selectOptions value="{!productCategories}"/>
+    </apex:selectList>
+</apex:form>
+
+
+</apex:page>

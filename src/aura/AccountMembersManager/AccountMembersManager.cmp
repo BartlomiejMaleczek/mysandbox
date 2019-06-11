@@ -1,0 +1,138 @@
+<aura:component description="AccountMembersManager" controller="AccountMembersManagerController"
+                implements="flexipage:availableForRecordHome"
+                access="global">
+
+    <aura:attribute name="recordId" type="String"/>
+    <aura:attribute name="accountTeamMembers" type="AccountMembersManagerController.TeamMember[]"/>
+    <aura:attribute name="accountTeamMembersToModify" type="AccountMembersManagerController.TeamMember[]"/>
+    <aura:attribute name="isLightningQuickActionClicked" type="Boolean" default="true" />
+    <aura:attribute name="isConfirmationDialogModalWindowOpened" type="Boolean" default="false"/>
+
+    <aura:attribute name="forceInputField" type="Aura.Component"/>
+    <aura:attribute name="columns" type="List" default="[]"/>
+    <aura:attribute name="errors" type="String[]" default="[]"/>
+
+    <aura:handler name="forceInputFieldEvt" event="c:ForceInputFieldEvt" action="{!c.handleForceInputFieldEvt}"/>
+    <aura:handler name="submitConfirmationEvt" event="c:SubmitConfirmationEvt" action="{!c.handleSubmitConfirmationEvt}"/>
+    <aura:handler name="init" value="{!this}" action="{!c.handleInit}"/>
+
+    <c:ServiceComponentApexCall aura:id="ApexService"/>
+    <c:UtilsComponent aura:id="UtilsService"/>
+
+    <div class="{!v.isConfirmationDialogModalWindowOpened ? 'slds-hide' : ''}">
+            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container" style="max-width: 50%;">
+
+                    <header class="slds-modal__header">
+                        <button class="slds-button slds-modal__close slds-button--icon-inverse" title="Close" onclick="{!c.handleCloseDialogWindow}">
+                            X<span class="slds-assistive-text">Cancel</span>
+                        </button>
+                        <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate"> Account Team Manager
+                        </h2>
+                    </header>
+                    <div class="slds-modal__content slds-p-around_medium" style="max-height: 70%;" id="modal-content-id-1">
+                        <div style="position: relative;display: inline-block;">
+                        <lightning:spinner aura:id="spinner" alternativeText="Loading"/>
+
+                        <aura:iteration var="error" items="{!v.errors}">
+                            <c:Alert>{!error}</c:Alert>
+                        </aura:iteration>
+                            {!v.forceInputField}
+                        <div class="slds-scrollable--y slds-grow slds-m-top--medium">
+
+                            <table role="grid"
+                                   class="slds-table slds-table_fixed-layout slds-table_bordered slds-table_resizable-cols slds-no-row-hover slds-scrollable_none">
+                                <thead>
+                                <tr>
+                                    <th scope="col" width="8%"></th>
+                                    <aura:iteration items="{!v.columns}" var="column">
+                                        <th aria-label="{!column.label}" aria-sort="none"
+                                            class="slds-is-sortable slds-text-title_caps"
+                                            scope="col">
+                                            <a class="slds-th__action slds-text-link_reset"
+                                               href="javascript:void(0);" role="button" tabindex="-1">
+                                                <span class="slds-assistive-text">Sort by: </span>
+                                                <span class="slds-truncate" title="Name">{!column.label}</span>
+                                            </a>
+                                        </th>
+                                    </aura:iteration>
+                                    <!--<th scope="col" width="8%"></th>-->
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <aura:iteration items="{!v.accountTeamMembers}" var="accountTeamMember">
+                                    <tr class="slds-hint-parent" aria-selected="true">
+                                        <td role="gridcell" tabindex="0" class="slds-text-align_right" style="width: 3.75rem;">
+                                            <label class="slds-checkbox_add-button">
+                                                <ui:inputCheckbox class="slds-hide" value="{!accountTeamMember.isSelected}"/>
+                                                <span class="slds-checkbox--faux"/>
+                                            </label>
+                                        </td>
+                                        <th scope="row">
+                                            <div class="slds-truncate" title="{!accountTeamMember.accountTeamMember.User.Name}"><a
+                                                    title="{!accountTeamMember.accountTeamMember.User.Name}"
+                                                    href="{!'/' + accountTeamMember.accountTeamMember.UserId}">{!accountTeamMember.accountTeamMember.User.Name}</a>
+                                            </div>
+                                        </th>
+                                    </tr>
+                                </aura:iteration>
+                                </tbody>
+                                <thead>
+                                <tr>
+                                    <th scope="col" width="8%"></th>
+                                    <aura:iteration items="{!v.columns}" var="column">
+                                        <th aria-label="{!column.label}" aria-sort="none"
+                                            class="slds-is-sortable slds-text-title_caps"
+                                            scope="col">
+                                            <a class="slds-th__action slds-text-link_reset"
+                                               href="javascript:void(0);" role="button" tabindex="-1">
+                                                <span class="slds-assistive-text">Sort by: </span>
+                                                <span class="slds-truncate" title="Name">{!column.label}</span>
+                                            </a>
+                                        </th>
+                                    </aura:iteration>
+                                    <!--<th scope="col" width="8%"></th>-->
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <aura:iteration items="{!v.accountTeamMembers}" var="accountTeamMember">
+                                    <tr class="slds-hint-parent" aria-selected="true">
+                                        <td role="gridcell" tabindex="0" class="slds-text-align_right" style="width: 3.75rem;">
+                                            <label class="slds-checkbox_add-button">
+                                                <ui:inputCheckbox class="slds-hide" value="{!accountTeamMember.isSelected}"/>
+                                                <span class="slds-checkbox--faux"/>
+                                            </label>
+                                        </td>
+                                        <th scope="row">
+                                            <div class="slds-truncate" title="{!accountTeamMember.accountTeamMember.User.Name}"><a
+                                                    title="{!accountTeamMember.accountTeamMember.User.Name}"
+                                                    href="{!'/' + accountTeamMember.accountTeamMember.UserId}">{!accountTeamMember.accountTeamMember.User.Name}</a>
+                                            </div>
+                                        </th>
+                                    </tr>
+                                </aura:iteration>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    </div>
+                    <footer class="slds-modal__footer">
+                    <span class="slds-align_absolute-center">
+                        <lightning:buttonGroup >
+                                <lightning:button variant="neutral" label="Cancel" onclick="{!c.handleCloseDialogWindow}"/>
+                                <lightning:button variant="brand" label="Save" onclick="{!c.handleSave}"/>
+                            </lightning:buttonGroup>
+                    </span>
+                    </footer>
+
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </div>
+
+    <div class="{!v.isConfirmationDialogModalWindowOpened ? '' : 'slds-hide'}">
+        <c:ConfirmationDialogModalWindow aura:id="ConfirmationDialogModalWindow"
+                                         isConfirmationDialogModalWindowOpened="{!v.isConfirmationDialogModalWindowOpened}"/>
+    </div>
+</aura:component>

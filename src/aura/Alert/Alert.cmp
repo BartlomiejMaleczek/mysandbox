@@ -1,0 +1,21 @@
+<aura:component description="Alert">
+    <aura:attribute access="public" type="String" name="iconTitle"/>
+    <aura:attribute access="public" type="String" name="state" default="error"
+                    description="info/warning/error/offline"/>
+
+    <div class="{!'slds-m-bottom_x-small slds-notify slds-notify_alert slds-theme_alert-texture '
+        + if(v.state =='error', ' slds-theme_error')
+        + if(v.state =='warning', ' slds-theme_warning')
+        + if(v.state =='warning', ' slds-theme_offline')}"
+         role="alert">
+
+        <span class="slds-assistive-text">{!v.state}</span>
+        <lightning:icon iconName="{!v.state == 'info'? 'utility:user'
+            : v.state == 'warning' ? 'utility:warning'
+            : v.state == 'error' ? 'utility:ban' : 'utility:offline'}"
+                        class="slds-m-right_x-small"
+                        title="{!v.iconTitle}"
+                        size="x-small"/>
+        <h2>{!v.body}</h2>
+    </div>
+</aura:component>
