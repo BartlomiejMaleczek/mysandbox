@@ -1,0 +1,7 @@
+<aura:component description="InputLookupResultLineAddField">
+    <aura:attribute name="additionalField" type="Object"/>
+
+    <span class="slds-listbox__option-meta slds-listbox__option-meta_entity">
+                        {!v.additionalField.label} • {!v.additionalField.value}
+                    </span>
+</aura:component>

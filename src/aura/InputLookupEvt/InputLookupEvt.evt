@@ -1,0 +1,4 @@
+<aura:event type="COMPONENT" description="InputLookupEvt">
+    <aura:attribute name="payload" type="Object"/>
+    <aura:attribute name="actionType" type="String"/>
+</aura:event>

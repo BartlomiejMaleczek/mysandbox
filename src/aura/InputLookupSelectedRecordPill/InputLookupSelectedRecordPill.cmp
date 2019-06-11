@@ -1,0 +1,22 @@
+<aura:component description="InputLookupSelectedRecordPill">
+    <aura:attribute name="recordLineIconName" type="String" access="public"/>
+    <aura:attribute name="selectedRecord" type="Object" access="public"/>
+    <aura:attribute name="mainFieldToDisplay" type="Map" access="public"/>
+    <aura:attribute name="mainFieldValueToDisplay" type="String"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.handleInit}"/>
+    <aura:handler name="change" value="{!v.selectedRecord}" action="{!c.handleSelectedRecordChange}"/>
+
+    <c:InputLookupEvtHandler aura:id="InputLookupEvtHandler"/>
+
+        <div class="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_left-right" role="none">
+            <lightning:icon class="slds-icon_container slds-combobox__input-entity-icon"
+                            iconName="{!v.recordLineIconName}" size="small"/>
+            <input class="slds-input slds-combobox__input slds-truncate slds-combobox__input-value" id="combobox-id-5"
+                   aria-controls="listbox-id-5" autocomplete="off" role="textbox" type="text"
+                   placeholder="{!v.mainFieldValueToDisplay}" readonly="true" value="{!v.mainFieldValueToDisplay}"
+            />
+            <lightning:buttonIcon class="slds-button slds-button_icon slds-input__icon slds-input__icon_right"
+                                  alternativeText="Close" iconName="utility:close" variant="bare" onclick="{!c.handleRemoveSelectedRecord}"/>
+        </div>
+</aura:component>
