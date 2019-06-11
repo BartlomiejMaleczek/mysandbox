@@ -25,10 +25,9 @@
     },
 
     handleChangeSearchParams: function (cmp, evt, helper) {
-        console.log('handleChangeSearchParams');
         var searchParams = cmp.get("v.searchParams");
 
-        if(searchParams && searchParams.length) {
+        if(searchParams && searchParams.length && !cmp.get('v.allRecordsQueryOnce')) {
             cmp.find("PromisesService").callPromises(
                 cmp,
                 helper,
@@ -39,25 +38,4 @@
             );
         }
     }
-
-    // handleOnChangeDependentValue: function (cmp, evt, helper) {
-    //     var dependentValue = cmp.get("v.dependentValue");
-    //
-    //     cmp.set("v.selectedRecord", {});
-    //     cmp.set("v.records", []);
-    //     cmp.set("v.currentRecords", []);
-    //     cmp.set("v.isResultListVisible", false);
-    //
-    //     if(dependentValue && dependentValue != 'Other') {
-    //             cmp.set("v.isLoading", true);
-    //             cmp.find("PromisesService").callPromises(
-    //                 cmp,
-    //                 helper,
-    //                 [
-    //                     ['queryRecords'],
-    //                 ],
-    //                 'finalizeRendering'
-    //             );
-    //     }
-    // }
 })

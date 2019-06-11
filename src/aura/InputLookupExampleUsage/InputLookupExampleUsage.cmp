@@ -10,7 +10,6 @@
                        selectedRecord="{!v.selectedAccount}"
                        recordLineIconName="standard:account"
                        allRecordsQueryOnce="false"
-                       searchParams="{!v.whereParams}"
                        numberOfElementsToDisplay="30"
                        title="Account"
                        hasError="false"

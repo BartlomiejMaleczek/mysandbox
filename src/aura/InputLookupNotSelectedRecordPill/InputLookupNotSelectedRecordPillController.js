@@ -39,6 +39,7 @@
                 helper.modifyWhereParams(cmp, helper, search)
             }), 1000);
             cmp.set("v.timer", timer);
+
         }
 
     },
