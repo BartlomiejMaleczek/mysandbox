@@ -1,17 +1,20 @@
 public with sharing class InputLookupController {
     private static final String SOBJECTNAME = 'Account';
     private static final List<String> FIELDS = new List<String>{'Id', 'Name'};
-    private static final String WHERE_COND_TEMPLATE = 'Name = {0}';
+    private static final String WHERE_COND_TEMPLATE = 'Name LIKE {0}';
     private static final Integer RECORD_LIMIT = 5000;
     private static final String ORDER_BY = 'Name ASC';
 
+    public class Testtest{
+
+    }
     @AuraEnabled
     public static List<SObject> queryRecordsApex(String whereParamsJSON) {
         try {
             List<String> whereParams = (List<String>) JSON.deserialize(whereParamsJSON, List<String>.class);
 
             for(Integer i = 0; i < whereParams.size(); i++) {
-                whereParams.set(i, '\'' + String.escapeSingleQuotes(whereParams.get(i).replaceAll(' & ', '_')) + '\'');
+                whereParams.set(i, '\'%' + String.escapeSingleQuotes(whereParams.get(i).replaceAll(' & ', '_')) + '%\'');
             }
 
             List<SObject> records = Database.query(buildAndGetQuery(whereParams));

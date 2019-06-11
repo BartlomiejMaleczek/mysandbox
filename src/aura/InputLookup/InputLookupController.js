@@ -1,7 +1,7 @@
 ({
     handleInit: function (cmp, evt, helper) {
-        // var dependentValue = cmp.get("v.dependentValue");
-        // if(dependentValue) {
+        var allRecordsQueryOnce = cmp.get("v.allRecordsQueryOnce");
+        if(allRecordsQueryOnce) {
             cmp.find("PromisesService").callPromises(
                 cmp,
                 helper,
@@ -10,7 +10,7 @@
                 ],
                 'finalizeRendering'
             );
-        // }
+        }
     },
 
     handleInputLookupEvt: function (cmp, evt, helper) {
@@ -21,6 +21,22 @@
             cmp.set("v.selectedRecord", {});
             cmp.set("v.currentRecords", cmp.get("v.records"));
             cmp.find('InputLookupNotSelectedRecordPill').focusInput();
+        }
+    },
+
+    handleChangeSearchParams: function (cmp, evt, helper) {
+        console.log('handleChangeSearchParams');
+        var searchParams = cmp.get("v.searchParams");
+
+        if(searchParams && searchParams.length) {
+            cmp.find("PromisesService").callPromises(
+                cmp,
+                helper,
+                [
+                    ['queryRecords'],
+                ],
+                'finalizeRendering'
+            );
         }
     }
 

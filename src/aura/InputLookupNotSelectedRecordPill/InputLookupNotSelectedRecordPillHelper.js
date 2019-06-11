@@ -13,11 +13,43 @@
         cmp.set("v.fieldsToSearch", fieldsToSearch);
     },
 
-    getDefaultCustomProfile: function (cmp, helper, name) {
-        return {
-            Id: null,
-            Name: name,
-            Expertise__c: 'Other'
-        };
-    }
+    filterCurrentRecords: function (cmp, helper, search) {
+        var results = [];
+        var fieldsToSearch = cmp.get("v.fieldsToSearch");
+        var items = cmp.get('v.records');
+
+        if (search && search.length) {
+            results = items.filter(function (item) {
+                for (var i = 0; i < fieldsToSearch.length; i++) {
+                    var value = cmp.find('UtilsService').fetchByString(item, fieldsToSearch[i]);
+
+                    if (typeof value == 'string') {
+                        value = value.toLowerCase();
+                    }
+
+                    if (value && String(value).indexOf(search) != -1) {
+                        return true;
+                    }
+                }
+            });
+
+            cmp.set('v.currentRecords', results);
+
+        } else {
+            cmp.set("v.currentRecords", cmp.get("v.records"));
+        }
+
+        cmp.set("v.isLoading", false);
+    },
+
+    modifyWhereParams: function (cmp, helper, search) {
+        if(search && search.length) {
+            cmp.set("v.searchParams", [search]);
+        } else {
+            cmp.set("v.currentRecords", []);
+            cmp.set("v.records", []);
+            cmp.set("v.searchParams", []);
+            cmp.set("v.isLoading", false);
+        }
+    },
 })

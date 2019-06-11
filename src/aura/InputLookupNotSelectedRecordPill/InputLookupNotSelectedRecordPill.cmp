@@ -9,42 +9,47 @@
     <aura:attribute name="additionalFieldsToDisplay" type="Object[]" required="true" access="public"/>
     <aura:attribute name="isResultListVisible" type="Boolean"/>
     <aura:attribute name="isResultListScrolling" type="Boolean"/>
-    <aura:attribute name="dependentValue" type="String"/>
     <aura:attribute name="isLoading" type="Boolean"/>
+    <aura:attribute name="searchParams" type="List" required="false" access="public"/>
+    <aura:attribute name="allRecordsQueryOnce" type="Boolean" access="public"/>
+    <aura:attribute name="timer" type="Object" default="{}"/>
+    <aura:attribute name="isResultListScrollable" type="Boolean"/>
 
     <aura:handler name="init" value="{!this}" action="{!c.handleInit}"/>
+
     <c:InputLookupEvtHandler aura:id="InputLookupEvtHandler"/>
 
     <aura:method name="focusInput" action="{!c.onFocusInput}"/>
 
     <c:UtilsComponent aura:id="UtilsService"/>
     <lightning:input aura:id="lookupInput" name="text-input-id-1" variant="label-hidden" type="text" value="{!v.search}"
-            onchange="{!c.handleSearch}"
-            onclick="{!c.handleOpenResultList}"
-            onfocus="{!c.handleOpenResultList}"
-            onblur="{!c.handleCloseResultList}"
+                     onchange="{!c.handleSearch}"
+                     onclick="{!c.handleOpenResultList}"
+                     onfocus="{!c.handleOpenResultList}"
+                     onblur="{!c.handleCloseResultList}"
     />
 
-        <div class="slds-input__icon-group slds-input__icon-group_right">
-                    <aura:if isTrue="{!v.isLoading}">
-                        <div role="status" class="slds-spinner slds-spinner_brand slds-spinner_x-small slds-input__spinner">
-                            <span class="slds-assistive-text">Loading</span>
-                            <div class="slds-spinner__dot-a"></div>
-                            <div class="slds-spinner__dot-b"></div>
-                        </div>
-                    </aura:if>
-                    <lightning:icon class="slds-input__icon slds-input__icon_right" iconName="utility:search"
-                                    size="x-small"/>
-        </div>
-        <aura:if isTrue="{!and(v.isResultListVisible)}">
-            <c:InputLookupResultList
-                    records="{!v.currentRecords}"
-                    recordLineIconName="{!v.recordLineIconName}"
-                    numberOfElementsToDisplay="{!v.numberOfElementsToDisplay}"
-                    mainFieldToDisplay="{!v.mainFieldToDisplay}"
-                    additionalFieldsToDisplay="{!v.additionalFieldsToDisplay}"
-                    isResultListVisible="{!v.isResultListVisible}"
-                    isResultListScrolling="{!v.isResultListScrolling}"
-            />
+    <div class="slds-input__icon-group slds-input__icon-group_right">
+        <aura:if isTrue="{!v.isLoading}">
+            <div role="status" class="slds-spinner slds-spinner_brand slds-spinner_x-small slds-input__spinner">
+                <span class="slds-assistive-text">Loading</span>
+                <div class="slds-spinner__dot-a"></div>
+                <div class="slds-spinner__dot-b"></div>
+            </div>
         </aura:if>
+        <lightning:icon class="slds-input__icon slds-input__icon_right" iconName="utility:search"
+                        size="x-small"/>
+    </div>
+    <aura:if isTrue="{!and(v.isResultListVisible)}">
+        <c:InputLookupResultList
+                records="{!v.currentRecords}"
+                recordLineIconName="{!v.recordLineIconName}"
+                numberOfElementsToDisplay="{!v.numberOfElementsToDisplay}"
+                mainFieldToDisplay="{!v.mainFieldToDisplay}"
+                additionalFieldsToDisplay="{!v.additionalFieldsToDisplay}"
+                isResultListVisible="{!v.isResultListVisible}"
+                isResultListScrolling="{!v.isResultListScrolling}"
+                isResultListScrollable="{!v.isResultListScrollable}"
+        />
+    </aura:if>
 </aura:component>
