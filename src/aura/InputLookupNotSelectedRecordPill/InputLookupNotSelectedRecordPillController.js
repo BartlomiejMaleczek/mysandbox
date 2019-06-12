@@ -35,7 +35,9 @@
             );
         } else {
             clearTimeout(timer);
+            evt.preventDefault();
             timer = setTimeout($A.getCallback(function () {
+                evt.preventDefault();
                 helper.modifyWhereParams(cmp, helper, search)
             }), 1000);
             cmp.set("v.timer", timer);

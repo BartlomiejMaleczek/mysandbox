@@ -1,13 +1,14 @@
 ({
     queryRecords: function (cmp, helper) {
         var searchParams = cmp.get("v.searchParams");
-        if(searchParams && searchParams.length) {
+        if(searchParams) {
             return new Promise(function (resolve, reject) {
                 cmp.find('ApexService').callApex(
                     cmp,
                     "c.queryRecordsApex",
                     {
-                        "whereParamsJSON": JSON.stringify(searchParams)
+                        "searchParamsMapJSON": JSON.stringify(searchParams),
+                        "queryType": cmp.get("v.queryType")
                     },
                     function onSuccess(cmp, results) {
                         cmp.set("v.records", results);
@@ -19,6 +20,7 @@
                     },
                     function onFailure(result) {
                         reject('Failure');
+                        console.log(result);
                         // helper.fireInputLookupErrorEvt(cmp, result);
                     }
                 )

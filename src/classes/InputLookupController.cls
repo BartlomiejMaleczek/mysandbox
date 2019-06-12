@@ -1,24 +1,41 @@
-public with sharing class InputLookupController {
-    private static final String SOBJECTNAME = 'Account';
-    private static final List<String> FIELDS = new List<String>{'Id', 'Name'};
-    private static final String WHERE_COND_TEMPLATE = 'Name LIKE {0}';
-    private static final Integer RECORD_LIMIT = 5000;
-    private static final String ORDER_BY = 'Name ASC';
+public abstract with sharing class InputLookupController {
+    protected String sObjectName;
+    protected List<String> fields;
+    protected String whereCond;
+    protected Integer recordsLimit;
+    protected String orderBy;
 
-    public class Testtest{
+    public abstract void setSelectedFields();
+    public abstract void setWhereCond(Map<String, Object> searchParams);
+    public abstract void setOrderBy();
+    public abstract void setLimit();
+    public abstract void setSobjectName();
 
-    }
     @AuraEnabled
-    public static List<SObject> queryRecordsApex(String whereParamsJSON) {
+    public static List<SObject> queryRecordsApex(String searchParamsMapJSON, String queryType) {
         try {
-            List<String> whereParams = (List<String>) JSON.deserialize(whereParamsJSON, List<String>.class);
+            Map<String, Object> searchParamsMap = (Map<String, Object>) JSON.deserializeUntyped(searchParamsMapJSON);
 
-            for(Integer i = 0; i < whereParams.size(); i++) {
-                whereParams.set(i, '\'%' + String.escapeSingleQuotes(whereParams.get(i).replaceAll(' & ', '_')) + '%\'');
+            for (Object obj : searchParamsMap.values()) {
+                if(obj instanceof String) {
+                    Date parsedDate = parseDate((String) obj);
+
+                    if(parsedDate == null) {
+                        obj = String.escapeSingleQuotes((String) obj);
+                    } else {}
+                } else if(obj instanceof Integer) {
+                } else if(obj instanceof Boolean) {}
             }
 
-            List<SObject> records = Database.query(buildAndGetQuery(whereParams));
-            return records;
+            Type queryInstance = Type.forName(queryType);
+            InputLookupController queryNewInstance = (InputLookupController) queryInstance.newInstance();
+            queryNewInstance.setSelectedFields();
+            queryNewInstance.setWhereCond(searchParamsMap);
+            queryNewInstance.setSobjectName();
+            queryNewInstance.setOrderBy();
+            queryNewInstance.setLimit();
+
+            return Database.query(queryNewInstance.buildAndGetQuery());
         } catch (Exception ex) {
             System.debug(LoggingLevel.ERROR, ex.getMessage());
             System.debug(LoggingLevel.ERROR, ex.getStackTraceString());
@@ -26,15 +43,60 @@ public with sharing class InputLookupController {
         }
     }
 
-  public static String buildAndGetQuery(List<String> whereParams) {
-      String formattedWhereCond = String.format(WHERE_COND_TEMPLATE, whereParams);
-      String query = String.join(new List<String>{
-              'SELECT ' + String.join(FIELDS, ','),
-              'FROM ' + SOBJECTNAME,
-              'WHERE ' + formattedWhereCond,
-              'ORDER BY ' + ORDER_BY,
-              'LIMIT ' + RECORD_LIMIT
-      }, ' ');
-      return query;
-  }
+    public static Date parseDate(String inDate) {
+        Date dateRes = null;
+        try {
+            String candDate = inDate.substring(0, Math.min(10, inDate.length()));
+            dateRes = Date.parse(candDate);
+        } catch (Exception e) {}
+
+        if (dateRes == null) {
+            try {
+                String candDate = inDate.substring(0, 10);
+                dateRes = Date.valueOf(candDate);
+            } catch (Exception e) {}
+        }
+
+        return dateRes;
+    }
+
+    public String buildAndGetQuery() {
+        String query = String.join(new List<String>{
+                'SELECT ' + String.join(this.fields, ','),
+                'FROM ' + this.sObjectName,
+                'WHERE ' + this.whereCond,
+                'ORDER BY ' + this.orderBy,
+                'LIMIT ' + this.recordsLimit
+        }, ' ');
+
+        return query;
+    }
+
+    public class AccountQuery extends InputLookupController {
+
+        public AccountQuery() {}
+
+        public override void setSelectedFields() {
+            this.fields = new List<String>{
+                    'Id', 'Name'
+            };
+        }
+
+        public override void setWhereCond(Map<String, Object> searchParams) {
+            this.whereCond = 'Name LIKE \'%' + searchParams.get('name') +'%\'';
+        }
+
+        public override void setOrderBy() {
+            this.orderBy = 'Name ASC';
+        }
+
+        public override void setLimit() {
+            this.recordsLimit = 50000;
+        }
+
+        public override void setSobjectName() {
+            this.sObjectName = 'Account';
+        }
+    }
+
 }

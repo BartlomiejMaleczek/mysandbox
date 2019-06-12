@@ -4,7 +4,7 @@
     <aura:attribute name="allRecordsQueryOnce" type="Boolean" access="public"/>
     <aura:attribute name="mainFieldToDisplay" type="Map" default="{'label': 'Name', 'apiName': 'Name'}" access="public"/>
     <aura:attribute name="additionalFieldsToDisplay" type="Object[]" required="true" access="public"/>
-    <aura:attribute name="searchParams" type="List" required="false" access="public"/>
+    <aura:attribute name="searchParams" type="Map" required="false" access="public"/>
     <aura:attribute name="minCharsToStartSearching" type="Integer" required="false" default="3" access="public"/>
     <aura:attribute name="numberOfElementsToDisplay" type="Integer" access="public" default="5"/>
     <aura:attribute name="title" type="String" access="public"/>
@@ -12,6 +12,7 @@
     <aura:attribute name="isRequired" type="Boolean" default="false"/>
     <aura:attribute name="isResultListVisible" type="Boolean" default="false" access="private"/>
     <aura:attribute name="isResultListScrollable" type="Boolean" default="true" access="public"/>
+    <aura:attribute name="queryType" type="String" access="public" required="true"/>
 
     <aura:attribute name="records" type="List" access="public"/>
     <aura:attribute name="currentRecords" type="List" access="public"/>

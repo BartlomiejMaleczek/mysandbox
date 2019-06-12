@@ -43,12 +43,15 @@
     },
 
     modifyWhereParams: function (cmp, helper, search) {
+        var searchParams = cmp.get("v.searchParams");
         if(search && search.length) {
-            cmp.set("v.searchParams", [search]);
+            searchParams[searchParams.fieldOnChange] = search;
+            cmp.set("v.searchParams", {name: search, fieldOnChange: 'name'});
         } else {
+            searchParams[searchParams.fieldOnChange] = {};
             cmp.set("v.currentRecords", []);
             cmp.set("v.records", []);
-            cmp.set("v.searchParams", []);
+            cmp.set("v.searchParams", searchParams);
             cmp.set("v.isLoading", false);
         }
     },

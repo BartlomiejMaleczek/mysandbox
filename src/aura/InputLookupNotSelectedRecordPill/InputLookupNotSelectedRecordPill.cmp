@@ -10,7 +10,7 @@
     <aura:attribute name="isResultListVisible" type="Boolean"/>
     <aura:attribute name="isResultListScrolling" type="Boolean"/>
     <aura:attribute name="isLoading" type="Boolean"/>
-    <aura:attribute name="searchParams" type="List" required="false" access="public"/>
+    <aura:attribute name="searchParams" type="Map" required="false" access="public"/>
     <aura:attribute name="allRecordsQueryOnce" type="Boolean" access="public"/>
     <aura:attribute name="timer" type="Object" default="{}"/>
     <aura:attribute name="isResultListScrollable" type="Boolean"/>
