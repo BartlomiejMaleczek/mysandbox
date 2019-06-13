@@ -1,13 +1,14 @@
 <aura:component description="InputLookupExampleUsage" implements="flexipage:availableForRecordHome,force:hasRecordId,force:hasSObjectName,forceCommunity:availableForAllPageTypes">
-    <aura:attribute name="searchParams" type="Map" />
+    <aura:attribute name="searchParams" type="Map" default="{name: 'test', fieldOnChange: 'name'}"/>
     <aura:attribute name="selectedAccount" type="Object" />
     <aura:attribute name="selectedAccount2" type="Object" />
-
+    
     <aura:handler name="init" value="{!this}" action="{!c.handleInit}"/>
 
     <lightning:card >
 
-        <lightning:select name="select1" label="How many tickets?" required="true" value="{!v.searchParams.name}">
+        <lightning:select name="select1" label="How many tickets?" value="{!v.searchParams.name}">
+            <option value="" label="--None--"/>
             <option value="test" label="test"/>
             <option value="Test Account 4" label="Test Account 4"/>
             <option value="Test Account 5" label="Test Account 5"/>
@@ -17,12 +18,11 @@
                        isFirstRecordDefault="false"
                        selectedRecord="{!v.selectedAccount}"
                        recordLineIconName="standard:account"
-                       allRecordsQueryOnce="false"
+                       filterThroughQueriedRecords="false"
                        numberOfElementsToDisplay="5"
                        searchParams="{!v.searchParams}"
                        title="Account"
                        isRequired="true"
-                       noDynamicParams="false"
                        hasError="false"
                        isResultListScrollable="true"
                        classType="InputLookupController.AccountQuery"

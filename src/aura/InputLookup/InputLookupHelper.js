@@ -1,5 +1,6 @@
 ({
     queryRecords: function (cmp, helper, searchParams) {
+        console.log('queryRecords', searchParams);
             return new Promise(function (resolve, reject) {
                 cmp.find('ApexService').callApex(
                     cmp,
@@ -47,9 +48,17 @@
         cmp.set("v.isLoading", true);
         if (searchParams && helper.isFieldOnChangeNotEmpty(searchParams)) {
             helper.queryRecords(cmp, helper, searchParams);
-        } else if(cmp.get("v.noDynamicParams")) {
-            helper.queryRecords(cmp, helper, '');
+        } else {
+            helper.resetSearchLookup(cmp, helper);
+            cmp.set("v.isLoading", false);
         }
+        //
+        // else if(cmp.get("v.noDynamicParams")) {
+        //     helper.queryRecords(cmp, helper, '');
+        // } else {
+        //     helper.resetSearchLookup(cmp, helper);
+        //     cmp.set("v.isLoading", false);
+        // }
     },
     
     resetSearchLookup: function (cmp, helper) {

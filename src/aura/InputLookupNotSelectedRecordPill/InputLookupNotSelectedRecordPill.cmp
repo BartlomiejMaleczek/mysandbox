@@ -11,10 +11,10 @@
     <aura:attribute name="isResultListScrolling" type="Boolean"/>
     <aura:attribute name="isLoading" type="Boolean"/>
     <aura:attribute name="searchParams" type="Map" required="false" access="public"/>
-    <aura:attribute name="allRecordsQueryOnce" type="Boolean" access="public"/>
+    <aura:attribute name="filterThroughQueriedRecords" type="Boolean" access="public"/>
     <aura:attribute name="timer" type="Object" default="{}"/>
     <aura:attribute name="isResultListScrollable" type="Boolean"/>
-    <aura:attribute name="noDynamicParams" type="Boolean" required="false" default="false"/>
+    <!--<aura:attribute name="noDynamicParams" type="Boolean" required="false" default="false"/>-->
 
     <aura:handler name="init" value="{!this}" action="{!c.handleInit}"/>
 

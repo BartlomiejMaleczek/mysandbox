@@ -13,10 +13,10 @@
             cmp.set("v.selectedRecord", payload.selectedRecord);
 
         } else if (inputLookupEvtHandler.isRemoveSelectedRecordLookupEvtActionType(evt)) {
-            var allRecordsQueryOnce = cmp.get("v.allRecordsQueryOnce");
-            var noDynamicParams = cmp.get("v.noDynamicParams");
+            var filterThroughQueriedRecords = cmp.get("v.filterThroughQueriedRecords");
+            // var noDynamicParams = cmp.get("v.noDynamicParams");
 
-            if (!allRecordsQueryOnce && !noDynamicParams) {
+            if (!filterThroughQueriedRecords) {
                 helper.resetSearchLookup(cmp, helper);
             } else {
                 cmp.set("v.currentRecords", cmp.get("v.records"));
@@ -41,6 +41,8 @@
     handleChangeSearchParams: function (cmp, evt, helper) {
         var searchParams = cmp.get("v.searchParams");
 
-        helper.callQueryRecordsWithValidation(cmp, helper, searchParams);
+        // if(!cmp.get("v.noDynamicParams")) {
+            helper.callQueryRecordsWithValidation(cmp, helper, searchParams);
+        // }
     }
 })

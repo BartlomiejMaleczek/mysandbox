@@ -21,12 +21,12 @@
 
     handleSearch: function (cmp, evt, helper) {
         cmp.set("v.isLoading", true);
-        var allRecordsQueryOnce = cmp.get("v.allRecordsQueryOnce");
-        var noDynamicParams = cmp.get("v.noDynamicParams");
+        var filterThroughQueriedRecords = cmp.get("v.filterThroughQueriedRecords");
+        // var noDynamicParams = cmp.get("v.noDynamicParams");
         var search = cmp.get("v.search");
         var timer = cmp.get("v.timer");
 
-        if (allRecordsQueryOnce || noDynamicParams) {
+        if (filterThroughQueriedRecords) {
             cmp.find('UtilsService').setTimeout(
                 cmp,
                 function () {
@@ -35,7 +35,6 @@
                 1000
             );
         } else {
-            console.log('Strzelam eventem');
             clearTimeout(timer);
             timer = setTimeout($A.getCallback(function () {
                 helper.fireModifySearchParamsEvt(cmp, helper, search)

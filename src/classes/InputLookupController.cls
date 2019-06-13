@@ -4,12 +4,18 @@ public abstract with sharing class InputLookupController {
     protected String whereCond;
     protected Integer recordsLimit;
     protected String orderBy;
+    protected Boolean areDynamicParamsUsed;
 
     public abstract void setSelectedFields();
     public abstract void setWhereCond(Map<String, Object> searchParams);
     public abstract void setOrderBy();
     public abstract void setLimit();
     public abstract void setSobjectName();
+    public abstract void setAreDynamicParamsUsed();
+
+    public Boolean getAreDynamicParamsUsed() {
+        return this.areDynamicParamsUsed;
+    }
 
     @AuraEnabled
     public static List<SObject> queryRecordsApex(String searchParamsMapJSON, String classType) {
@@ -21,22 +27,31 @@ public abstract with sharing class InputLookupController {
             newTypeInstance.setSobjectName();
             newTypeInstance.setOrderBy();
             newTypeInstance.setLimit();
+            newTypeInstance.setAreDynamicParamsUsed();
 
-            if(String.isNotBlank(searchParamsMapJSON)) {
+//            if(String.isNotBlank(searchParamsMapJSON)) {
+
+            if(newTypeInstance.getAreDynamicParamsUsed()) {
+                if(String.isBlank(searchParamsMapJSON)) {
+                    throw new InputLookupControllerException('JSON with search params is blank.');
+                }
+
                 Map<String, Object> searchParamsMap = (Map<String, Object>) JSON.deserializeUntyped(searchParamsMapJSON);
 
                 for (Object obj : searchParamsMap.values()) {
-                    if(obj instanceof String) {
+                    if (obj instanceof String) {
                         Date parsedDate = parseDate((String) obj);
 
-                        if(parsedDate == null) {
-                            if(String.isBlank((String) obj)) {
+                        if (parsedDate == null) {
+                            System.debug('OBJ' + obj + ':' + String.isBlank((String) obj));
+                            if (String.isBlank((String) obj)) {
                                 throw new InputLookupControllerException('String param is blank.');
                             }
                             obj = String.escapeSingleQuotes((String) obj);
-                        } else {}
-                    } else if(obj instanceof Integer) {
-                    } else if(obj instanceof Boolean) {}
+                        } else {
+                        }
+                    } else if (obj instanceof Integer) {
+                    } else if (obj instanceof Boolean) {}
                 }
 
                 newTypeInstance.setWhereCond(searchParamsMap);
@@ -55,13 +70,15 @@ public abstract with sharing class InputLookupController {
         try {
             String candDate = inDate.substring(0, Math.min(10, inDate.length()));
             dateRes = Date.parse(candDate);
-        } catch (Exception e) {}
+        } catch (Exception e) {
+        }
 
         if (dateRes == null) {
             try {
                 String candDate = inDate.substring(0, 10);
                 dateRes = Date.valueOf(candDate);
-            } catch (Exception e) {}
+            } catch (Exception e) {
+            }
         }
 
         return dateRes;
@@ -73,15 +90,15 @@ public abstract with sharing class InputLookupController {
         queryElements.add('FROM ' + this.sObjectName);
 
 
-        if(String.isNotBlank(this.whereCond)) {
+        if (String.isNotBlank(this.whereCond)) {
             queryElements.add('WHERE ' + this.whereCond);
         }
 
-        if(String.isNotBlank(this.orderBy)) {
+        if (String.isNotBlank(this.orderBy)) {
             queryElements.add('ORDER BY ' + this.orderBy);
         }
 
-        if(this.recordsLimit != null) {
+        if (this.recordsLimit != null) {
             queryElements.add('LIMIT ' + this.recordsLimit);
         }
 
@@ -93,7 +110,8 @@ public abstract with sharing class InputLookupController {
 
     public class AccountQuery extends InputLookupController {
 
-        public AccountQuery() {}
+        public AccountQuery() {
+        }
 
         public override void setSelectedFields() {
             this.fields = new List<String>{
@@ -102,7 +120,7 @@ public abstract with sharing class InputLookupController {
         }
 
         public override void setWhereCond(Map<String, Object> searchParams) {
-            this.whereCond = 'Name LIKE \'%' + searchParams.get('name') +'%\'';
+            this.whereCond = 'Name LIKE \'%' + searchParams.get('name') + '%\'';
         }
 
         public override void setOrderBy() {
@@ -116,8 +134,13 @@ public abstract with sharing class InputLookupController {
         public override void setSobjectName() {
             this.sObjectName = 'Account';
         }
+
+        public override void setAreDynamicParamsUsed() {
+            this.areDynamicParamsUsed = true;
+        }
     }
 
-    public class InputLookupControllerException extends Exception{}
+    public class InputLookupControllerException extends Exception {
+    }
 
 }
