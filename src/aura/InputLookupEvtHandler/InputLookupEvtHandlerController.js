@@ -36,5 +36,19 @@
         const inputLookupEvtObj = params.inputLookupEvtObj;
 
         return helper.isRemoveSelectedRecordLookupEvtActionType(inputLookupEvtObj, helper);
+    },
+
+    onFireModifySearchParamsLookupEvt: function (cmp, evt, helper) {
+        const params = evt.getParams().arguments;
+        const search = params.search;
+
+        helper.fireModifySearchParamsLookupEvt(cmp, helper, search);
+    },
+
+    onIsFireModifySearchParamsLookupEvtActionType: function (cmp, evt, helper) {
+        const params = evt.getParams().arguments;
+        const inputLookupEvtObj = params.inputLookupEvtObj;
+
+        return helper.isFireModifySearchParamsLookupEvtActionType(inputLookupEvtObj, helper);
     }
 })

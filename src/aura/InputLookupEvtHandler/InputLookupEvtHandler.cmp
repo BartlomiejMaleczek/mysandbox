@@ -21,5 +21,11 @@
         <aura:attribute name="inputLookupEvtObj" type="Object"/>
     </aura:method>
 
+    <aura:method name="fireModifySearchParamsLookupEvt" action="{!c.onFireModifySearchParamsLookupEvt}">
+        <aura:attribute name="search" type="Object"/>
+    </aura:method>
+    <aura:method name="isFireModifySearchParamsLookupEvtActionType" action="{!c.onIsFireModifySearchParamsLookupEvtActionType}">
+        <aura:attribute name="inputLookupEvtObj" type="Object"/>
+    </aura:method>
 
 </aura:component>

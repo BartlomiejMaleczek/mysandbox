@@ -22,10 +22,11 @@
     handleSearch: function (cmp, evt, helper) {
         cmp.set("v.isLoading", true);
         var allRecordsQueryOnce = cmp.get("v.allRecordsQueryOnce");
-        var search = cmp.get("v.search").trim().toLowerCase();
+        var noDynamicParams = cmp.get("v.noDynamicParams");
+        var search = cmp.get("v.search");
         var timer = cmp.get("v.timer");
 
-        if (allRecordsQueryOnce) {
+        if (allRecordsQueryOnce || noDynamicParams) {
             cmp.find('UtilsService').setTimeout(
                 cmp,
                 function () {
@@ -34,16 +35,13 @@
                 1000
             );
         } else {
+            console.log('Strzelam eventem');
             clearTimeout(timer);
-            evt.preventDefault();
             timer = setTimeout($A.getCallback(function () {
-                evt.preventDefault();
-                helper.modifyWhereParams(cmp, helper, search)
+                helper.fireModifySearchParamsEvt(cmp, helper, search)
             }), 1000);
             cmp.set("v.timer", timer);
-
         }
-
     },
 
     onFocusInput: function (cmp, evt, helper) {

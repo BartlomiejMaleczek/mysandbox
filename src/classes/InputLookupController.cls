@@ -12,30 +12,37 @@ public abstract with sharing class InputLookupController {
     public abstract void setSobjectName();
 
     @AuraEnabled
-    public static List<SObject> queryRecordsApex(String searchParamsMapJSON, String queryType) {
+    public static List<SObject> queryRecordsApex(String searchParamsMapJSON, String classType) {
         try {
-            Map<String, Object> searchParamsMap = (Map<String, Object>) JSON.deserializeUntyped(searchParamsMapJSON);
 
-            for (Object obj : searchParamsMap.values()) {
-                if(obj instanceof String) {
-                    Date parsedDate = parseDate((String) obj);
+            Type type = Type.forName(classType);
+            InputLookupController newTypeInstance = (InputLookupController) type.newInstance();
+            newTypeInstance.setSelectedFields();
+            newTypeInstance.setSobjectName();
+            newTypeInstance.setOrderBy();
+            newTypeInstance.setLimit();
 
-                    if(parsedDate == null) {
-                        obj = String.escapeSingleQuotes((String) obj);
-                    } else {}
-                } else if(obj instanceof Integer) {
-                } else if(obj instanceof Boolean) {}
+            if(String.isNotBlank(searchParamsMapJSON)) {
+                Map<String, Object> searchParamsMap = (Map<String, Object>) JSON.deserializeUntyped(searchParamsMapJSON);
+
+                for (Object obj : searchParamsMap.values()) {
+                    if(obj instanceof String) {
+                        Date parsedDate = parseDate((String) obj);
+
+                        if(parsedDate == null) {
+                            if(String.isBlank((String) obj)) {
+                                throw new InputLookupControllerException('String param is blank.');
+                            }
+                            obj = String.escapeSingleQuotes((String) obj);
+                        } else {}
+                    } else if(obj instanceof Integer) {
+                    } else if(obj instanceof Boolean) {}
+                }
+
+                newTypeInstance.setWhereCond(searchParamsMap);
             }
 
-            Type queryInstance = Type.forName(queryType);
-            InputLookupController queryNewInstance = (InputLookupController) queryInstance.newInstance();
-            queryNewInstance.setSelectedFields();
-            queryNewInstance.setWhereCond(searchParamsMap);
-            queryNewInstance.setSobjectName();
-            queryNewInstance.setOrderBy();
-            queryNewInstance.setLimit();
-
-            return Database.query(queryNewInstance.buildAndGetQuery());
+            return Database.query(newTypeInstance.buildAndGetQuery());
         } catch (Exception ex) {
             System.debug(LoggingLevel.ERROR, ex.getMessage());
             System.debug(LoggingLevel.ERROR, ex.getStackTraceString());
@@ -61,13 +68,25 @@ public abstract with sharing class InputLookupController {
     }
 
     public String buildAndGetQuery() {
-        String query = String.join(new List<String>{
-                'SELECT ' + String.join(this.fields, ','),
-                'FROM ' + this.sObjectName,
-                'WHERE ' + this.whereCond,
-                'ORDER BY ' + this.orderBy,
-                'LIMIT ' + this.recordsLimit
-        }, ' ');
+        List<String> queryElements = new List<String>();
+        queryElements.add('SELECT ' + String.join(this.fields, ','));
+        queryElements.add('FROM ' + this.sObjectName);
+
+
+        if(String.isNotBlank(this.whereCond)) {
+            queryElements.add('WHERE ' + this.whereCond);
+        }
+
+        if(String.isNotBlank(this.orderBy)) {
+            queryElements.add('ORDER BY ' + this.orderBy);
+        }
+
+        if(this.recordsLimit != null) {
+            queryElements.add('LIMIT ' + this.recordsLimit);
+        }
+
+
+        String query = String.join(queryElements, ' ');
 
         return query;
     }
@@ -98,5 +117,7 @@ public abstract with sharing class InputLookupController {
             this.sObjectName = 'Account';
         }
     }
+
+    public class InputLookupControllerException extends Exception{}
 
 }

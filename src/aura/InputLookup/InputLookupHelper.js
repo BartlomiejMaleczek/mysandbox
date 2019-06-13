@@ -1,14 +1,12 @@
 ({
-    queryRecords: function (cmp, helper) {
-        var searchParams = cmp.get("v.searchParams");
-        if(searchParams) {
+    queryRecords: function (cmp, helper, searchParams) {
             return new Promise(function (resolve, reject) {
                 cmp.find('ApexService').callApex(
                     cmp,
                     "c.queryRecordsApex",
                     {
-                        "searchParamsMapJSON": JSON.stringify(searchParams),
-                        "queryType": cmp.get("v.queryType")
+                        "searchParamsMapJSON": (searchParams ? JSON.stringify(searchParams) : searchParams),
+                        "classType": cmp.get("v.classType")
                     },
                     function onSuccess(cmp, results) {
                         cmp.set("v.records", results);
@@ -17,6 +15,7 @@
                             helper.defaultInputWithFirstRecord(cmp, results);
                         }
                         resolve("Success");
+                        cmp.set("v.isLoading", false);
                     },
                     function onFailure(result) {
                         reject('Failure');
@@ -25,7 +24,6 @@
                     }
                 )
             });
-        }
     },
 
     defaultInputWithFirstRecord: function (cmp, results) {
@@ -37,8 +35,30 @@
     fireInputLookupErrorEvt: function (cmp, errorMsg) {
         cmp.find('InputLookupEvtHandler').fireAddErrorMsgLookupEvt(errorMsg);
     },
+    
+    isFieldOnChangeNotEmpty: function (searchParams) {
+        return searchParams && searchParams.fieldOnChange &&
+            searchParams[searchParams.fieldOnChange] &&
+            Object.keys(searchParams[searchParams.fieldOnChange]).length &&
+            searchParams[searchParams.fieldOnChange].trim();
+    },
 
-    finalizeRendering: function (cmp, helper) {
+    callQueryRecordsWithValidation: function (cmp, helper, searchParams) {
+        cmp.set("v.isLoading", true);
+        if (searchParams && helper.isFieldOnChangeNotEmpty(searchParams)) {
+            helper.queryRecords(cmp, helper, searchParams);
+        } else if(cmp.get("v.noDynamicParams")) {
+            helper.queryRecords(cmp, helper, '');
+        }
+    },
+    
+    resetSearchLookup: function (cmp, helper) {
+        var searchParams = cmp.get("v.searchParams");
+        if(searchParams && searchParams.fieldOnChange) {
+            searchParams[searchParams.fieldOnChange] = {};
+        }
+        cmp.set("v.currentRecords", []);
+        cmp.set("v.records", []);
         cmp.set("v.isLoading", false);
     }
 })

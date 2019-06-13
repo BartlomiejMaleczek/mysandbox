@@ -1,52 +1,46 @@
 ({
     handleInit: function (cmp, evt, helper) {
-        var allRecordsQueryOnce = cmp.get("v.allRecordsQueryOnce");
-        if (allRecordsQueryOnce) {
-            cmp.find("PromisesService").callPromises(
-                cmp,
-                helper,
-                [
-                    ['queryRecords']
-                ],
-                'finalizeRendering'
-            );
-        }
+        var searchParams = cmp.get("v.searchParams");
 
+        helper.callQueryRecordsWithValidation(cmp, helper, searchParams);
     },
 
     handleInputLookupEvt: function (cmp, evt, helper) {
-        if (cmp.find('InputLookupEvtHandler').isSelectRecordLookupEvtActionType(evt)) {
+        const inputLookupEvtHandler = cmp.find('InputLookupEvtHandler');
+
+        if (inputLookupEvtHandler.isSelectRecordLookupEvtActionType(evt)) {
             var payload = evt.getParam('payload');
             cmp.set("v.selectedRecord", payload.selectedRecord);
-        } else if (cmp.find('InputLookupEvtHandler').isRemoveSelectedRecordLookupEvtActionType(evt)) {
 
+        } else if (inputLookupEvtHandler.isRemoveSelectedRecordLookupEvtActionType(evt)) {
             var allRecordsQueryOnce = cmp.get("v.allRecordsQueryOnce");
-            if (!allRecordsQueryOnce) {
-                var searchParams = cmp.get("v.searchParams");
-                searchParams[searchParams.fieldOnChange] = {};
-                cmp.set("v.currentRecords", []);
-                cmp.set("v.records", []);
-                cmp.set("v.searchParams", searchParams);
+            var noDynamicParams = cmp.get("v.noDynamicParams");
+
+            if (!allRecordsQueryOnce && !noDynamicParams) {
+                helper.resetSearchLookup(cmp, helper);
             } else {
                 cmp.set("v.currentRecords", cmp.get("v.records"));
             }
+
             cmp.set("v.selectedRecord", {});
             cmp.find('InputLookupNotSelectedRecordPill').focusInput();
+
+        } else if (inputLookupEvtHandler.isFireModifySearchParamsLookupEvtActionType(evt)) {
+            var payload = evt.getParam('payload');
+            var searchParams = cmp.get("v.searchParams");
+
+            if (payload.search && payload.search.length) {
+                searchParams[searchParams.fieldOnChange] = payload.search;
+                helper.callQueryRecordsWithValidation(cmp, helper, searchParams);
+            } else {
+                helper.resetSearchLookup(cmp, helper);
+            }
         }
     },
 
     handleChangeSearchParams: function (cmp, evt, helper) {
         var searchParams = cmp.get("v.searchParams");
 
-        if (searchParams && Object.keys(searchParams[searchParams.fieldOnChange]).length && !cmp.get('v.allRecordsQueryOnce')) {
-            cmp.find("PromisesService").callPromises(
-                cmp,
-                helper,
-                [
-                    ['queryRecords'],
-                ],
-                'finalizeRendering'
-            );
-        }
+        helper.callQueryRecordsWithValidation(cmp, helper, searchParams);
     }
 })

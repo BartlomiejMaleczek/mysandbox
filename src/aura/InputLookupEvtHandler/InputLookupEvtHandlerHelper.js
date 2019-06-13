@@ -2,7 +2,8 @@
     constants: {
         'ADD_ERROR_MSG_ACTION_TYPE': 'AddErrorMsg',
         'SELECT_RECORD_ACTION_TYPE': 'SelectRecord',
-        'REMOVE_SELECTED_RECORD_ACTION_TYPE': 'RemoveSelectedRecord'
+        'REMOVE_SELECTED_RECORD_ACTION_TYPE': 'RemoveSelectedRecord',
+        'MODIFY_SEARCH_PARAMS': 'ModifySearchParams'
     },
 
     fireAddErrorMsgLookupEvt: function (cmp, helper, errorMsg) {
@@ -38,6 +39,18 @@
         var actionType = inputLookupEvtObj.getParam('actionType');
 
         return (helper.constants.REMOVE_SELECTED_RECORD_ACTION_TYPE == actionType);
+    },
+
+    fireModifySearchParamsLookupEvt: function (cmp, helper, search) {
+        var payload = {'search': search};
+        var actionType = helper.constants.MODIFY_SEARCH_PARAMS;
+        helper.fireInputLookupEvt(cmp, payload, actionType);
+    },
+
+    isFireModifySearchParamsLookupEvtActionType: function (inputLookupEvtObj, helper) {
+        var actionType = inputLookupEvtObj.getParam('actionType');
+
+        return (helper.constants.MODIFY_SEARCH_PARAMS == actionType);
     },
 
     fireInputLookupEvt: function (cmp, payload, actionType) {

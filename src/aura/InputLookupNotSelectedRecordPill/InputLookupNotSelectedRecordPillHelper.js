@@ -18,6 +18,8 @@
         var fieldsToSearch = cmp.get("v.fieldsToSearch");
         var items = cmp.get('v.records');
 
+        search = search.trim().toLowerCase();
+
         if (search && search.length) {
             results = items.filter(function (item) {
                 for (var i = 0; i < fieldsToSearch.length; i++) {
@@ -42,17 +44,7 @@
         cmp.set("v.isLoading", false);
     },
 
-    modifyWhereParams: function (cmp, helper, search) {
-        var searchParams = cmp.get("v.searchParams");
-        if(search && search.length) {
-            searchParams[searchParams.fieldOnChange] = search;
-            cmp.set("v.searchParams", {name: search, fieldOnChange: 'name'});
-        } else {
-            searchParams[searchParams.fieldOnChange] = {};
-            cmp.set("v.currentRecords", []);
-            cmp.set("v.records", []);
-            cmp.set("v.searchParams", searchParams);
-            cmp.set("v.isLoading", false);
-        }
+    fireModifySearchParamsEvt: function (cmp, helper, search) {
+        cmp.find('InputLookupEvtHandler').fireModifySearchParamsLookupEvt(search);
     },
 })
