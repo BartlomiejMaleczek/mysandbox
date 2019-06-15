@@ -1,0 +1,226 @@
+<aura:component description="DatatableScrollXYWithFixedHeader"  implements="flexipage:availableForRecordHome,force:hasRecordId,force:hasSObjectName,forceCommunity:availableForAllPageTypes">
+    <lightning:card >
+        <div class="slds-panel">
+            <lightning:input name="test" label="test" type="text"/>
+
+            <div class='ux-data-table' onscroll="{!c.onScrollDataTable}">
+                <div class='ux-data-table-inner'>
+                    <table>
+                        <thead>
+                        <tr>
+                            <th rowspan="2">Col 1</th>
+                            <th rowspan="2">Col 1</th>
+                            <th rowspan="2">Col 1</th>
+                        </tr>
+                        <tr>
+                            <th rowspan="2">Col 2</th>
+                            <th rowspan="2">Col 2</th>
+                        </tr>
+                        <tr>
+                            <th rowspan="2">Col 3</th>
+                            <th rowspan="2">Col 3</th>
+                            <th rowspan="2">Col 3</th>
+                        </tr>
+                        <tr>
+                            <th rowspan="2">Col 4</th>
+                            <th rowspan="2">Col 4</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Item 1</td>
+                            <td>CD player</td>
+                            <td>Used</td>
+                            <td>Sony</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Item 2</td>
+                            <td>Variscope</td>
+                            <td>Used</td>
+                            <td>General</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>Item 3</td>
+                            <td>Microphone</td>
+                            <td>New</td>
+                            <td>Mastersound</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>Item 4</td>
+                            <td>Cable</td>
+                            <td>New</td>
+                            <td>Techable</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>Item 4</td>
+                            <td>Cable</td>
+                            <td>New</td>
+                            <td>Techable</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>Item 4</td>
+                            <td>Cable</td>
+                            <td>New</td>
+                            <td>Techable</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>Item 4</td>
+                            <td>Cable</td>
+                            <td>New</td>
+                            <td>Techable</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>Item 4</td>
+                            <td>Cable</td>
+                            <td>New</td>
+                            <td>Techable</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>Item 4</td>
+                            <td>Cable</td>
+                            <td>New</td>
+                            <td>Techable</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>Item 4</td>
+                            <td>Cable</td>
+                            <td>New</td>
+                            <td>Techable</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>Item 4</td>
+                            <td>Cable</td>
+                            <td>New</td>
+                            <td>Techable</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>Item 4</td>
+                            <td>Cable</td>
+                            <td>New</td>
+                            <td>Techable</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>Item 4</td>
+                            <td>Cable</td>
+                            <td>New</td>
+                            <td>Techable</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>Item 4</td>
+                            <td>Cable</td>
+                            <td>New</td>
+                            <td>Techable</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>Item 4</td>
+                            <td>Cable</td>
+                            <td>New</td>
+                            <td>Techable</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>Item 4</td>
+                            <td>Cable</td>
+                            <td>New</td>
+                            <td>Techable</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>Item 4</td>
+                            <td>Cable</td>
+                            <td>New</td>
+                            <td>Techable</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>Item 4</td>
+                            <td>Cable</td>
+                            <td>New</td>
+                            <td>Techable</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>Item 4</td>
+                            <td>Cable</td>
+                            <td>New</td>
+                            <td>Techable</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>Item 4</td>
+                            <td>Cable</td>
+                            <td>New</td>
+                            <td>Techable</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>Item 4</td>
+                            <td>Cable</td>
+                            <td>New</td>
+                            <td>Techable</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>Item 4</td>
+                            <td>Cable</td>
+                            <td>New</td>
+                            <td>Techable</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>Item 4</td>
+                            <td>Cable</td>
+                            <td>New</td>
+                            <td>Techable</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>Item 4</td>
+                            <td>Cable</td>
+                            <td>New</td>
+                            <td>Techable</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>Item 4</td>
+                            <td>Cable</td>
+                            <td>New</td>
+                            <td>Techable</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>Item 4</td>
+                            <td>Cable</td>
+                            <td>New</td>
+                            <td>Techable</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>Item 4</td>
+                            <td>Cable</td>
+                            <td>New</td>
+                            <td>Techable</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </lightning:card>
+</aura:component>
