@@ -102,7 +102,7 @@ public with sharing class TestDataFactory {
      * @name CreateContacts
      * @description Constructs a list of Contacxt records for unit tests
     **/
-    public static List<Contact> constructContacts (Integer cnt, List<Account> accts) {
+    public static List<Contact> constructContacts(Integer cnt, List<Account> accts) {
         //ToDo: Ensure this method returns a list, of size cnt, of uniquely named Contact records
         //  related to the provided Accounts
         //  with all of the required fields populated.
@@ -216,6 +216,11 @@ public with sharing class TestDataFactory {
 
         insert ConstructOrderItems(cnt, pricebookentries, orders);
 
+    }
+
+    public static void VerifyQuantityOrdered(Product2 originalProduct, Product2 updatedProduct, Integer qtyOrdered){
+        Integer sumQuantity = Integer.valueOf(originalProduct.Quantity_Ordered__c) + qtyOrdered;
+        System.assertEquals(updatedProduct.Quantity_Ordered__c, sumQuantity);
     }
 
 }
