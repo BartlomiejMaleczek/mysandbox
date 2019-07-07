@@ -1,39 +1,70 @@
+
 @isTest (seeAllData=false)
 private class Product2Tests {
+
     /**
      * @name product2Extension_UnitTest
      * @description UnitTest for product2Extension
-    **/
-    @IsTest
-    public static void Product2Extension_UnitTest() {
-        List<Product2> products = [SELECT Id, Quantity_Ordered__c, Name, Family, IsActive  FROM Product2 LIMIT :Constants.DEFAULT_ROWS];
+     **/
+    @isTest private static void Product2Extension_UnitTest() {
 
-        System.Test.startTest();
-        PageReference pageReference = Page.Product2New;
-        Test.setCurrentPage(pageReference);
-        Order order = [SELECT Id FROM Order LIMIT 1];
-        ApexPages.StandardController sc = new ApexPages.StandardController(order);
-        Product2Extension ext = new Product2Extension(sc);
+        Test.startTest();
+
+        PageReference pageRef = Page.Product2New;
+        Test.setCurrentPage(pageRef);
+
+        Product2 prod = new Product2(name = 'Test', isActive = true);
+        ApexPages.StandardController stdcontroller = new ApexPages.StandardController(prod);
+
+        Product2Extension ext = new Product2Extension(stdcontroller);
         System.assertEquals(Constants.DEFAULT_ROWS, ext.productsToInsert.size());
 
-        ext.addRows();
+        ext.AddRows();
         System.assertEquals(Constants.DEFAULT_ROWS * 2, ext.productsToInsert.size());
 
-        for(Integer i = 0; i < ext.productsToInsert.size(); i++) {
-            ext.productsToInsert.get(i).productRecord.Name = 'Test Product' + i;
-            ext.productsToInsert.get(i).productRecord.Family = 'Entree';
-            ext.productsToInsert.get(i).productRecord.IsActive = true;
-            ext.productsToInsert.get(i).pricebookEntryRecord.UnitPrice = 10;
-            ext.productsToInsert.get(i).productRecord.Initial_Inventory__c = 10;
+        for (Integer i = 0; i < 5; i++) {
+            Product2Extension.ProductWrapper wrapper = ext.productsToInsert[i];
+            Product2 p = new Product2();
+            p.Name = 'Test Product ' + i;
+            p.IsActive = true;
+            p.Initial_Inventory__c = 20;
+            p.Family = Constants.PRODUCT_FAMILY[0].getValue();
+            wrapper.productRecord = p;
+
+            PricebookEntry pbe = new PricebookEntry();
+            pbe.IsActive = true;
+            pbe.UnitPrice = 10;
+            wrapper.pricebookEntryRecord = pbe;
         }
 
         ext.save();
         ext.GetFamilyOptions();
         ext.GetInventory();
-        System.Test.stopTest();
+        Test.stopTest();
 
         List<Product2> createdProducts = [SELECT Id FROM Product2];
-        System.assertEquals(ext.productsToInsert.size(), createdProducts.size());
+        System.assertEquals(5, createdProducts.size());
     }
 
+    @isTest private static void Product2Trigger_UnitTest() {
+
+        Test.startTest();
+        Product2 p = new Product2();
+        p.Name = 'TestProduct';
+        p.Family = 'Side';
+        p.IsActive = true;
+        p.Quantity_Ordered__c = 50;
+        p.Initial_Inventory__c = 100;
+        insert p;
+
+        CollaborationGroup c = new CollaborationGroup();
+        c.Name = 'TEST' + Constants.INVENTORY_ANNOUNCEMENTS;
+        c.Description = 'test';
+        c.CollaborationType = 'Public';
+        insert c;
+
+        p.Quantity_Ordered__c = 96;
+        update p;
+        Test.stopTest();
+    }
 }
