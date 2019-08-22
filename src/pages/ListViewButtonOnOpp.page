@@ -1,0 +1,45 @@
+<apex:page id="ListViewButtonOnOpp" standardController="Opportunity" recordSetVar="opportunities" tabStyle="Opportunity">
+
+    <apex:includeLightning />
+
+    <div id="lightning" />
+
+    <script
+            src="/canvas/sdk/js/43.0/publisher.js"
+            type="text/javascript">
+    </script>
+
+    <script>
+        function doPublish(){
+//            var actionAPI = cmp.find("quickActionAPI");
+            var fields = {Id: {value: '0061n00000V0PGxAAN'}, Name: {value: "Test Updt"}};
+//            var args = {actionName: "Case.UpdateCase", entityName: "Case", targetFields: fields};
+//            actionAPI.setActionFieldValues(args).then(function(){
+//                actionAPI.invokeAction(args);
+//            }).catch(function(e){
+//                console.error(e.errors);
+//            });
+
+
+            Sfdc.canvas.publisher.publish({
+                name:"publisher.setActionInputValues",
+                payload:{
+                    actionName:"Opportunity.UpdateOpp",
+                    targetFields: fields
+                }
+            });
+        }
+
+        doPublish();
+    </script>
+
+    <!--<script>-->
+        <!--$Lightning.use("c:QuickActionApiApp", function () {-->
+            <!--$Lightning.createComponent("c:QuickActionApiCmp",-->
+                    <!--{},-->
+                    <!--"lightning",-->
+                    <!--function (cmp) {-->
+                    <!--});-->
+        <!--});-->
+    <!--</script>-->
+</apex:page>
