@@ -4,7 +4,7 @@
     },
 
     onMouseUp: function (cmp, evt, helper) {
-     console.log('onMouseUp');
+        console.log('onMouseUp');
         cmp.set("v.isMouseDown", false);
         cmp.set("v.mouseDown", undefined);
         cmp.set("v.curColWidth", undefined);
@@ -12,27 +12,45 @@
     },
 
     onMouseMove: function (cmp, evt, helper) {
-        console.log('onMouseMove');
-                if(cmp.get("v.isMouseDown")) {
-                    var diffX = evt.pageX - cmp.get("v.mouseDown");
+        if (cmp.get("v.isMouseDown")) {
+            var currLastDifX = cmp.get("v.currLastDifX");
+            var nextLastDifX = cmp.get("v.nextLastDifX");
 
-                    var currCol = cmp.get("v.curCol");
-                    var nextCol = cmp.get("v.nxtCol");
+            var diffX = evt.pageX - cmp.get("v.mouseDown");
+            // console.log('diffX', diffX);
 
-                    nextCol.style.width = (cmp.get("v.nxtColWidth") - (diffX))+'px';
-                    currCol.style.width = (cmp.get("v.curColWidth") + diffX)+'px';
+            var currCol = cmp.get("v.curCol");
+            var nextCol = cmp.get("v.nxtCol");
+
+            var diffNextCol = (cmp.get("v.nxtColWidth") - diffX);
+            var diffCurrCol = (cmp.get("v.curColWidth") + diffX);
+
+            if (nextCol) {
+                if ((currCol.offsetWidth > 40 || currLastDifX < diffX) ) {
+                    if(currCol) {
+                        console.log('wchodze');
+                        currCol.style.width = diffCurrCol + 'px';
+                    }
+
+                    cmp.set("v.currLastDifX", undefined);
+                } else {
+                    cmp.set("v.currLastDifX", diffX);
                 }
+
+                if((nextCol.offsetWidth > 40 || nextLastDifX > diffX)) {
+                        nextCol.style.width = diffNextCol + 'px';
+                        cmp.set("v.nextLastDifX", undefined);
+                } else {
+                    cmp.set("v.nextLastDifX", diffX);
+                }
+            }
+        }
     },
 
     onMouseDown: function (cmp, evt, helper) {
-        console.log('onMouseDown');
-
         var curCol = evt.target.parentElement.parentElement;
         var nxtCol = curCol.nextElementSibling;
         var pageX = evt.pageX;
-
-        // console.log('Currcol', curCol);
-        // console.log('NXT COl', nxtCol);
 
         cmp.set("v.mouseDown", pageX);
         cmp.set("v.curColWidth", curCol.offsetWidth);
@@ -42,5 +60,9 @@
             cmp.set("v.nxtColWidth", nxtCol.offsetWidth);
             cmp.set("v.nxtCol", nxtCol);
         }
+    },
+
+    handleResetWidth: function (cmp, evt, helper) {
+        
     }
 })
