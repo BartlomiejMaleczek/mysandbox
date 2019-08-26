@@ -6,45 +6,50 @@
     onMouseUp: function (cmp, evt, helper) {
         console.log('onMouseUp');
         cmp.set("v.isMouseDown", false);
-        cmp.set("v.mouseDown", undefined);
+        cmp.set("v.mousePosition", undefined);
         cmp.set("v.curColWidth", undefined);
         cmp.set("v.nxtColWidth", undefined);
     },
 
     onMouseMove: function (cmp, evt, helper) {
-        if (cmp.get("v.isMouseDown")) {
-            var currLastDifX = cmp.get("v.currLastDifX");
-            var nextLastDifX = cmp.get("v.nextLastDifX");
+        // window.setTimeout(function() {
+                if (cmp.get("v.isMouseDown")) {
+                    var currCol = cmp.get("v.curCol");
+                    var nextCol = cmp.get("v.nxtCol");
 
-            var diffX = evt.pageX - cmp.get("v.mouseDown");
-            // console.log('diffX', diffX);
+                    var currLastDifX = cmp.get("v.currLastDifX");
+                    var nextLastDifX = cmp.get("v.nextLastDifX");
 
-            var currCol = cmp.get("v.curCol");
-            var nextCol = cmp.get("v.nxtCol");
+                    var diffX = evt.pageX - cmp.get("v.mousePosition");
 
-            var diffNextCol = (cmp.get("v.nxtColWidth") - diffX);
-            var diffCurrCol = (cmp.get("v.curColWidth") + diffX);
+                    var diffCurrCol = (cmp.get("v.curColWidth") + diffX);
+                    var diffNextCol = (cmp.get("v.nxtColWidth") - diffX);
 
-            if (nextCol) {
-                if ((currCol.offsetWidth > 40 || currLastDifX < diffX) ) {
-                    if(currCol) {
-                        console.log('wchodze');
-                        currCol.style.width = diffCurrCol + 'px';
+                    if (nextCol) {
+                        if ((currCol.offsetWidth > helper.CONSTANTS.MIN_COL_SIZE || currLastDifX < diffX)) {
+                            if (currCol && currCol.style) {
+                                currCol.style.width = diffCurrCol + 'px';
+                            }
+
+                            cmp.set("v.currLastDifX", undefined);
+                        } else {
+                            cmp.set("v.currLastDifX", diffX);
+                        }
+
+                        if ((nextCol.offsetWidth > helper.CONSTANTS.MIN_COL_SIZE || nextLastDifX > diffX)) {
+                            if (nextCol.style) {
+                                nextCol.style.width = diffNextCol + 'px';
+                            }
+
+                            cmp.set("v.nextLastDifX", undefined);
+                        } else {
+                            cmp.set("v.nextLastDifX", diffX);
+                        }
                     }
-
-                    cmp.set("v.currLastDifX", undefined);
-                } else {
-                    cmp.set("v.currLastDifX", diffX);
                 }
+        // }
+        //     ,0);
 
-                if((nextCol.offsetWidth > 40 || nextLastDifX > diffX)) {
-                        nextCol.style.width = diffNextCol + 'px';
-                        cmp.set("v.nextLastDifX", undefined);
-                } else {
-                    cmp.set("v.nextLastDifX", diffX);
-                }
-            }
-        }
     },
 
     onMouseDown: function (cmp, evt, helper) {
@@ -52,7 +57,13 @@
         var nxtCol = curCol.nextElementSibling;
         var pageX = evt.pageX;
 
-        cmp.set("v.mouseDown", pageX);
+        console.log(curCol);
+
+        if(!cmp.get("v.defaultColWidth")) {
+            cmp.set("v.defaultColWidth", curCol.offsetWidth);
+        }
+
+        cmp.set("v.mousePosition", pageX);
         cmp.set("v.curColWidth", curCol.offsetWidth);
         cmp.set("v.isMouseDown", true);
         cmp.set("v.curCol", curCol);
@@ -60,9 +71,17 @@
             cmp.set("v.nxtColWidth", nxtCol.offsetWidth);
             cmp.set("v.nxtCol", nxtCol);
         }
+
+        if(evt.stopPropagation) evt.stopPropagation();
+        if(evt.preventDefault) evt.preventDefault();
     },
 
     handleResetWidth: function (cmp, evt, helper) {
-        
+        var defaultColWidth = cmp.get("v.defaultColWidth");
+        if(defaultColWidth) {
+            document.querySelectorAll(".reset-width").forEach(function (trElem) {
+                trElem.style.width = defaultColWidth + 'px';
+            });
+        }
     }
 })
