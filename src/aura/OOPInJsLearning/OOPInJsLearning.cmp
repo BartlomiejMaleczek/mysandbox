@@ -1,0 +1,12 @@
+<aura:component description="OOPInJsLearning" implements="flexipage:availableForRecordHome,flexipage:availableForAllPageTypes">
+    <aura:attribute name="Graph" type="Object"/>
+
+    <lightning:card >
+        <lightning:button label="Test OOP" onclick="{!c.handleOOP}"/>
+
+        <aura:iteration var="vertice" items="{!v.Graph.vertices}">
+            <p>{!vertice}</p>
+        </aura:iteration>
+    </lightning:card>
+
+</aura:component>
