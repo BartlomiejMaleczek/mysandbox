@@ -5,18 +5,24 @@
     },
 
     CurrentResizableCol: function (evt) {
-        this.currElem = evt.target.parentElement.parentElement;
-        this.nextElem = this.currElem.nextElementSibling;
+        this.resizeableDivider = evt.target.parentElement.parentElement;
+        this.resizableCol = this.resizeableDivider.parentElement;
+
         this.mousePosition = evt.pageX;
-        this.currElemWidthBeforeResize = this.currElem.offsetWidth;
+        this.resizeableDividerWidthBeforeResize = this.resizeableDivider.offsetWidth;
 
-        this.calculateDiffWithMousePos = function (pageX) {
-            return pageX - this.mousePosition;
+        this.calculateNewWidth = function (pageX) {
+            return this.resizeableDividerWidthBeforeResize + (pageX - this.mousePosition);
         };
 
-        this.calculateDiffCurrCol = function (diffWithMousePos) {
-            return this.currElemWidthBeforeResize + diffWithMousePos;
-        };
+        // Object.defineProperty(this, 'newWidth', {
+        //    get: function () {
+        //        return newWidth;
+        //    },
+        //    set: function (value) {
+        //        newWidth = value
+        //    }
+        // });
 
     }
 

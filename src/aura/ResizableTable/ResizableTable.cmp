@@ -1,4 +1,5 @@
-<aura:component description="ResizableTable" implements="flexipage:availableForRecordHome,flexipage:availableForAllPageTypes">
+<aura:component description="ResizableTable"
+                implements="flexipage:availableForRecordHome,flexipage:availableForAllPageTypes">
     <aura:attribute name="value" type="Decimal" default="20"/>
     <aura:attribute name="currentResizableCol" type="Object"/>
 
@@ -12,14 +13,17 @@
             <lightning:button label="Reset Width" onclick="{!c.handleResetWidth}"/>
         </aura:set>
         <div class="slds-scrollable--x slds-size--12-of-12">
-            <table id="table-id" aria-multiselectable="true" class="slds-table slds-table_bordered slds-table_fixed-layout slds-table_resizable-cols" role="grid" onmousemove="{!c.onMouseMove}" onmouseup="{!c.onMouseUp}">
+            <table id="table-id" aria-multiselectable="true"
+                   class="slds-table slds-table_bordered  slds-table_resizable-cols" role="grid" style="table-layout: fixed"
+                    onmouseup="{!c.onMouseUp}" onmousemove="{!c.onMouseMove}">
                 <thead id="table-thead">
                 <tr class="slds-line-height_reset">
                     <th class="slds-text-align_right slds-cell-fixed" scope="col" style="width:3.25rem">
                         <span id="column-group-header" class="slds-assistive-text">Choose a row</span>
                         <div class="slds-th__action slds-th__action_form">
                             <div class="slds-checkbox">
-                                <input type="checkbox" name="options" id="checkbox-289" value="checkbox-289" tabindex="0" aria-labelledby="check-select-all-label column-group-header" />
+                                <input type="checkbox" name="options" id="checkbox-289" value="checkbox-289"
+                                       tabindex="0" aria-labelledby="check-select-all-label column-group-header"/>
                                 <label class="slds-checkbox__label" for="checkbox-289" id="check-select-all-label">
                                     <span class="slds-checkbox_faux"></span>
                                     <span class="slds-form-element__label slds-assistive-text">Select All</span>
@@ -27,25 +31,30 @@
                             </div>
                         </div>
                     </th>
-
-                    <!--style="width:300px"-->
                     <aura:iteration items="{!v.columns}" var="column">
-                        <th id="col-1" aria-label="Name" aria-sort="none" class="slds-is-resizable slds-is-sortable reset-width slds-cell-fixed fixed-col-size" scope="col">
-                            <a class="slds-th__action slds-text-link_reset" href="javascript:void(0);" role="button" tabindex="0" >
-                                <span class="slds-assistive-text">Sort by: </span>
-                                <!--slds-grid_vertical-align-center-->
-                                <div class="slds-grid  slds-has-flexi-truncate">
-                                    <span class="slds-truncate" title="Name">{!column}</span>
-                                    <span class="slds-icon_container slds-icon-utility-arrowdown">
+                        <th id="col-1" aria-label="Name" aria-sort="none"
+                            class="slds-is-resizable slds-is-sortable reset-width fixed-col-size"
+                            scope="col">
+                            <div id="newDiv" class="slds-cell-fixed slds-size--12-of-12" >
+                                <a class="slds-th__action slds-text-link_reset" href="javascript:void(0);" role="button"
+                                   tabindex="0">
+                                    <span class="slds-assistive-text">Sort by: </span>
+                                    <!--slds-grid_vertical-align-center-->
+                                    <div class="slds-grid  slds-has-flexi-truncate">
+                                        <span class="slds-truncate" title="Name">{!column}</span>
+                                        <span class="slds-icon_container slds-icon-utility-arrowdown">
 
-                        </span>
+                                    </span>
+                                    </div>
+                                </a>
+                                <div id="resizableId" class="slds-resizable">
+                                    <input type="range" aria-label="Name column width"
+                                           class="slds-resizable__input slds-assistive-text" id="cell-resize-handle-526"
+                                           max="1000" min="20" tabindex="0"/>
+                                    <span id="span1" class="slds-resizable__handle" onmousedown="{!c.onMouseDown}">
+                                    <span id="span2" class="slds-resizable__divider"></span>
+                                    </span>
                                 </div>
-                            </a>
-                            <div class="slds-resizable" style="width: 7px;"  >
-                                <input type="range" aria-label="Name column width" class="slds-resizable__input slds-assistive-text" id="cell-resize-handle-526" max="1000" min="20" tabindex="0" />
-                                <span class="slds-resizable__handle"  onmousedown="{!c.onMouseDown}">
-                    <span class="slds-resizable__divider"  ></span>
-                    </span>
                             </div>
                         </th>
 
@@ -56,7 +65,8 @@
                 <tr aria-selected="false" class="slds-hint-parent">
                     <td class="slds-text-align_right" role="gridcell">
                         <div class="slds-checkbox">
-                            <input type="checkbox" name="options" id="checkbox-01" value="checkbox-01" tabindex="0" aria-labelledby="check-button-label-01 column-group-header" />
+                            <input type="checkbox" name="options" id="checkbox-01" value="checkbox-01" tabindex="0"
+                                   aria-labelledby="check-button-label-01 column-group-header"/>
                             <label class="slds-checkbox__label" for="checkbox-01" id="check-button-label-01">
                                 <span class="slds-checkbox_faux"></span>
                                 <span class="slds-form-element__label slds-assistive-text">Select item 1</span>
@@ -100,7 +110,8 @@
                 <tr aria-selected="false" class="slds-hint-parent">
                     <td class="slds-text-align_right" role="gridcell">
                         <div class="slds-checkbox">
-                            <input type="checkbox" name="options" id="checkbox-02" value="checkbox-02" tabindex="0" aria-labelledby="check-button-label-02 column-group-header" />
+                            <input type="checkbox" name="options" id="checkbox-02" value="checkbox-02" tabindex="0"
+                                   aria-labelledby="check-button-label-02 column-group-header"/>
                             <label class="slds-checkbox__label" for="checkbox-02" id="check-button-label-02">
                                 <span class="slds-checkbox_faux"></span>
                                 <span class="slds-form-element__label slds-assistive-text">Select item 2</span>
@@ -144,7 +155,8 @@
                 <tr aria-selected="false" class="slds-hint-parent">
                     <td class="slds-text-align_right" role="gridcell">
                         <div class="slds-checkbox">
-                            <input type="checkbox" name="options" id="checkbox-03" value="checkbox-03" tabindex="0" aria-labelledby="check-button-label-03 column-group-header" />
+                            <input type="checkbox" name="options" id="checkbox-03" value="checkbox-03" tabindex="0"
+                                   aria-labelledby="check-button-label-03 column-group-header"/>
                             <label class="slds-checkbox__label" for="checkbox-03" id="check-button-label-03">
                                 <span class="slds-checkbox_faux"></span>
                                 <span class="slds-form-element__label slds-assistive-text">Select item 3</span>
