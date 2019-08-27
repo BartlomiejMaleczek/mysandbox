@@ -1,11 +1,11 @@
 ({
-    onResize: function (cmp, evt, helper) {
+    handleInit: function (cmp, evt, helper) {
         console.log('on rezise');
+        var columns = ['Name', 'Account Name', 'Close Date', 'Stage', 'Confidence', 'Amount', 'Contact'];
+        cmp.set("v.columns", columns);
     },
 
     onMouseUp: function (cmp, evt, helper) {
-        console.log('onMouseUp');
-        ;
         cmp.set("v.currentResizableCol", undefined);
     },
 
@@ -16,14 +16,16 @@
             var currLastDifX = cmp.get("v.currLastDifX");
             var diffX = currCol.calculateDiffWithMousePos(evt.pageX);
             var diffCurrCol = currCol.calculateDiffCurrCol(diffX);
-            if ((currCol.currElem.offsetWidth > helper.CONSTANTS.MIN_COL_SIZE || currLastDifX < diffX)) {
-                if (currCol.currElem && currCol.currElem.style) {
-                    currCol.currElem.style.width = diffCurrCol + 'px';
-                }
-                cmp.set("v.currLastDifX", undefined);
-            } else {
-                cmp.set("v.currLastDifX", diffX);
-            }
+
+            currCol.currElem.style.width = diffCurrCol + 'px';
+            // if ((currCol.currElem.offsetWidth > helper.CONSTANTS.MIN_COL_SIZE || currLastDifX < diffX)) {
+            //     if (currCol.currElem && currCol.currElem.style) {
+            //         currCol.currElem.style.width = diffCurrCol + 'px';
+            //     }
+            //     cmp.set("v.currLastDifX", undefined);
+            // } else {
+            //     cmp.set("v.currLastDifX", diffX);
+            // }
 
         }
 
