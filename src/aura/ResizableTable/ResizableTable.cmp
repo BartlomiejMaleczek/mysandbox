@@ -12,10 +12,9 @@
         <aura:set attribute="actions">
             <lightning:button label="Reset Width" onclick="{!c.handleResetWidth}"/>
         </aura:set>
-        <div class="slds-scrollable--x slds-size--12-of-12">
+        <div class="slds-scrollable--x slds-size--12-of-12" onmouseup="{!c.onMouseUp}">
             <table id="table-id" aria-multiselectable="true"
-                   class="slds-table slds-table_bordered  slds-table_resizable-cols" role="grid" style="table-layout: fixed"
-                    onmouseup="{!c.onMouseUp}" onmousemove="{!c.onMouseMove}">
+                   class="slds-table slds-table_bordered  slds-table_resizable-cols" role="grid" style="table-layout: fixed">
                 <thead id="table-thead">
                 <tr class="slds-line-height_reset">
                     <th class="slds-text-align_right slds-cell-fixed" scope="col" style="width:3.25rem">
@@ -35,7 +34,7 @@
                         <th id="col-1" aria-label="Name" aria-sort="none"
                             class="slds-is-resizable slds-is-sortable reset-width fixed-col-size"
                             scope="col">
-                            <div id="newDiv" class="slds-cell-fixed slds-size--12-of-12" >
+                            <div id="newDiv" class="slds-cell-fixed slds-size--12-of-12" onmousemove="{!c.onMouseMove}">
                                 <a class="slds-th__action slds-text-link_reset" href="javascript:void(0);" role="button"
                                    tabindex="0">
                                     <span class="slds-assistive-text">Sort by: </span>
