@@ -18,6 +18,24 @@
         this.newWidth;
 
 
+        this.getParentElem = function (currentElement) {
+            if( currentElement != null && currentElement.tagName ) {
+                var parObj = currentElement;
+
+                while(parObj.parentNode.tagName != 'TH') {
+                    if( parObj.className == 'slds-resizable__handle')
+                        currentElement = parObj;
+                    parObj = parObj.parentNode;
+                }
+
+                return parObj;
+            }
+
+
+
+        };
+
+
         // this.calculateNewWidth = function (pageX) {
         //     return this.resizeableDividerWidthBeforeResize + (pageX - this.mousePosition);
         // };
