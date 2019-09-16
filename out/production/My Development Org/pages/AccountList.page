@@ -1,0 +1,9 @@
+<!--
+ - Created by Lenovo on 18.04.2017.
+ -->
+
+<apex:page standardController="Account" recordSetVar="accounts">
+    <apex:repeat value="{!accounts}" var="a" id="theRepeat">
+        <li><apex:outputLink value="/{!a.Id}">Link to the {!a.Name}</apex:outputLink></li>
+    </apex:repeat>
+</apex:page>

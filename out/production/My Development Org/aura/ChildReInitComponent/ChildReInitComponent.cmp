@@ -1,0 +1,13 @@
+<!--
+ - Created by BMaleczek on 13.02.2018.
+ -->
+
+<aura:component description="ChildReInitComponent">
+    <aura:attribute name="contactLookup" type="Contact" default="{'sobjectType': 'Contact'}"/>,
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+
+    <aura:method name="reinit" action="{!c.onReinit}"/>
+    <p>HEEEj</p>
+    <force:inputField class="slds-input" aura:id="inputField" value="{!v.contactLookup.AccountId}"/>
+</aura:component>

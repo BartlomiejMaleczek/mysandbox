@@ -1,0 +1,55 @@
+<aura:component description="BoatReviews" controller="BoatReviews">
+    <aura:attribute name="boat" type="Boat__c" access="public"/>
+    <aura:attribute name="boatReviews" type="BoatReview__c[]" access="private"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:handler name="change" value="{!v.boat}" action="{!c.refresh}"/>
+
+    <c:ServiceComponentApexCall aura:id="ApexService"/>
+    <c:UtilsComponent aura:id="UtilsService"/>
+
+    <aura:method name="refresh" action="{!c.refresh}">
+    </aura:method>
+
+    <ui:scrollerWrapper class="scroller">
+        <aura:if isTrue="{!empty(v.boatReviews)}">
+            <div class="slds-align_absolute-center">No reviews available</div>
+            <aura:set attribute="else">
+                <aura:iteration var="boatReview" items="{!v.boatReviews}">
+                    <div class="slds-feed" >
+                        <ul class="slds-feed__list">
+                            <li class="slds-feed__item">
+                                <article class="slds-post">
+                                    <header class="slds-post__header slds-media">
+                                        <div class="slds-media__figure">
+                                            <a href="javascript:void(0);" class="slds-avatar slds-avatar_circle slds-avatar_large">
+                                                <img alt="{!boatReview.CreatedBy.Name}" src="{!boatReview.CreatedBy.SmallPhotoUrl}" title="{!boatReview.CreatedBy.Name + 'avatar'}" />
+                                            </a>
+                                        </div>
+                                        <div class="slds-media__body">
+                                            <div class="slds-grid slds-grid_align-spread slds-has-flexi-truncate">
+                                                <p><a data-userid="{!boatReview.CreatedById}" href="javascript:void(0);" title="{!boatReview.CreatedBy.Name}" onclick="{!c.onUserInfoClick}" >{!boatReview.CreatedBy.Name}</a> — {!boatReview.CreatedBy.CompanyName}</p>
+                                            </div>
+                                            <p class="slds-text-body_small"><a href="javascript:void(0);" title="Click for single-item view of this post" class="slds-text-link_reset">{!boatReview.LastModifiedDate}</a></p>
+                                        </div>
+                                    </header>
+                                    <div class="slds-post__content slds-text-longform">
+                                        {!boatReview.Comment__c}
+                                    </div>
+                                    <footer class="slds-post__footer">
+                                        <ul class="slds-post__footer-actions-list slds-list_horizontal">
+                                            <li class="slds-col slds-item slds-m-right_medium">
+                                                <c:FiveStarRating value="{!boatReview.Rating__c}" readonly="true" />
+                                            </li>
+                                        </ul>
+                                    </footer>
+                                </article>
+                            </li>
+                        </ul>
+                    </div>
+                </aura:iteration>
+            </aura:set>
+        </aura:if>
+    </ui:scrollerWrapper>
+
+</aura:component>

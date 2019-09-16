@@ -1,0 +1,4 @@
+<aura:event type="APPLICATION" description="ForceInputFieldEvt">
+    <aura:attribute name="payload" type="Object"/>
+    <aura:attribute name="action" type="Name"/>
+</aura:event>

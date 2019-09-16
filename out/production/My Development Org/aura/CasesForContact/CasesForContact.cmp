@@ -1,0 +1,34 @@
+<aura:component description="CasesForContact" controller="CasesForContactController" implements="flexipage:availableForRecordHome,flexipage:availableForAllPageTypes,force:hasRecordId" >
+    <aura:attribute name="recordId" type="String" />
+    <aura:attribute name="cases" type="List" />
+
+    <aura:handler name="init" value="{!this}" action="{!c.handleInit}"/>
+
+    <lightning:card >
+        <!--<aura:set attribute="title">-->
+            <!--<lightning:icon iconName="standard:case" size="small"/>-->
+               <!--Similar Cases related to Contact-->
+        <!--</aura:set>-->
+        <lightning:spinner aura:id="spinner"/>
+        <lightning:layout >
+            <lightning:layoutItem flexibility="auto" size="12" class="slds-p-left--medium">
+                <div class="slds-media slds-tile">
+                    <div class="slds-media__figure">
+                        <aura:if isTrue="{!lessthan(v.cases.length, 1)}">
+                                <lightning:icon iconName="action:approval" size="large"/>
+                            <aura:set attribute="else">
+                                <lightning:icon iconName="action:close" size="large"/>
+                            </aura:set>
+                        </aura:if>
+                    </div>
+                    <div class="slds-media__body">
+                        <p class="slds-tile__title slds-truncate slds-text-heading_medium">Achtung!!!!</p>
+                        <div class="slds-tile__detail slds-text-body--small">
+                            <p class="slds-truncate slds-text-heading_medium">{!v.cases.length}</p>
+                        </div>
+                    </div>
+                </div>
+            </lightning:layoutItem>
+        </lightning:layout>
+    </lightning:card>
+</aura:component>

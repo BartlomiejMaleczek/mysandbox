@@ -1,0 +1,11 @@
+<!--
+ - Created by Lenovo on 18.04.2017.
+ -->
+
+<apex:page controller="NewCaseListController" id="NewCaseList">
+    <apex:repeat value="{!newCases}" var="case">
+        <li>
+            <apex:outputLink value="/{!case.Id}">Link to {!case.CaseNumber}</apex:outputLink>
+        </li>
+    </apex:repeat>
+</apex:page>

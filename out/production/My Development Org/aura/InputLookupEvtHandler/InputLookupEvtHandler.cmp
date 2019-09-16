@@ -1,0 +1,31 @@
+<aura:component description="InputLookupEvtHandler">
+    <aura:registerEvent name="InputLookupEvt" type="c:InputLookupEvt"/>
+
+    <aura:method name="fireAddErrorMsgLookupEvt" action="{!c.onFireAddErrorMsgLookupEvt}">
+        <aura:attribute name="errorMsg" type="String"/>
+    </aura:method>
+
+    <aura:method name="isAddErrorMsgLookupEvtActionType" action="{!c.onIsAddErrorMsgLookupEvtActionType}">
+        <aura:attribute name="inputLookupEvtObj" type="Object"/>
+    </aura:method>
+
+    <aura:method name="fireSelectRecordLookupEvt" action="{!c.onFireSelectRecordLookupEvt}">
+        <aura:attribute name="selectedRecord" type="Object"/>
+    </aura:method>
+    <aura:method name="isSelectRecordLookupEvtActionType" action="{!c.onIsSelectRecordLookupEvtActionType}">
+        <aura:attribute name="inputLookupEvtObj" type="Object"/>
+    </aura:method>
+
+    <aura:method name="fireRemoveSelectedRecordLookupEvt" action="{!c.onFireRemoveSelectedRecordLookupEvt}"/>
+    <aura:method name="isRemoveSelectedRecordLookupEvtActionType" action="{!c.onIsRemoveSelectedRecordLookupEvtActionType}">
+        <aura:attribute name="inputLookupEvtObj" type="Object"/>
+    </aura:method>
+
+    <aura:method name="fireModifySearchParamsLookupEvt" action="{!c.onFireModifySearchParamsLookupEvt}">
+        <aura:attribute name="search" type="Object"/>
+    </aura:method>
+    <aura:method name="isFireModifySearchParamsLookupEvtActionType" action="{!c.onIsFireModifySearchParamsLookupEvtActionType}">
+        <aura:attribute name="inputLookupEvtObj" type="Object"/>
+    </aura:method>
+
+</aura:component>

@@ -1,0 +1,23 @@
+<aura:component implements="flexipage:availableForAllPageTypes" access="global">
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+
+    <aura:attribute name="sortedBy" type="String"  />
+    <aura:attribute name="sortedDirection" type="String" />
+    <aura:attribute type="Contact" name="testAcc" default="{'sobjectType': 'Contact'}"/>
+    <force:inputField value="{!v.testAcc.AccountId}"/>
+
+    <aura:attribute name="mydata" type="Object" default="[{}]"/>
+    <aura:attribute name="mycolumns" type="List" default="[]"/>
+
+
+
+    <!--<aura:handler name="init" value="{! this }" action="{! c.init }"/>-->
+    <lightning:datatable data="{! v.mydata }"
+                         columns="{! v.mycolumns }"
+                         keyField="id"
+                         onrowselection="{! c.getSelectedName }"
+                        onsort="{!c.updateColumnSorting}"
+                          sortedBy="{!v.sortedBy}"
+                          sortedDirection="{!v.sortedDirection}"
+                         />
+</aura:component>

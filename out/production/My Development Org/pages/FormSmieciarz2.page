@@ -1,0 +1,163 @@
+<apex:page docType="html-5.0" extensions="FormSmiciarzController" standardController="Contact">
+    <apex:form >
+        <apex:pageBlock title="Berekbaarheid {Category}">
+            <apex:pageBlockSection columns="1">
+                <apex:inputCheckbox >Reachable 24/7</apex:inputCheckbox>
+                <apex:pageBlockSectionItem >
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:panelGrid width="60%" columns="7">
+                        <apex:inputCheckbox >Reachable</apex:inputCheckbox>
+                        <apex:panelGrid columns="1">
+                        </apex:panelGrid>
+                        <apex:panelGrid cellPadding="3" columns="3" >
+                            <apex:outputLabel value="Mondag" for="first" />
+                            <apex:input type="time" value="{!typeString}"/>
+                            <apex:input type="time" value="{!typeString}"/>
+                        </apex:panelGrid>
+                        <apex:panelGrid columns="2" >
+                            <apex:input type="time" value="{!typeString}"/>
+                            <apex:input type="time" value="{!typeString}"/>
+                        </apex:panelGrid>
+                        <apex:panelGrid columns="2" >
+                            <apex:input type="time" value="{!typeString}"/>
+                            <apex:input type="time" value="{!typeString}"/>
+                        </apex:panelGrid>
+                    </apex:panelGrid>
+                </apex:pageBlockSectionItem>
+
+                <apex:pageBlockSectionItem >
+                    <apex:panelGrid width="60%" columns="7">
+                        <apex:inputCheckbox >Reachable</apex:inputCheckbox>
+                        <apex:panelGrid columns="1">
+
+                        </apex:panelGrid>
+                        <apex:panelGrid columns="3" >
+                            <apex:outputLabel value="Dinsdag" for="first" />
+                            <apex:input type="time" value="{!typeString}"/>
+                            <apex:input type="time" value="{!typeString}"/>
+                        </apex:panelGrid>
+                        <apex:panelGrid columns="2" >
+                            <apex:input type="time" value="{!typeString}"/>
+                            <apex:input type="time" value="{!typeString}"/>
+                        </apex:panelGrid>
+                        <apex:panelGrid columns="2" >
+                            <apex:input type="time" value="{!typeString}"/>
+                            <apex:input type="time" value="{!typeString}"/>
+                        </apex:panelGrid>
+                    </apex:panelGrid>
+                </apex:pageBlockSectionItem>
+
+                <apex:pageBlockSectionItem >
+                    <apex:panelGrid width="60%" columns="7">
+                        <apex:inputCheckbox >Reachable</apex:inputCheckbox>
+                        <apex:panelGrid columns="1">
+
+                        </apex:panelGrid>
+                        <apex:panelGrid columns="3" >
+                            <apex:outputLabel value="Woensdag" for="first" />
+                            <apex:input type="time" value="{!typeString}"/>
+                            <apex:input type="time" value="{!typeString}"/>
+                        </apex:panelGrid>
+                        <apex:panelGrid columns="2" >
+                            <apex:input type="time" value="{!typeString}"/>
+                            <apex:input type="time" value="{!typeString}"/>
+                        </apex:panelGrid>
+                        <apex:panelGrid columns="2" >
+                            <apex:input type="time" value="{!typeString}"/>
+                            <apex:input type="time" value="{!typeString}"/>
+                        </apex:panelGrid>
+                    </apex:panelGrid>
+                </apex:pageBlockSectionItem>
+
+                <apex:pageBlockSectionItem >
+                    <apex:panelGrid width="60%" columns="7">
+                        <apex:inputCheckbox >Reachable</apex:inputCheckbox>
+                        <apex:panelGrid columns="1">
+
+                        </apex:panelGrid>
+                        <apex:panelGrid columns="3" >
+                            <apex:outputLabel value="Donderdag" for="first" />
+                            <apex:input type="time" value="{!typeString}"/>
+                            <apex:input type="time" value="{!typeString}"/>
+                        </apex:panelGrid>
+                        <apex:panelGrid columns="2" >
+                            <apex:input type="time" value="{!typeString}"/>
+                            <apex:input type="time" value="{!typeString}"/>
+                        </apex:panelGrid>
+                        <apex:panelGrid columns="2" >
+                            <apex:input type="time" value="{!typeString}"/>
+                            <apex:input type="time" value="{!typeString}"/>
+                        </apex:panelGrid>
+                    </apex:panelGrid>
+                </apex:pageBlockSectionItem>
+
+                <apex:pageBlockSectionItem >
+                    <apex:panelGrid width="60%" columns="7">
+                        <apex:inputCheckbox >Reachable</apex:inputCheckbox>
+                        <apex:panelGrid columns="1">
+
+                        </apex:panelGrid>
+                        <apex:panelGrid columns="3" >
+                            <apex:outputLabel value="Vrijdag" for="first" />
+                            <apex:input type="time" value="{!typeString}"/>
+                            <apex:input type="time" value="{!typeString}"/>
+                        </apex:panelGrid>
+                        <apex:panelGrid columns="2" >
+                            <apex:input type="time" value="{!typeString}"/>
+                            <apex:input type="time" value="{!typeString}"/>
+                        </apex:panelGrid>
+                        <apex:panelGrid columns="2" >
+                            <apex:input type="time" value="{!typeString}"/>
+                            <apex:input type="time" value="{!typeString}"/>
+                        </apex:panelGrid>
+                    </apex:panelGrid>
+                </apex:pageBlockSectionItem>
+
+                <apex:pageBlockSectionItem >
+                    <apex:panelGrid width="60%" columns="7">
+                        <apex:inputCheckbox >Reachable</apex:inputCheckbox>
+                        <apex:panelGrid columns="1">
+
+                        </apex:panelGrid>
+                        <apex:panelGrid columns="3" >
+                            <apex:outputLabel value="Zaterdag" for="first" />
+                            <apex:input type="time" value="{!typeString}"/>
+                            <apex:input type="time" value="{!typeString}"/>
+                        </apex:panelGrid>
+                        <apex:panelGrid columns="2" >
+                            <apex:input type="time" value="{!typeString}"/>
+                            <apex:input type="time" value="{!typeString}"/>
+                        </apex:panelGrid>
+                        <apex:panelGrid columns="2" >
+                            <apex:input type="time" value="{!typeString}"/>
+                            <apex:input type="time" value="{!typeString}"/>
+                        </apex:panelGrid>
+                    </apex:panelGrid>
+                </apex:pageBlockSectionItem>
+
+                <apex:pageBlockSectionItem >
+                    <apex:panelGrid width="60%" columns="7">
+                        <apex:inputCheckbox >Reachable</apex:inputCheckbox>
+                        <apex:panelGrid columns="1">
+
+                        </apex:panelGrid>
+                        <apex:panelGrid columns="3" >
+                            <apex:outputLabel value="Zondag" for="first" />
+                            <apex:input type="time" value="{!typeString}"/>
+                            <apex:input type="time" value="{!typeString}"/>
+                        </apex:panelGrid>
+                        <apex:panelGrid columns="2" >
+                            <apex:input type="time" value="{!typeString}"/>
+                            <apex:input type="time" value="{!typeString}"/>
+                        </apex:panelGrid>
+                        <apex:panelGrid columns="2" >
+                            <apex:input type="time" value="{!typeString}"/>
+                            <apex:input type="time" value="{!typeString}"/>
+                        </apex:panelGrid>
+                    </apex:panelGrid>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

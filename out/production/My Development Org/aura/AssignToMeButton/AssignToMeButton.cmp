@@ -1,0 +1,14 @@
+<!--
+ - Created by BMaleczek on 16.03.2019.
+ -->
+
+<aura:component description="AssignToMeButton" implements="force:hasRecordId,force:lightningQuickActionWithoutHeader">
+        <aura:attribute name="record" type="Case" default="{ 'sobjectType': 'Case' }" />
+        <aura:attribute name="complete" type="Boolean" default="false" />
+        <force:recordData recordId="{!v.recordId}"
+                          fields="['CaseNumber','OwnerId','OwnerFullName']"
+                          targetFields="{!v.record}"
+                          aura:id="recordData"
+                          recordUpdated="{!c.recordLoaded}" />
+
+</aura:component>

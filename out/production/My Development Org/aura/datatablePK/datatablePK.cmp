@@ -1,0 +1,53 @@
+<aura:component description="datatablePK">
+    <aura:attribute name="items" type="List" default="[]"/>
+    <aura:attribute name="selected" type="Map" default="{}"/>
+
+    <!--<aura:attribute name="currentPageItems" type="Object[]" access="public"/>-->
+    <aura:attribute name="currentPageItems" type="Object[]"/>
+    <aura:attribute name="columns" type="Aura.Component[]" access="public"/>
+    <!--<aura:attribute name="columnDefs" type="Object[]" access="private"/>-->
+    <aura:attribute name="columnDefs" type="Object[]"/>
+    <aura:handler name="init" action="{!c.doInit}" value="{!this}"/>
+
+    <aura:handler name="change" value="{!v.items}" action="{!c.handleItemsChange}"/>
+    <!--<aura:handler name="paginationChange" event="c:paginationEvent" action="{!c.handlePaginationChange}"></aura:handler>-->
+
+    <aura:attribute name="page" type="Integer" default="0"/>
+    <aura:attribute name="pageSize" type="Integer" default="20"/>
+
+    <div>
+        <table class="slds-table slds-table--bordered slds-table--fixed-layout" role="grid">
+            <thead>
+            <tr class="slds-text-title--caps">
+                <th>
+                    <lightning:input type="checkbox" label=" " name="checked" checked="true"/>
+                </th>
+                <aura:iteration items="{!v.columnDefs}" var="header">
+                    <th>
+                        <span class="slds-truncate" title="{!header.label}">{!header.label}</span>
+                    </th>
+                </aura:iteration>
+            </tr>
+            </thead>
+            <tbody>
+            <!--<aura:iteration items="{!v.items}" var="row">-->
+            <aura:iteration items="{!v.currentPageItems}" var="row">
+                <tr>
+                    <td>
+                        <lightning:input type="checkbox" label=" " name="checked" checked="{!row._selected}"/>
+                    </td>
+                    <!--<p>{!row.Name}</p>-->
+                    <aura:iteration items="{!v.columnDefs}" var="col">
+                        <c:datatableCellPK row="{!row}" field="{!col.field}"/>
+                     <!--<c:datatableCellPK row="{!row}" field="{!col.field}"/>-->
+                    <!--<p>{!row.Name}</p>-->
+                    </aura:iteration>
+                </tr>
+            </aura:iteration>
+            </tbody>
+        </table>
+        <c:paginationPK columnDefs="{!v.columnDefs}" items="{!v.items}" currentPageItems="{!v.currentPageItems}"  itemsLength="{!v.items.length}" page="{!v.page}" pageSize="{!v.pageSize}" />
+    </div>
+</aura:component>
+<!--items="{!v.items}"-->
+<!--currentPageItems="{!v.currentPageItems}"-->

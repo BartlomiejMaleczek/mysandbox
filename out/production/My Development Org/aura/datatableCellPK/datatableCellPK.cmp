@@ -1,0 +1,27 @@
+<!--
+ - Created by BMaleczek on 16.08.2017.
+ -->
+
+<aura:component description="datatableCellPK">
+    <aura:attribute name="row" type="Object"/>
+        <!--<aura:attribute name="row" type="Object" default="{}"/>-->
+        <aura:attribute name="field" type="String"/>
+        <aura:attribute name="targetID" type="String"/>
+
+        <!--<aura:attribute name="value" type="String"/>-->
+        <aura:attribute name="value" type="String"/>
+        <aura:attribute name="target" type="String"/>
+        <aura:handler name="init" action="{!c.handleInit}" value="{!this}"/>
+        <aura:handler name="change" value="{!v.row}" action="{!c.handleInit}"/>
+        <aura:handler name="change" value="{!v.field}" action="{!c.handleInit}"/>
+        <aura:handler name="change" value="{!v.targetID}" action="{!c.handleInit}"/>
+
+    <div class="slds-truncate" title="{!v.value}">{!v.value}</div>
+
+        <!--<td>-->
+            <!--&lt;!&ndash;<p>{!v.row.Name}</p>&ndash;&gt;-->
+            <!--&lt;!&ndash;<p>{!v.value}</p>&ndash;&gt;-->
+            <!--<a href="{!v.target}">{!v.value}</a>-->
+        <!--</td>-->
+
+</aura:component>

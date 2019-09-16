@@ -1,0 +1,68 @@
+<aura:component description="InputLookup" controller="InputLookupController">
+    <aura:attribute name="isFirstRecordDefault" type="Boolean" required="true" access="public"/>
+    <aura:attribute name="recordLineIconName" type="String" access="public"/>
+    <aura:attribute name="filterThroughQueriedRecords" type="Boolean" access="public" default="true"/>
+    <aura:attribute name="mainFieldToDisplay" type="Map" default="{'label': 'Name', 'apiName': 'Name'}" access="public"/>
+    <aura:attribute name="additionalFieldsToDisplay" type="Object[]" required="true" access="public"/>
+    <aura:attribute name="searchParams" type="Map" required="false" access="public"/>
+    <!--<aura:attribute name="noDynamicParams" type="Boolean" required="false" default="false"/>-->
+    <aura:attribute name="minCharsToStartSearching" type="Integer" required="false" default="3" access="public"/>
+    <aura:attribute name="numberOfElementsToDisplay" type="Integer" access="public" default="5"/>
+    <aura:attribute name="title" type="String" access="public"/>
+    <aura:attribute name="hasError" type="Boolean" default="false"/>
+    <aura:attribute name="isRequired" type="Boolean" default="false"/>
+    <aura:attribute name="isResultListVisible" type="Boolean" default="false" access="private"/>
+    <aura:attribute name="isResultListScrollable" type="Boolean" default="true" access="public"/>
+    <aura:attribute name="classType" type="String" access="public" required="true"/>
+
+    <aura:attribute name="records" type="List" access="public"/>
+    <aura:attribute name="currentRecords" type="List" access="public"/>
+    <aura:attribute name="selectedRecord" type="Object" access="public"/>
+    <aura:attribute name="isLoading" type="Boolean" default="false" access="private"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.handleInit}"/>
+    <aura:handler name="change" value="{!v.searchParams}" action="{!c.handleChangeSearchParams}"/>
+    <aura:handler name="InputLookupEvt" event="c:InputLookupEvt" action="{!c.handleInputLookupEvt}"/>
+
+    <c:ServiceComponentApexCall aura:id="ApexService"/>
+    <c:UtilsComponent aura:id="UtilsService"/>
+    <c:PromisesFramework aura:id="PromisesService"/>
+    <c:InputLookupEvtHandler aura:id="InputLookupEvtHandler"/>
+
+    <div class="{!if(v.hasError, 'slds-form-element slds-has-error')}">
+        <label class="{!if(v.isRequired, 'slds-form-element__label input-required-label', 'slds-form-element__label')}"
+               for="text-input-id-1">{!v.title}</label>
+        <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon_group-right">
+            <!--put slds-has-selection class to get PILE as input-->
+            <div class="slds-combobox_container">
+                <div class="{!if(empty(v.selectedRecord), 'slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click slds-is-open', 'slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click')}"
+                     aria-expanded="false"
+                     aria-haspopup="listbox" role="combobox">
+                    <aura:if isTrue="{!empty(v.selectedRecord)}">
+                        <c:InputLookupNotSelectedRecordPill aura:id="InputLookupNotSelectedRecordPill"
+                                                            records="{!v.records}"
+                                                            currentRecords="{!v.currentRecords}"
+                                                            recordLineIconName="{!v.recordLineIconName}"
+                                                            numberOfElementsToDisplay="{!v.numberOfElementsToDisplay}"
+                                                            mainFieldToDisplay="{!v.mainFieldToDisplay}"
+                                                            additionalFieldsToDisplay="{!v.additionalFieldsToDisplay}"
+                                                            isLoading="{!v.isLoading}"
+                                                            isResultListVisible="{!v.isResultListVisible}"
+                                                            searchParams="{!v.searchParams}"
+                                                            filterThroughQueriedRecords="{!v.filterThroughQueriedRecords}"
+                                                            isResultListScrollable="{!v.isResultListScrollable}"
+                        />
+
+                        <aura:set attribute="else">
+                            <c:InputLookupSelectedRecordPill
+                                    mainFieldToDisplay="{!v.mainFieldToDisplay}"
+                                    recordLineIconName="{!v.recordLineIconName}"
+                                    selectedRecord="{!v.selectedRecord}"/>
+                        </aura:set>
+                    </aura:if>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</aura:component>

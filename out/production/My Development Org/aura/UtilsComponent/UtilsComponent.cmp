@@ -1,0 +1,73 @@
+<aura:component description="UtilsComponent">
+    <aura:method name="showToast" action="{!c.onShowToast}">
+        <aura:attribute name="title" type="String"/>
+        <aura:attribute name="msg" type="String"/>
+        <aura:attribute name="type" type="String"/>
+    </aura:method>
+    <aura:method name="showElement" action="{!c.onShowElement}">
+        <aura:attribute name="component" type="Object"/>
+        <aura:attribute name="auraId" type="String"/>
+    </aura:method>
+    <aura:method name="hideElement" action="{!c.onHideElement}">
+        <aura:attribute name="component" type="Object"/>
+        <aura:attribute name="auraId" type="String"/>
+    </aura:method>
+    <aura:method name="navigateToDetailPage" action="{!c.onNavigateToDetailPage}">
+        <aura:attribute name="Id" type="String"/>
+    </aura:method>
+    <aura:method name="navigateToURL" action="{!c.onNavigateToURL}">
+        <aura:attribute name="url" type="String"/>
+        <aura:attribute name="isRedirect" type="Boolean" default="true"/>
+    </aura:method>
+    <aura:method name="isInputDatesValid" action="{!c.onValidInputDates}">
+        <aura:attribute name="inputDates" type="Object[]"/>
+    </aura:method>
+    <aura:method name="isInputDateValid" action="{!c.onValidInputDate}">
+        <aura:attribute name="inputDate" type="Object"/>
+    </aura:method>
+    <aura:method name="isValidDateType" action="{!c.onValidDateType}">
+        <aura:attribute name="dateValue" type="Object"/>
+    </aura:method>
+    <aura:method name="fetchByString" action="{!c.onFetchByString}">
+        <aura:attribute name="record" type="Object"/>
+        <aura:attribute name="fieldName" type="String"/>
+    </aura:method>
+    <aura:method name="setTimeout" action="{!c.onSetTimeout}">
+        <aura:attribute name="component" type="Object"/>
+        <aura:attribute name="callback" type="Object"/>
+        <aura:attribute name="timeout" type="Integer"/>
+    </aura:method>
+    <aura:method name="convertFromTextBoolToBoolValue" action="{!c.onConvertFromTextBoolToBoolValue}">
+        <aura:attribute name="value" type="String"/>
+    </aura:method>
+    <aura:method name="isValueNotUndefinedOrNull" action="{!c.onIsValueNotUndefinedOrNull}">
+        <aura:attribute name="value" type="String"/>
+    </aura:method>
+    <aura:method name="isValueNotEmpty" action="{!c.onIsValueNotEmpty}">
+        <aura:attribute name="value" type="String"/>
+    </aura:method>
+    <aura:method name="refreshView" action="{!c.onRefreshView}">
+    </aura:method>
+    <aura:method name="format" action="{!c.onFormat}">
+        <aura:attribute name="value" type="String"/>
+        <aura:attribute name="paramValues" type="String[]"/>
+    </aura:method>
+    <aura:method name="getFormattedList" action="{!c.onGetFormattedList}">
+        <aura:attribute name="formatValue" type="String"/>
+        <aura:attribute name="strList" type="List"/>
+    </aura:method>
+    <aura:method name="addDays" action="{!c.onAddDays}">
+        <aura:attribute name="dateToAddDays" type="Date"/>
+        <aura:attribute name="days" type="Integer"/>
+    </aura:method>
+    <aura:method name="startOfWeek" action="{!c.onStartOfWeek}">
+        <aura:attribute name="date" type="Date"/>
+    </aura:method>
+    <aura:method name="formatDateYYYYMMDD" action="{!c.onFormatDateYYYYMMDD}">
+        <aura:attribute name="date" type="Date"/>
+    </aura:method>
+    <aura:method name="getWeekNumber" action="{!c.onGetWeekNumber}">
+        <aura:attribute name="date" type="Date"/>
+    </aura:method>
+
+</aura:component>

@@ -1,0 +1,6 @@
+<aura:component description="QuickActionApiCmp" implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,flexipage:availableForRecordHome,force:lightningQuickAction">
+    <lightning:quickActionAPI aura:id="quickActionAPI"/>
+
+    <!--<aura:handler name="init" value="{!this}" action="{!c.handleInit}"/>-->
+    <lightning:button label="Update Case Status Field" onclick="{!c.updateCaseStatusAction}"/>
+</aura:component>

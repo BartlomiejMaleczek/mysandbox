@@ -1,0 +1,167 @@
+<!--
+ - Created by BMaleczek on 16.08.2017.
+ -->
+
+<apex:page id="UploadImage" standardController="Account" extensions="UploadImageCtr" docType="html-5.0">
+    <html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" lang="en"/>
+
+    <head>
+        <meta charset="utf-8"/>
+
+        <apex:slds />
+        <apex:includeLightning />
+    </head>
+
+
+    <div class="slds-form-element">
+        <span class="slds-form-element__label" id="file-selector-id">
+            <apex:image id="imageOutput"
+                        height="150" width="200" url="/servlet/servlet.FileDownload?file={!testImg.Id}"/>
+        </span>
+        <div class="slds-form-element__control">
+            <div class="slds-file-selector slds-file-selector_files">
+                <div class="slds-file-selector__dropzone">
+                    <apex:inputFile value="{!testImg.Body}" onchange="getImage(this)" fileName="{!testImg.Name}" styleClass="slds-file-selector__input slds-assistive-text" accept="image/jpeg;image/png" id="fileUploadInput01"></apex:inputFile>
+                    <label class="slds-file-selector__body" for="{!$Component.fileUploadInput01}">
+          <span class="slds-file-selector__button slds-button slds-button_neutral">
+            <svg class="slds-button__icon slds-button__icon_left" aria-hidden="true">
+                 <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#upload')}"></use>
+              <!--<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#upload"></use>-->
+            </svg>Upload Files</span>
+                        <span id="fileName" class="slds-truncate slds-file-selector__text slds-medium-show">or Drop Files</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!--<apex:form >-->
+        <!--<apex:inputTextarea rows="20" richText="true" id="newDesc" value="{!accountObj.Account_Status__c}"/>-->
+        <div class="demo-only" style="min-height: 180px;">
+            <div class="slds-rich-text-editor slds-form-element slds-grid slds-grid_vertical slds-nowrap">
+                <div role="toolbar" class="slds-rich-text-editor__toolbar slds-shrink-none">
+                    <ul aria-label="Format text" class="slds-button-group-list">
+                        <li>
+                            <button class="slds-button slds-button_icon slds-button_icon-border-filled" tabindex="0" title="Provide description of action">
+                                <svg class="slds-button__icon" aria-hidden="true">
+                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#bold')}"></use>
+                                    <!--<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#bold"></use>-->
+                                </svg>
+                                <span class="slds-assistive-text">Bold</span>
+                            </button>
+                        </li>
+                        <li>
+                            <button class="slds-button slds-button_icon slds-button_icon-border-filled" tabindex="-1" title="Provide description of action">
+                                <svg class="slds-button__icon" aria-hidden="true">
+                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#italic')}"></use>
+                                </svg>
+                                <span class="slds-assistive-text">Italic</span>
+                            </button>
+                        </li>
+                        <li>
+                            <button class="slds-button slds-button_icon slds-button_icon-border-filled" tabindex="-1" title="Provide description of action">
+                                <svg class="slds-button__icon" aria-hidden="true">
+                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#underline')}"></use>
+                                </svg>
+                                <span class="slds-assistive-text">Underline</span>
+                            </button>
+                        </li>
+                        <li>
+                            <button class="slds-button slds-button_icon slds-button_icon-border-filled" tabindex="-1" title="Provide description of action">
+                                <svg class="slds-button__icon" aria-hidden="true">
+                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#strikethrough')}"></use>
+                                </svg>
+                                <span class="slds-assistive-text">Strike Through</span>
+                            </button>
+                        </li>
+                    </ul>
+                    <ul aria-label="Format body" class="slds-button-group-list">
+                        <li>
+                            <button class="slds-button slds-button_icon slds-button_icon-border-filled" tabindex="-1" title="Provide description of action">
+                                <svg class="slds-button__icon" aria-hidden="true">richtextbulletedlist
+                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#richtextbulletedlist')}"></use>
+                                </svg>
+                                <span class="slds-assistive-text">Bulleted List</span>
+                            </button>
+                        </li>
+                        <li>
+                            <button class="slds-button slds-button_icon slds-button_icon-border-filled" tabindex="-1" title="Provide description of action">
+                                <svg class="slds-button__icon" aria-hidden="true">
+                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#richtextnumberedlist')}"></use>
+                                </svg>
+                                <span class="slds-assistive-text">Numbered List</span>
+                            </button>
+                        </li>
+                        <li>
+                            <button class="slds-button slds-button_icon slds-button_icon-border-filled" tabindex="-1" title="Provide description of action">
+                                <svg class="slds-button__icon" aria-hidden="true">
+                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#richtextindent')}"></use>
+                                </svg>
+                                <span class="slds-assistive-text">Indent</span>
+                            </button>
+                        </li>
+                        <li>
+                            <button class="slds-button slds-button_icon slds-button_icon-border-filled" tabindex="-1" title="Provide description of action">
+                                <svg class="slds-button__icon" aria-hidden="true">richtextoutdent
+                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#richtextoutdent')}"></use>
+                                </svg>
+                                <span class="slds-assistive-text">Outdent</span>
+                            </button>
+                        </li>
+                    </ul>
+                    <ul aria-label="Remove Formatting" class="slds-button-group-list">
+                        <li>
+                            <button class="slds-button slds-button_icon slds-button_icon-border-filled" tabindex="-1" title="Provide description of action">
+                                <svg class="slds-button__icon" aria-hidden="true">setup_assistant_guide
+                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#setup_assistant_guide')}"></use>
+
+                                </svg>
+                                <span class="slds-assistive-text">Remove Formatting</span>
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+                <div class="slds-rich-text-editor__textarea slds-grid">
+                    <div aria-label="Compose text" contenteditable="true" class="slds-rich-text-area__content slds-text-color_weak slds-grow">Compose text</div>
+                </div>
+            </div>
+        </div>
+        <!--<apex:commandButton styleClass="slds-button slds-button_neutral" value="Save"-->
+                            <!--action="{!saveAccountStatus}"/>-->
+    <!--</apex:form>-->
+
+
+
+    <div class="slds-section slds-is-open slds-m-left--x-large slds-m-right--x-large ">
+        <h3 class="slds-section__title">
+            <button class="slds-button slds-section__title-action" onclick="toggle(chat)">
+                <svg class="slds-section__title-action-icon slds-button__icon slds-button__icon_left">
+                    <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                         xlink:href="/apexpages/slds/latest/assets/icons/utility-sprite/svg/symbols.svg#switch"></use>
+                </svg>
+                <span class="slds-truncate" title="Section Title">Chatter:</span>
+            </button>
+        </h3>
+        <div id="chat" class="slds-section__content slds-box ">
+            <div>
+                <chatter:feed entityId="0010Y00000MZ1iJ"/>
+            </div>
+        </div>
+    </div>
+
+<script>
+    function getImage(file) {
+         var reader = new FileReader();
+        if(file != null) {
+            document.getElementById("fileName").innerHTML = file.files[0].name;
+        }
+        reader.onload = function () {
+                var output = document.getElementById("{!$Component.imageOutput}");
+                output.src = reader.result;
+            };
+            reader.readAsDataURL(event.target.files[0]);
+    }
+
+</script>
+</apex:page>

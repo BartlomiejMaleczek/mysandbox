@@ -1,0 +1,20 @@
+<!--
+ - Created by BMaleczek on 18.08.2017.
+ -->
+
+<aura:component description="childExpr2">
+    <aura:handler name="init" action="{!c.doInit}" value="{!this}"/>
+    <aura:handler name="change" value="{!v.childItemInt}" action="{!c.onChange}"/>
+
+    <aura:attribute name="childAtr" type="Object"></aura:attribute>
+
+    <aura:attribute name="childItemInt" type="Object" />
+    <aura:attribute name="numerek" type="String"/>
+    <p>W childzie2</p>
+
+    <p>{!v.numerek}</p>
+
+    <!--<aura:iteration items="{!v.childItems}" var="item">-->
+        <!--<p>{!item}</p>-->
+    <!--</aura:iteration>-->
+</aura:component>

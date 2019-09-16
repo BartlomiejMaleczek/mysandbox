@@ -1,0 +1,169 @@
+<!--
+ - Created by BMaleczek on 26.08.2019.
+ -->
+
+<aura:component description="ResizableTab2" implements="force:appHostable,flexipage:availableForAllPageTypes" access="global">
+    <aura:attribute name="mouseStart" type="string" />
+    <aura:attribute name="newWidth" type="string" />
+    <aura:attribute name="currentEle" type="Object" />
+
+    <aura:attribute name="defaultColWidth" type="Integer"/>
+    <lightning:card>
+        <aura:set attribute="actions">
+            <lightning:button label="Reset Width" onclick="{!c.handleResetWidth}"/>
+        </aura:set>
+    <div class="container" onmouseup="{!c.resetColumn}">
+        <div class="slds-table--header-fixed_container slds-scrollable_x">
+            <div class="">
+                <table id="table-id2" class="slds-table slds-table--header-fixed slds-table_bordered slds-table_edit slds-table_resizable-cols" style="table-layout:fixed">
+                    <thead >
+                    <tr class="slds-text-title_caps">
+                        <th scope="col" class="slds-is-resizable" style="width:300px;">
+                            <div class="slds-cell-fixed" style="width:300px;" onmousemove="{!c.setNewWidth}">
+                                <a href="javascript:void(0);" role="button" class="slds-th__action slds-text-link_reset">
+                                    <span class="slds-truncate" title="Opportunity Name">Opportunity Name</span>
+                                </a>
+                                <div class="slds-resizable">
+                                    <input type="range" min="20" max="1000" class="slds-resizable__input slds-assistive-text" id="cell-resize-handle-assignment" tabindex="-1" />
+                                    <span class="slds-resizable__handle" onmousedown="{!c.calculateWidth}">
+                                            <span class="slds-resizable__divider"></span>
+                                        </span>
+                                </div>
+                            </div>
+                        </th>
+
+                        <th scope="col" class="slds-is-resizable" style="width: 200px;">
+                            <div class="slds-cell-fixed" style="width: 200px;" onmousemove="{!c.setNewWidth}">
+                                <a href="javascript:void(0);" role="button" class="slds-th__action slds-text-link_reset">
+                                    <span class="slds-truncate" title="Account Name">Account Name</span>
+                                </a>
+                                <div class="slds-resizable">
+                                    <input type="range" min="20" max="1000" class="slds-resizable__input slds-assistive-text" id="cell-resize-handle-assignment" tabindex="-1" />
+                                    <span class="slds-resizable__handle" onmousedown="{!c.calculateWidth}"  >
+                                            <span class="slds-resizable__divider"></span>
+                                        </span>
+                                </div>
+                            </div>
+                        </th>
+                        <th scope="col" class="slds-is-resizable" style="width: 120px;">
+                            <div class="slds-cell-fixed" style="width: 120px;" onmousemove="{!c.setNewWidth}">
+                                <a href="javascript:void(0);" role="button" class="slds-th__action slds-text-link_reset">
+                                    <span class="slds-truncate" title="Close Date">Close Date</span>
+                                </a>
+                                <div class="slds-resizable">
+                                    <input type="range" min="20" max="1000" class="slds-resizable__input slds-assistive-text" id="cell-resize-handle-assignment" tabindex="-1" />
+                                    <span class="slds-resizable__handle" onmousedown="{!c.calculateWidth}">
+                                            <span class="slds-resizable__divider"></span>
+                                        </span>
+                                </div>
+                            </div>
+                        </th>
+                        <th scope="col" class="slds-is-resizable" style="width: 200px;">
+                            <div class="slds-cell-fixed" style="width: 200px;" onmousemove="{!c.setNewWidth}">
+                                <a href="javascript:void(0);" role="button" class="slds-th__action slds-text-link_reset">
+                                    <span class="slds-truncate" title="Stage">Stage</span>
+                                </a>
+                                <div class="slds-resizable">
+                                    <input type="range" min="20" max="1000" class="slds-resizable__input slds-assistive-text" id="cell-resize-handle-assignment" tabindex="-1" />
+                                    <span class="slds-resizable__handle" onmousedown="{!c.calculateWidth}">
+                                            <span class="slds-resizable__divider"></span>
+                                        </span>
+                                </div>
+                            </div>
+                        </th>
+                        <th scope="col" class="slds-is-resizable" style="width: 200px;">
+                            <div class="slds-cell-fixed" style="width: 200px;" onmousemove="{!c.setNewWidth}">
+                                <a href="javascript:void(0);" role="button" class="slds-th__action slds-text-link_reset">
+                                    <span class="slds-truncate" title="Confidence">Confidence</span>
+                                </a>
+                                <div class="slds-resizable">
+                                    <input type="range" min="20" max="1000" class="slds-resizable__input slds-assistive-text" id="cell-resize-handle-assignment" tabindex="-1" />
+                                    <span class="slds-resizable__handle" onmousedown="{!c.calculateWidth}">
+                                            <span class="slds-resizable__divider"></span>
+                                        </span>
+                                </div>
+                            </div>
+                        </th>
+                        <th scope="col" class="slds-is-resizable" style="width: 200px;">
+                            <div class="slds-cell-fixed" style="width: 200px;" onmousemove="{!c.setNewWidth}">
+                                <a href="javascript:void(0);" role="button" class="slds-th__action slds-text-link_reset">
+                                    <span class="slds-truncate" title="Amount">Amount</span>
+                                </a>
+                                <div class="slds-resizable">
+                                    <input type="range" min="20" max="1000" class="slds-resizable__input slds-assistive-text" id="cell-resize-handle-assignment" tabindex="-1" />
+                                    <span class="slds-resizable__handle" onmousedown="{!c.calculateWidth}">
+                                            <span class="slds-resizable__divider"></span>
+                                        </span>
+                                </div>
+                            </div>
+                        </th>
+                        <th scope="col" class="slds-is-resizable" style="width: 200px;">
+                            <div class="slds-cell-fixed" onmousemove="{!c.setNewWidth}" style="width: 200px;">
+                                <a href="javascript:void(0);" role="button" class="slds-th__action slds-text-link_reset">
+                                    <span class="slds-truncate" title="Contact">Contact</span>
+                                </a>
+                                <div class="slds-resizable">
+                                    <input type="range" min="20" max="1000" class="slds-resizable__input slds-assistive-text" id="cell-resize-handle-assignment" tabindex="-1" />
+                                    <span class="slds-resizable__handle" onmousedown="{!c.calculateWidth}">
+                                            <span class="slds-resizable__divider"></span>
+                                        </span>
+                                </div>
+                            </div>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody onmousemove="{!c.resetColumn}">
+                    <tr>
+                        <th data-label="Opportunity Name">
+                            <div class="slds-truncate" title="aptclouds"><a href="javascript:void(0);">aptclouds</a></div>
+                        </th>
+                        <td data-label="Account Name">
+                            <div class="slds-truncate" title="aptclouds">aptclouds</div>
+                        </td>
+                        <td data-label="Close Date">
+                            <div class="slds-truncate" title="4/14/2015">4/14/2015</div>
+                        </td>
+                        <td data-label="Prospecting">
+                            <div class="slds-truncate" title="Prospecting">Prospecting</div>
+                        </td>
+                        <td data-label="Confidence">
+                            <div class="slds-truncate" title="20%">20%</div>
+                        </td>
+                        <td data-label="Amount">
+                            <div class="slds-truncate" title="$25k">$25k</div>
+                        </td>
+                        <td data-label="Contact">
+                            <div class="slds-truncate" title="naval@aptclouds.com"><a href="javascript:void(0);">naval@aptclouds.com</a></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row" class="fixed-col col-1" data-label="Opportunity Name">
+                            <div class="slds-truncate" title="aptclouds + Anypoint Connectors"><a href="javascript:void(0);">aptclouds + Anypoint Connectors</a></div>
+                        </th>
+                        <td data-label="Account Name">
+                            <div class="slds-truncate" title="aptclouds">aptclouds</div>
+                        </td>
+                        <td data-label="Close Date">
+                            <div class="slds-truncate" title="4/14/2015">4/14/2015</div>
+                        </td>
+                        <td data-label="Prospecting">
+                            <div class="slds-truncate" title="Prospecting">Prospecting</div>
+                        </td>
+                        <td data-label="Confidence">
+                            <div class="slds-truncate" title="20%">20%</div>
+                        </td>
+                        <td data-label="Amount">
+                            <div class="slds-truncate" title="$25k">$25k</div>
+                        </td>
+                        <td data-label="Contact">
+                            <div class="slds-truncate" title="naval@aptclouds.com"><a href="javascript:void(0);">naval@aptclouds.com</a></div>
+                        </td>
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    </lightning:card>
+</aura:component>

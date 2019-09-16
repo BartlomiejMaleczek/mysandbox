@@ -1,0 +1,6 @@
+<aura:component description="helloWorld" implements="flexipage:availableForRecordHome" controller="HelloWorldController">
+<aura:attribute name="greeting" type="String" default="World" />
+    <lightning:input name="Greeting" label="Greeting" value="{!v.greeting}"/>
+<aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+Hello, {!v.greeting}!
+</aura:component>

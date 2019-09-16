@@ -1,0 +1,29 @@
+<aura:component description="InputLookupResultList">
+    <aura:attribute name="records" type="List" required="true"/>
+    <aura:attribute name="recordLineIconName" type="String"/>
+    <aura:attribute name="numberOfElementsToDisplay" type="Integer" required="true"/>
+    <aura:attribute name="mainFieldToDisplay" type="Map" required="true" access="public"/>
+    <aura:attribute name="additionalFieldsToDisplay" type="Object[]" required="true" access="public"/>
+    <aura:attribute name="isResultListScrolling" type="Boolean"/>
+    <aura:attribute name="isResultListVisible" type="Boolean"/>
+    <aura:attribute name="isResultListScrollable" type="Boolean"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.handleInit}"/>
+
+    <c:UtilsComponent aura:id="UtilsService"/>
+
+    <aura:if isTrue="{!not(empty(v.records))}">
+        <div tabindex="1" aura:id="scrollableResultList" id="listbox-id-1" class="{!'slds-dropdown slds-dropdown__list ' + if(v.isResultListScrollable, 'slds-dropdown_length-with-icon-7', '') + ' slds-dropdown_fluid'}" role="listbox" onblur="{!c.handleOnResultListBlur}" onscroll="{!c.handleResultListScroll}">
+            <ul id="lista" class="slds-listbox slds-listbox_vertical " role="presentation">
+                <aura:iteration items="{!v.records}" var="record" end="{!if(v.isResultListScrollable, v.records.length, v.numberOfElementsToDisplay)}" indexVar="index">
+                    <c:InputLookupResultLine aura:id="InputLookupResultLine"
+                                             record="{!record}"
+                                             recordLineIconName="{!v.recordLineIconName}"
+                                             mainFieldToDisplay="{!v.mainFieldToDisplay}"
+                                             additionalFieldsToDisplay="{!v.additionalFieldsToDisplay}"
+                    />
+                </aura:iteration>
+            </ul>
+        </div>
+    </aura:if>
+</aura:component>

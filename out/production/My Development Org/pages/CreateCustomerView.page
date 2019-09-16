@@ -1,0 +1,19 @@
+<!--
+ - Created by Lenovo on 22.03.2017.
+ -->
+
+<apex:page controller="CreateCustomerController">
+
+    <apex:form >
+        <apex:pageBlock >
+            <apex:pageBlockSection title="Create customer">
+                <apex:inputField value="{!customerObj.Name}"/>
+                <apex:inputField value="{!customerObj.APEX_Customer_Description__c}"/>
+                <apex:inputField value="{!customerObj.APEX_Customer_Status__c}"/>
+            </apex:pageBlockSection>
+            <div align="center" draggable="false">
+                <apex:commandButton action="{!save}" value="save" />
+            </div>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

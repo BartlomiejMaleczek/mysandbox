@@ -1,0 +1,31 @@
+<!--
+ - Created by BMaleczek on 15.05.2017.
+ -->
+
+<aura:component description="campingHeader">
+    <!--<ltng:require-->
+            <!--styles="{!'C:/Users/Lenovo/Documents/assets/styles/lightning-design-system-ltng.css'}"/>-->
+    <!--<ltng:require-->
+            <!--styles="{!'C:/Users/Lenovo/Documents/assets/styles/salesforce-lightning-design-system-vf.min.css'}"/>-->
+
+        <!-- PAGE HEADER -->
+        <div class="slds-page-header" role="banner">
+            <div class="slds-grid">
+                <div class="slds-col">
+                    <h1 class="slds-text-heading--medium">New item</h1>
+                </div>
+            </div>
+        </div>
+        <!-- / PAGE HEADER -->
+
+        <!-- NEW EXPENSE FORM -->
+        <div class="slds-col slds-col--padded slds-p-top--large">
+
+
+            <!-- [[ expense form goes here ]] -->
+
+
+        </div>
+        <!-- / NEW EXPENSE FORM -->
+
+</aura:component>

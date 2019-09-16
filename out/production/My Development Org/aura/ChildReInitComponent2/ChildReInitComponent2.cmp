@@ -1,0 +1,7 @@
+<!--
+ - Created by BMaleczek on 13.02.2018.
+ -->
+
+<aura:component description="ChildReInitComponent2">
+    <p>HEEEj</p>
+</aura:component>

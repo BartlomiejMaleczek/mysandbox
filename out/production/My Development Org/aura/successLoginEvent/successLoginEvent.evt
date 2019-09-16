@@ -1,0 +1,7 @@
+<!--
+ - Created by BMaleczek on 17.05.2017.
+ -->
+
+<aura:event type="COMPONENT" description="successLoginEvent">
+    <aura:attribute name="booleanLoginSuccess" type="Boolean" />
+</aura:event>

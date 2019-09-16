@@ -1,0 +1,23 @@
+<!--
+ - Created by BMaleczek on 18.08.2017.
+ -->
+
+<aura:component description="parentExpr">
+    <aura:handler name="init" action="{!c.doInit}" value="{!this}"/>
+
+    <aura:attribute name="parentAttr" type="Object" default="ParentAttr"></aura:attribute>
+    <aura:attribute name="parentItems" type="Object[]"/>
+    <!--<p>W parencie {!v.parentAttr.Name}</p>-->
+    <!--<p>{!item}</p>-->
+    <aura:iteration items="{!v.parentItems}" var="item">
+        <p>{!item.Name}</p>
+    </aura:iteration>
+
+    <c:childExpr childItems="{!v.parentItems}" childAtr="{!v.parentAttr}"></c:childExpr>
+
+
+    <aura:iteration items="{!v.parentItems}" var="item">
+        <c:childExpr2 childItemInt="{!item}" childAtr="{!v.parentAttr}"></c:childExpr2>
+    </aura:iteration>
+
+</aura:component>

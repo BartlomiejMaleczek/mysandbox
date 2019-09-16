@@ -1,0 +1,7 @@
+.THIS table thead th {
+}
+
+.THIS .fixed-col-size {
+    width: 150px;
+    min-width: 50px !important;
+}

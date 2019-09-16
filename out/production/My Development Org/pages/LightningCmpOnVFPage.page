@@ -1,0 +1,27 @@
+<apex:page id="LightningCmpOnVFPage" standardController="Opportunity">
+    <apex:includeLightning />
+
+    <div id="lightning" />
+
+    <p>
+        Value of $User.UIThemeDisplayed: {! $User.UIThemeDisplayed }
+    </p>
+
+    <script>
+        function isLightningDesktop() {
+            console.log(UITheme.getUITheme());
+            return UITheme.getUITheme === "Theme4d";
+        }
+
+        <!--console.log( {! $User.UIThemeDisplayed });-->
+        $Lightning.use("c:LightningCmpOnVFPageApp", function() {
+            $Lightning.createComponent("c:LightningCmpOnVFPageCmp",
+                    {},
+                    "lightning",
+                    function(cmp) {
+                        console.log("Rendered");
+                    }
+            );
+        });
+    </script>
+</apex:page>

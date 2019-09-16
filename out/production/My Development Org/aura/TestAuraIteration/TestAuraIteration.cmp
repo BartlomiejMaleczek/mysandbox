@@ -1,0 +1,10 @@
+<!--
+ - Created by BMaleczek on 15.09.2017.
+ -->
+
+<aura:component description="TestAuraIteration" implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,force:hasSObjectName">
+    <aura:attribute name="items" type="String[]" default="['red', 'green', 'blue']"/>
+    <aura:iteration items="{!v.items}" var="{!item}" indexVar="i">
+        <lightning:input onblur="{!c.onChange}" type="number" name="{!i}" label="{!i}" value="12345" />
+    </aura:iteration>
+</aura:component>

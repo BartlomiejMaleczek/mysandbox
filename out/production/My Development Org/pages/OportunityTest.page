@@ -1,0 +1,16 @@
+<!--
+ - Created by Lenovo on 06.04.2017.
+ -->
+
+<apex:page standardController="Opportunity" tabStyle="Opportunity">
+    <!--<apex:pageBlock>-->
+        <!--<apex:pageBlockSection title="Opportunity Information">-->
+            <!--<apex:outputField value="{!opportunity.name}"/>-->
+            <!--<apex:outputField value="{!opportunity.amount}"/>-->
+            <!--<apex:outputField value="{!opportunity.closeDate}"/>-->
+        <!--</apex:pageBlockSection>-->
+    <!--</apex:pageBlock>-->
+        <script>
+            alert('hello');
+        </script>
+</apex:page>

@@ -1,0 +1,17 @@
+<!--
+ - Created by BMaleczek on 13.02.2018.
+ -->
+
+<aura:component description="ParentReInitComponent" implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,force:hasSObjectName">
+    <aura:attribute name="contactLookup2" type="Contact" default="{'sobjectType': 'Contact', 'AccountId' : '0010Y00000MZ1iJQAT'}"/>
+    <aura:attribute name="contactLookup" type="Contact" default="{'sobjectType': 'Contact'}"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+    <lightning:button type="button" label="Test" name="Test" value="test" title="Reinit" onclick="{!c.reinitChildComponent}"/>
+
+    <!--<c:ChildReInitComponent contactLookup="{!v.contactLookup}" aura:id="ChildReInitComponent"/>-->
+    <!--<c:ChildReInitComponent2  aura:id="ChildReInitComponent"/>-->
+        {!v.body}
+
+
+</aura:component>

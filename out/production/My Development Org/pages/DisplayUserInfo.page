@@ -1,0 +1,10 @@
+<!--
+ - Created by Lenovo on 18.04.2017.
+ -->
+
+<apex:page id="DisplayUserInfo">
+
+    <p>
+            {!$User.FirstName}
+    </p>
+</apex:page>

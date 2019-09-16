@@ -1,0 +1,23 @@
+<aura:component description="accEdit" implements="flexipage:availableForRecordHome,force:hasRecordId">
+    <aura:attribute name="record" type="Object" />
+    <aura:attribute name="accountRecord" type="Object" />
+    <aura:attribute name="recordSaveError" type="String" />
+    <aura:attribute name="fields" type="String[]" default="['Name']" />
+
+    <force:recordData aura:id="recordEditor"
+                      layoutType="FULL"
+                      recordId="{!v.recordId}"
+                      targetError="{!v.recordSaveError}"
+                      targetRecord="{!v.record}"
+                      fields="{!v.fields}"
+                      targetFields ="{!v.accountRecord }"
+                      mode="EDIT" />
+
+    <lightning:input name="accountName" type="text" label="Account Name" value="{!v.accountRecord.Name}"/>
+    <lightning:button title="Save Account" label="Save Account" onclick="{!c.handleSaveButton}"/>
+
+    <aura:if isTrue="{!not(empty(v.recordSaveError))}">
+        <div class="recordError">
+                {!v.recordSaveError}</div>
+    </aura:if>
+</aura:component>
