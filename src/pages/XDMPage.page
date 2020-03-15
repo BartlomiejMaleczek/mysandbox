@@ -1,22 +1,46 @@
-<apex:page id="LightningCmpOnVFPage" standardController="Opportunity">
-
-    <apex:includeScript value="/soap/ajax/32.0/connection.js"/>
-    <apex:includeScript value="https://rawgit.com/ternarylabs/porthole/master/src/porthole.min.js"/>
-    <apex:includeScript value="/resource/easyXDMConsumer"/>
+<apex:page standardController="Opportunity" showHeader="false" standardStylesheets="true" sidebar="false" docType="html-5.0">
+    <head>
+<!--        <script src="/soap/ajax/32.0/connection.js"></script>-->
+<!--        <script src="https://rawgit.com/ternarylabs/porthole/master/src/porthole.min.js"></script>-->
+<!--        <script src="/soap/ajax/32.0/connection.js"></script>-->
+<!--        <apex:includeScript value="/soap/ajax/32.0/connection.js"/>-->
+        <apex:includeScript value="https://rawgit.com/ternarylabs/porthole/master/src/porthole.min.js"/>
+<!--        <apex:includeScript value="/resource/easyXDMConsumer"/>-->
+<!--        <apex:includeScript value="{! $Resource.easyXDMConsumer }"/>-->
+    </head>
+<body style="background-color:#a8baa8;">
 
     <apex:form >
-        <apex:commandButton value="Send Parent Refresh" onclick="sendRefresh(); return false;"/>&nbsp;
+        <apex:commandButton id="buttonTest" value="Send Parent Refresh" onclick="sendRefresh(); return false;"/>&nbsp;
         <apex:commandButton value="Send Parent Edit" onclick="sendEdit(); return false;"/>&nbsp;
         <apex:commandButton value="Send Iframe Height" onclick="sendFrameSize(); return false;"/>&nbsp;
         <apex:inputText id="heightField" styleClass="heightField"/>
     </apex:form>
 
+<!--    <script>-->
+<!--        function SendMessage(message)-->
+<!--        {-->
+<!--            if (window.postMessage)-->
+<!--                parent.postMessage(message, "*");-->
+<!--        }-->
+
+<!--        window.onload = function() {-->
+<!--            // offsetHeight may or may not work in your browser,-->
+<!--            // but there is plenty of documentation of alternatives-->
+<!--            SendMessage(document.body.offsetHeight + 10 + "px");-->
+<!--        }-->
+<!--    </script>-->
+
+
+
+</body>
+
     <script type="text/javascript" >
+        <!--var test2 = sforce.connection.sessionId='{!GETSESSIONID()}';-->
+        // console.log(test2);
         __oppty = {Id: "{!Opportunity.Id}"};
         var opptyid = __oppty.Id.length === 18? __oppty.Id.substring(0,15): __oppty.Id;
         __ProviderXDM = new Porthole.WindowProxy('https://bartlomiejmaleczek-dev-ed.my.salesforce.com/' + opptyid);
-
-        console.log(__ProviderXDM);
         __ProviderXDM.addEventListener( function(messageEvent) {
             if (messageEvent) {
                 var msg = messageEvent.data;
@@ -40,9 +64,12 @@
         }
 
         function sendFrameSize() {
+            console.log('sendFrameSize');
             var field = document.getElementsByClassName("heightField")[0];
+            console.log('field', field);
             //if no height is provided in the textfield, send a random height to show effect
             var height = field.value === ""? (100 + Math.floor(Math.random()*100)) : field.value;
+            console.log('height ', height );
             var msg = {
                 verb: "resize",
                 payload: {
@@ -52,36 +79,16 @@
                     }
                 }
             };
-            __ProviderXDM.post(msg);
+            console.log('msg', msg);
+            var tets = __ProviderXDM.post(msg);
+            console.log(tets);
         }
 
-
+        var buttonGet = document.getElementsByClassName('heightField');
+        console.log(buttonGet);
         document.getElementsByClassName("heightField")[0].value = 100;
         console.log( "Child Location:" );
         console.log( location.href );
 
     </script>
-
-
-
-<!--    <script>-->
-<!--        function isLightningDesktop() {-->
-<!--            console.log(UITheme.getUITheme());-->
-<!--            return UITheme.getUITheme === "Theme4d";-->
-<!--        }-->
-
-<!--        &lt;!&ndash;console.log( {! $User.UIThemeDisplayed });&ndash;&gt;-->
-<!--        $Lightning.use("c:LightningCmpOnVFPageApp", function() {-->
-<!--            $Lightning.createComponent("c:LightningCmpOnVFPageCmp",-->
-<!--                    {},-->
-<!--                    "lightning",-->
-<!--                    function(cmp) {-->
-<!--                        console.log("Rendered");-->
-<!--                    }-->
-<!--            );-->
-<!--        });-->
-<!--    </script>-->
-
-
-
 </apex:page>

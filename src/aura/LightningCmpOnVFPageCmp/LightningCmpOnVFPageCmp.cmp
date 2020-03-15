@@ -3,4 +3,7 @@
     <lightning:button label="Navigate Test" onclick="{!c.handleNavigate}"/>
 
     <aura:handler name="init" value="{!this}" action="{!c.handleInit}"/>
+
+    <lightning:notificationsLibrary aura:id="notifLib"/>
+    <lightning:button name="notice" label="Show Notice" onclick="{!c.handleShowNotice}"/>
 </aura:component>

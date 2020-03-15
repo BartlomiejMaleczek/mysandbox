@@ -1,0 +1,12 @@
+<apex:page id="PageDetail" standardController="Opportunity">
+    <apex:detail subject="{!Opportunity.Id}" relatedList="true"/>
+    <apex:includeScript value="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"/>
+    <script>
+        var j$ = jQuery.noConflict();
+        j$("iframe").each(function(){
+            j$(this).load(function() {
+                j$(this).height( j$(this).contents().find("body").height() );
+            });
+        });
+    </script>
+</apex:page>

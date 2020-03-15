@@ -1,0 +1,8 @@
+<apex:page id="VF_PAGE_WITH_SCRIPT" standardController="Opportunity">
+    <head>
+        <script src="/soap/ajax/32.0/connection.js"></script>
+        <apex:includeScript value="https://rawgit.com/ternarylabs/porthole/master/src/porthole.min.js"/>
+        <apex:includeScript value="{! $Resource.easyXDMConsumer }"/>
+    </head>
+
+</apex:page>
