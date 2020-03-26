@@ -1,3 +1,5 @@
 .idea/
 IlluminatedCloud/
 *.iml
+node_modules/
+.localdevserver/

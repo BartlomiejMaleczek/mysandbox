@@ -1,0 +1,10 @@
+{
+    "orgName": "Internal Scratch",
+    "edition": "Developer",
+    "features":["PlatformEncryption"],    
+    "settings": {
+        "lightningExperienceSettings": {
+            "enableS1DesktopEnabled": true
+        }
+    }
+}
