@@ -1,0 +1,63 @@
+
+<template>
+    <p>RECORD ID {recordId}</p>
+
+    <lightning-button variant="base" label="Base" title="Looks like a link" onclick={handleClick} class="slds-m-left_x-small"></lightning-button>
+
+<!--    <c-bike bike={bike}></c-bike>-->
+
+
+<!--    <lightning-card title="HelloForEach" icon-name="custom:custom14">-->
+<!--        <ul class="slds-m-around_medium">-->
+<!--            <template for:each={contacts} for:item="contact">-->
+<!--&lt;!&ndash;                <li key={contact.Id}>&ndash;&gt;-->
+<!--&lt;!&ndash;                    {contact.Name}, {contact.Title}&ndash;&gt;-->
+<!--&lt;!&ndash;                </li>&ndash;&gt;-->
+
+<!--                <p key={contact.Id}> Parent: {contact.Name}, {contact.Title}</p>-->
+<!--                <c-account-detail-child  key={contact.Id} contact={contact}></c-account-detail-child>-->
+<!--            </template>-->
+<!--        </ul>-->
+
+
+<!--    </lightning-card>-->
+
+
+    <p>{fullNameUpperCase}</p>
+
+    <lightning-button label="change First name" onclick={handleChangeFirstName}></lightning-button>
+
+
+
+<!--    <c-account-detail-child if:true={isDivVisible} full-name={fullName} contacts={contacts}></c-account-detail-child>-->
+
+    <c-account-detail-child age={age}>
+        <p slot="firstSlot">Dupa</p>
+        <p slot="secondSlot">Dupa1</p>
+    </c-account-detail-child>
+
+    <p>The parent component thinks your age is: {age}</p>
+
+    <c-bool if:true={computedValue}></c-bool>
+
+    <c-parent-item-register title="Hover Over the Component to See Me" accesskey="test">
+        <c-child-item-register id="test-id"> </c-child-item-register>
+    </c-parent-item-register>
+
+    <c-share-java-script-code-parent class="test"></c-share-java-script-code-parent>
+<!--    <lightning-input type="checkbox" label="Show details" onchange={handleChange}></lightning-input>-->
+
+    <c-lifecycle-parent></c-lifecycle-parent>
+<!--    onprevious={previousHandler} onnext={nextHandler}-->
+    <c-parent-custom-event >
+        <c-child-custom-event slot="myslot"></c-child-custom-event>
+    </c-parent-custom-event>
+
+    <c-pub-sub-first-page ></c-pub-sub-first-page>
+
+    <c-lightnint-design-system record-id={recordId} ></c-lightnint-design-system>
+
+    <c-wire-and-apex-call record-id={recordId}></c-wire-and-apex-call>
+
+    <c-nav-to-new-record-with-defaults ></c-nav-to-new-record-with-defaults>
+</template>
