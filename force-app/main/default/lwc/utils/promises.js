@@ -4,7 +4,7 @@ function callPromises(cmp, promisesMap, finalMethod) {
 
     console.groupCollapsed('Promises Framework');
     console.log('PromisesMap:', promisesMap);
-    console.log('OnFinalMethod:', finalMethod);
+    console.log('OnFinalMethod:', finalMethod.name);
     console.groupEnd();
 
     return callPromiseLevel(cmp, promisesMap, finalMethod, 0);
@@ -14,7 +14,7 @@ function callPromiseLevel(cmp, promisesMap, finalMethod, iteration) {
     const nextLevelPromises = [];
 
     console.groupCollapsed('Promises Level: ', iteration);
-    console.log('Promises methods: ', promisesMap[iteration]);
+    console.log('Promises methods: ', promisesMap[iteration].map(function(func){return func.name;}));
 
     try {
         if (promisesMap[iteration]) {
@@ -24,8 +24,8 @@ function callPromiseLevel(cmp, promisesMap, finalMethod, iteration) {
 
                 if (iteration >= Object.keys(promisesMap).length) {
                     console.groupEnd();
-                    console.groupCollapsed("Promises final method: ", finalMethod);
-                    cmp[finalMethod]();
+                    console.groupCollapsed("Promises final method: ", finalMethod.name);
+                    finalMethod();
                     console.log('Promises finished');
                     console.groupEnd();
                 } else {
@@ -39,12 +39,12 @@ function callPromiseLevel(cmp, promisesMap, finalMethod, iteration) {
                 console.groupEnd();
             });
         } else {
-            cmp[finalMethod]();
+            finalMethod();
             console.log('Promises finished');
             console.groupEnd();
         }
     } catch (error) {
-        cmp[finalMethod]();
+        finalMethod();
         console.error('Promises finished with Errors:', error);
         console.groupEnd();
     }

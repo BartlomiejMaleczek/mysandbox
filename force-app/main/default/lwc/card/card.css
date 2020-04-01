@@ -1,0 +1,9 @@
+.flex-card {
+    display: flex;
+    flex-direction: column;
+    max-height: 100%;
+}
+
+.flex-grow-body {
+    flex-grow : 1;
+}

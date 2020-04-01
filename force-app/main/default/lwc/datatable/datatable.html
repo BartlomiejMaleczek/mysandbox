@@ -1,11 +1,17 @@
-<!--
- - Created by BMaleczek on 28.03.2020.
- -->
 
-<!-- Datatable -->
 <template>
-
-    <p>TEST TEST {objectApiName}</p>
-
-    <lightning-button label="Navigate to home" onclick={handleNavigateToHome} ></lightning-button>
+    <c-card icon-name="standard:account" title="Account" is-footer-visible=true >
+            <button slot="actions" class="slds-button slds-button_neutral">New</button>
+            <button slot="actions" class="slds-button slds-button_neutral">Add</button>
+            <div slot="body">
+                <template for:each={accounts} for:item="account">
+                    <li key={account.Id}>
+                        {account.Name}
+                    </li>
+                </template>
+            </div>
+            <a slot="footer" class="slds-card__footer-action" href="javascript:void(0);">View All
+                <span class="slds-assistive-text">Accounts</span>
+            </a>
+    </c-card>
 </template>

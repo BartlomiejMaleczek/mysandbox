@@ -4,49 +4,51 @@
 
 import {ServiceAbstract} from "c/serviceAbstract";
 import {api, track, wire} from 'lwc';
+import getAccountsApex from '@salesforce/apex/DatatableController.getAccountsApex';
 
 export default class Datatable extends ServiceAbstract {
-    @api objectApiName;
+    @track accounts;
+    isLoading;
 
-    handleNavigateToHome() {
-        this.navigateToAccountHome();
+
+    constructor() {
+        super();
+
+        this.isLoading = true;
     }
 
     connectedCallback() {
-        console.log('OJECTAPINAME', this.objectApiName);
         this.utils.promises.callPromises(
             this,
             [
-                [this.promise1.bind(this)],
-                [this.promise2.bind(this)]
+                [this.getAccounts.bind(this)]
             ],
-            'promiseFinalMethod'
+            this.finalizeRendering.bind(this)
         );
     }
 
-    promise1() {
-        console.log('OJECTAPINAME', this.objectApiName);
-        return new Promise((resolve, reject) => {
-            console.log('before settimeout', this.objectApiName);
-            setTimeout(function () {
-                console.log('PRomise1');
-                resolve('success');
-                },
-                10000);
-        });
+    getAccounts() {
+        return new Promise(((resolve, reject) => {
+            getAccountsApex(
+                {
+                    accountId: this.recordId
+                })
+                .then((result) => {
+                    this.accounts = result;
+                    resolve(result);
+                })
+                .catch((error) => {
+                       this.utils.event.showToast(this, 'Error', error, 'error');
+                        reject(error);
+                    }
+                );
+        }));
+
     }
 
-    promise2() {
-        return new Promise((resolve, reject) => {
-            console.log('PRomise2');
-            resolve('success');
-        });
+    finalizeRendering() {
+        this.isLoading = false;
     }
 
-    promiseFinalMethod() {
-        return new Promise((resolve, reject) => {
-            console.log('promiseFinalMethod');
-            resolve('success');
-        });
-    }
+
 }
