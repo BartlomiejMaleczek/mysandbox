@@ -1,0 +1,320 @@
+<!--
+ - Created by BMaleczek on 05.04.2020.
+ -->
+
+<!-- Datatable Usage -->
+<template>
+
+    <div class="resp-table slds-table slds-table_fixed-layout reset-action-padding" role="grid">
+        <div class="resp-table-header">
+            <div class="resp-table-row slds-line-height_reset">
+                <div class="table-header-cell" style="width:3.25rem">
+                    <lightning-input class="slds-text-align_right" type="checkbox" variant="label-hidden"></lightning-input>
+                </div>
+
+                <div class="table-header-cell slds-is-resizable slds-is-sortable">
+                    <a class="slds-th__action slds-text-link_reset" href="javascript:void(0);" role="button">
+                        <div class="slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate">
+                            <span class="slds-truncate" title="Name">Name</span>
+                            <lightning-icon icon-name="utility:arrowdown" size="xx-small"></lightning-icon>
+                        </div>
+                    </a>
+
+                </div>
+                <div class="table-header-cell slds-is-resizable slds-is-sortable">
+                    <a class="slds-th__action slds-text-link_reset" href="javascript:void(0);" role="button">
+                        <div class="slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate">
+                            <span class="slds-truncate" title="Account Name">Account Name</span>
+                            <lightning-icon icon-name="utility:arrowdown" size="xx-small"></lightning-icon>
+                        </div>
+                    </a>
+
+                </div>
+                <div class="table-header-cell slds-is-resizable slds-is-sortable">
+                    <a class="slds-th__action slds-text-link_reset" href="javascript:void(0);" role="button">
+                        <div class="slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate">
+                            <span class="slds-truncate" title="Close Date">Close Date</span>
+                            <lightning-icon icon-name="utility:arrowdown" size="xx-small"></lightning-icon>
+                        </div>
+                    </a>
+
+                </div>
+                <div class="table-header-cell slds-is-resizable slds-is-sortable">
+                    <a class="slds-th__action slds-text-link_reset" href="javascript:void(0);" role="button">
+                        <div class="slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate">
+                            <span class="slds-truncate" title="Stage">Stage</span>
+                            <lightning-icon icon-name="utility:arrowdown" size="xx-small"></lightning-icon>
+                        </div>
+                    </a>
+
+                </div>
+                <div class="table-header-cell slds-is-resizable slds-is-sortable">
+                    <a class="slds-th__action slds-text-link_reset" href="javascript:void(0);" role="button">
+                        <div class="slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate">
+                            <span class="slds-truncate" title="Confidence">Confidence</span>
+                            <lightning-icon icon-name="utility:arrowdown" size="xx-small"></lightning-icon>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="table-header-cell slds-is-resizable slds-is-sortable">
+                    <a class="slds-th__action slds-text-link_reset" href="javascript:void(0);" role="button">
+                        <div class="slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate">
+                            <span class="slds-truncate" title="Amount">Amount</span>
+                            <lightning-icon icon-name="utility:arrowdown" size="xx-small"></lightning-icon>
+                        </div>
+                    </a>
+
+                </div>
+
+                <div class="table-header-cell slds-is-resizable slds-is-sortable">
+                    <a class="slds-th__action slds-text-link_reset" href="javascript:void(0);" role="button">
+                        <div class="slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate">
+                            <span class="slds-truncate" title="Contact">Contact</span>
+                            <lightning-icon icon-name="utility:arrowdown" size="xx-small"></lightning-icon>
+                        </div>
+                    </a>
+
+                </div>
+
+                <div class="table-header-cell" style="width:3.25rem">
+                    <div class="slds-truncate slds-assistive-text" title="Actions">Actions</div>
+                </div>
+            </div>
+        </div>
+        <div class="resp-table-body">
+            <div class="resp-table-row">
+<!--                <div class="table-body-cell slds-truncate table-cell-spacing">-->
+<!--                    <lightning-input type="checkbox" variant="label-hidden"></lightning-input>-->
+<!--                </div>-->
+<!--                <div class="table-body-cell slds-truncate table-cell-spacing">-->
+<!--                    Cell 1–1-->
+<!--                </div>-->
+<!--                <div class="table-body-cell slds-truncate table-cell-spacing">-->
+<!--                    Cell 1–2-->
+<!--                </div>-->
+<!--                <div class="table-body-cell slds-truncate table-cell-spacing">-->
+<!--                    Cell 1–3-->
+<!--                </div>-->
+<!--                <div class="table-body-cell slds-truncate table-cell-spacing">-->
+<!--                    Cell 1–4-->
+<!--                </div>-->
+<!--                <div class="table-body-cell slds-truncate table-cell-spacing">-->
+<!--                    Cell 1–5-->
+<!--                </div>-->
+<!--                <div class="table-body-cell slds-truncate table-cell-spacing">-->
+<!--                    Cell 1–3-->
+<!--                </div>-->
+<!--                <div class="table-body-cell slds-truncate table-cell-spacing">-->
+<!--                    Cell 1–4-->
+<!--                </div>-->
+<!--                <div class="table-body-cell slds-truncate table-cell-spacing">-->
+<!--                </div>-->
+            </div>
+        </div>
+    </div>
+
+    <div style="height: 150px;">
+
+    </div>
+
+
+            <table aria-multiselectable="true"
+                   class="slds-table reset-action-padding slds-table_bordered slds-table_fixed-layout" role="grid">
+                <thead>
+                <tr class="slds-line-height_reset">
+                    <th class="slds-text-align_right" scope="col" style="width:3.25rem">
+                        <lightning-input type="checkbox" variant="label-hidden"></lightning-input>
+                    </th>
+                    <th class="slds-is-resizable slds-is-sortable" scope="col">
+                        <a class="slds-th__action slds-text-link_reset" href="javascript:void(0);" role="button">
+                            <div class="slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate">
+                                <span class="slds-truncate" title="Name">Name</span>
+                                <lightning-icon icon-name="utility:arrowdown" size="xx-small"></lightning-icon>
+                            </div>
+                        </a>
+                    </th>
+                    <th class="slds-is-resizable slds-is-sortable" scope="col">
+                        <a class="slds-th__action slds-text-link_reset" href="javascript:void(0);" role="button">
+                            <div class="slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate">
+                                <span class="slds-truncate" title="Account Name">Account Name</span>
+                                <lightning-icon icon-name="utility:arrowdown" size="xx-small"></lightning-icon>
+                            </div>
+                        </a>
+                    </th>
+                    <th class="slds-is-resizable slds-is-sortable" scope="col">
+                        <a class="slds-th__action slds-text-link_reset" href="javascript:void(0);" role="button">
+                            <div class="slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate">
+                                <span class="slds-truncate" title="Close Date">Close Date</span>
+                                <span class="slds-icon_container slds-icon-utility-arrowdown">
+                                    <lightning-icon icon-name="utility:arrowdown" size="xx-small"></lightning-icon>
+                                </span>
+                            </div>
+                        </a>
+                    </th>
+                    <th class="slds-is-resizable slds-is-sortable" scope="col">
+                        <a class="slds-th__action slds-text-link_reset" href="javascript:void(0);" role="button">
+                            <div class="slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate">
+                                <span class="slds-truncate" title="Stage">Stage</span>
+                                <span class="slds-icon_container slds-icon-utility-arrowdown">
+                                    <lightning-icon icon-name="utility:arrowdown" size="xx-small"></lightning-icon>
+                                </span>
+                            </div>
+                        </a>
+                    </th>
+                    <th class="slds-is-resizable slds-is-sortable" scope="col">
+                        <a class="slds-th__action slds-text-link_reset" href="javascript:void(0);" role="button">
+                            <div class="slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate">
+                                <span class="slds-truncate" title="Confidence">Confidence</span>
+                                <span class="slds-icon_container slds-icon-utility-arrowdown">
+                                    <lightning-icon icon-name="utility:arrowdown" size="xx-small"></lightning-icon>
+                                </span>
+                            </div>
+                        </a>
+                    </th>
+                    <th class="slds-is-resizable slds-is-sortable" scope="col">
+                        <a class="slds-th__action slds-text-link_reset" href="javascript:void(0);" role="button">
+                            <div class="slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate">
+                                <span class="slds-truncate" title="Amount">Amount</span>
+                                <span class="slds-icon_container slds-icon-utility-arrowdown">
+                                    <lightning-icon icon-name="utility:arrowdown" size="xx-small"></lightning-icon>
+                                </span>
+                            </div>
+                        </a>
+                    </th>
+                    <th class="slds-is-resizable slds-is-sortable" scope="col">
+                        <a class="slds-th__action slds-text-link_reset" href="javascript:void(0);" role="button">
+                            <div class="slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate">
+                                <span class="slds-truncate" title="Contact">Contact</span>
+                                <span class="slds-icon_container slds-icon-utility-arrowdown">
+                                    <lightning-icon icon-name="utility:arrowdown" size="xx-small"></lightning-icon>
+                                </span>
+                            </div>
+                        </a>
+                    </th>
+                    <th class="" scope="col" style="width:3.25rem">
+                        <div class="slds-truncate slds-assistive-text" title="Actions">Actions</div>
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr aria-selected="false" class="slds-hint-parent">
+                    <td class="slds-text-align_right" role="gridcell">
+                        <lightning-input type="checkbox" variant="label-hidden"></lightning-input>
+                    </td>
+                    <th scope="row">
+                        <div class="slds-truncate table-cell-spacing" title="Acme - 1,200 Widgets">
+                            <a href="javascript:void(0);" tabindex="0">Acme - 1,200 Widgets</a>
+                        </div>
+                    </th>
+                    <td role="gridcell">
+                        <div class="slds-truncate table-cell-spacing" title="Acme">Acme</div>
+                    </td>
+                    <td role="gridcell">
+                        <div class="slds-truncate table-cell-spacing" title="4/10/15">4/10/15</div>
+                    </td>
+                    <td role="gridcell">
+                        <div class="slds-truncate table-cell-spacing" title="Value Proposition">Value Proposition</div>
+                    </td>
+                    <td role="gridcell">
+                        <div class="slds-truncate table-cell-spacing" title="30%">30%</div>
+                    </td>
+                    <td role="gridcell">
+                        <div class="slds-truncate table-cell-spacing" title="$25,000,000">$25,000,000</div>
+                    </td>
+                    <td role="gridcell">
+                        <div class="slds-truncate table-cell-spacing" title="jrogers@acme.com">
+                            <a href="javascript:void(0);" tabindex="0">jrogers@acme.com</a>
+                        </div>
+                    </td>
+                    <td role="gridcell">
+                        <button class="slds-button slds-button_icon slds-button_icon-border-filled slds-button_icon-x-small"
+                                aria-haspopup="true" tabindex="0" title="More actions for Acme - 1,200 Widgets">
+                            <lightning-icon icon-name="utility:down" size="xx-small"></lightning-icon>
+                        </button>
+                    </td>
+                </tr>
+                <tr aria-selected="false" class="slds-hint-parent">
+                    <td class="slds-text-align_right" role="gridcell">
+                        <lightning-input type="checkbox" variant="label-hidden"></lightning-input>
+                    </td>
+                    <th scope="row">
+                        <div class="slds-truncate table-cell-spacing" title="Acme - 200 Widgets">
+                            <a href="javascript:void(0);" tabindex="0">Acme - 200 Widgets</a>
+                        </div>
+                    </th>
+                    <td role="gridcell">
+                        <div class="slds-truncate table-cell-spacing" title="Acme">Acme</div>
+                    </td>
+                    <td role="gridcell">
+                        <div class="slds-truncate table-cell-spacing" title="1/31/15">1/31/15</div>
+                    </td>
+                    <td role="gridcell">
+                        <div class="slds-truncate table-cell-spacing" title="Prospecting">Prospecting</div>
+                    </td>
+                    <td role="gridcell">
+                        <div class="slds-truncate table-cell-spacing" title="60%">60%</div>
+                    </td>
+                    <td role="gridcell">
+                        <div class="slds-truncate table-cell-spacing" title="$5,000,000">$5,000,000</div>
+                    </td>
+                    <td role="gridcell">
+                        <div class="slds-truncate table-cell-spacing" title="bob@acme.com">
+                            <a href="javascript:void(0);" tabindex="0">bob@acme.com</a>
+                        </div>
+                    </td>
+                    <td role="gridcell">
+                        <button class="slds-button slds-button_icon slds-button_icon-border-filled slds-button_icon-x-small"
+                                aria-haspopup="true" tabindex="0" title="More actions for Acme - 200 Widgets">
+                            <lightning-icon icon-name="utility:down" size="xx-small"></lightning-icon>
+                        </button>
+                    </td>
+                </tr>
+                <tr aria-selected="false" class="slds-hint-parent">
+                    <td class="slds-text-align_right" role="gridcell">
+                        <lightning-input type="checkbox" variant="label-hidden"></lightning-input>
+                    </td>
+                    <th scope="row">
+                        <div class="slds-truncate table-cell-spacing" title="salesforce.com - 1,000 Widgets">
+                            <a href="javascript:void(0);" tabindex="0">salesforce.com - 1,000 Widgets</a>
+                        </div>
+                    </th>
+                    <td role="gridcell">
+                        <div class="slds-truncate table-cell-spacing" title="salesforce.com">salesforce.com</div>
+                    </td>
+                    <td role="gridcell">
+                        <div class="slds-truncate table-cell-spacing" title="1/31/15 3:45PM">1/31/15 3:45PM</div>
+                    </td>
+                    <td role="gridcell">
+                        <div class="slds-truncate table-cell-spacing" title="Id. Decision Makers">Id. Decision Makers
+                        </div>
+                    </td>
+                    <td role="gridcell">
+                        <div class="slds-truncate table-cell-spacing" title="70%">70%</div>
+                    </td>
+                    <td role="gridcell">
+                        <div class="slds-truncate table-cell-spacing" title="$25,000">$25,000</div>
+                    </td>
+                    <td role="gridcell">
+                        <div class="slds-truncate table-cell-spacing" title="nathan@salesforce.com">
+                            <a href="javascript:void(0);" tabindex="0">nathan@salesforce.com</a>
+                        </div>
+                    </td>
+                    <td role="gridcell">
+                        <button class="slds-button slds-button_icon slds-button_icon-border-filled slds-button_icon-x-small"
+                                aria-haspopup="true" tabindex="0"
+                                title="More actions for salesforce.com - 1,000 Widgets">
+                            <lightning-icon icon-name="utility:down" size="xx-small"></lightning-icon>
+                            <span class="slds-assistive-text">More actions for salesforce.com - 1,000 Widgets</span>
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+<!--        </div>-->
+<!--        <a slot="footer" class="slds-card__footer-action" href="javascript:void(0);">View All-->
+<!--            <span class="slds-assistive-text">Accounts</span>-->
+<!--        </a>-->
+<!--    </c-card>-->
+</template>

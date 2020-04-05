@@ -1,4 +1,4 @@
-public with sharing class DatatableController {
+public with sharing class DatatableUsageController {
 
 
     @AuraEnabled

@@ -1,0 +1,46 @@
+.resp-table {
+    width: 100%;
+    display: table;
+    border-collapse: collapse;
+    border-top: 1px solid rgb(221, 219, 218);
+    border-bottom: 1px solid rgb(221, 219, 218);
+    border-spacing: 0;
+}
+
+.resp-table-header{
+    width: 100%;
+    display: table-header-group;
+    background-color: rgb(255, 255, 255);
+    vertical-align: middle;
+    border-color: inherit;
+    border-bottom: 1px solid rgb(221, 219, 218);
+    border-spacing: 0;
+}
+
+.table-header-cell{
+    display: table-cell;
+    background-color: rgb(250, 250, 249);
+    color: rgb(81, 79, 77);
+    padding: 0.25rem 0.5rem;
+    font-weight: 700;
+    line-height: normal;
+    position: relative;
+    text-align: left;
+    vertical-align: inherit;
+}
+
+.resp-table-body{
+    display: table-row-group;
+}
+
+.resp-table-row{
+    width: 100%;
+    display: table-row;
+    vertical-align: inherit;
+    border-spacing: 0;
+    border-color: inherit;
+}
+
+.table-body-cell{
+    display: table-cell;
+}

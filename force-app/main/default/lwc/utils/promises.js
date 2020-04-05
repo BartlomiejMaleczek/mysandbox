@@ -1,4 +1,4 @@
-function callPromises(cmp, promisesMap, finalMethod) {
+function callPromises(promisesMap, finalMethod) {
     let firstPromisesLevel = [],
         firstElement = 0;
 
@@ -7,10 +7,10 @@ function callPromises(cmp, promisesMap, finalMethod) {
     console.log('OnFinalMethod:', finalMethod.name);
     console.groupEnd();
 
-    return callPromiseLevel(cmp, promisesMap, finalMethod, 0);
+    return callPromiseLevel(promisesMap, finalMethod, 0);
 }
 
-function callPromiseLevel(cmp, promisesMap, finalMethod, iteration) {
+function callPromiseLevel(promisesMap, finalMethod, iteration) {
     const nextLevelPromises = [];
 
     console.groupCollapsed('Promises Level: ', iteration);
@@ -30,7 +30,7 @@ function callPromiseLevel(cmp, promisesMap, finalMethod, iteration) {
                     console.groupEnd();
                 } else {
                     console.groupEnd();
-                    return callPromiseLevel(cmp, promisesMap, finalMethod, iteration);
+                    return callPromiseLevel(promisesMap, finalMethod, iteration);
                 }
 
             }).catch(function (error) {
