@@ -1,146 +1,86 @@
 <template>
-<!--    <table >-->
-<!--        <thead>-->
-<!--        <tr class="trka">-->
-<!--            <th>-->
-<!--                <slot name="test"></slot>-->
-<!--            </th>-->
+    <div class="finally-table slds-table slds-table_fixed-layout reset-action-padding" role="grid">
+        <div class="finally-table-header">
+            <div class="finally-table-row slds-line-height_reset">
+                <slot name="columns"></slot>
+            </div>
+        </div>
 
-<!--        </tr>-->
-<!--        </thead>-->
-<!--        <tbody></tbody>-->
-
-<!--    </table>-->
-
-
-<!--    <table aria-multiselectable="true"-->
-<!--           class="slds-table reset-action-padding slds-table_bordered slds-table_fixed-layout" role="grid">-->
-<!--        <thead>-->
-<!--            <tr class="slds-line-height_reset">-->
-<!--                <div>-->
-<!--                    <slot name="columns">-->
-
-
-<!--                    </slot>-->
-<!--                </div>-->
-
-<!--             </tr>-->
-<!--        </thead>-->
-<!--        <tbody></tbody>-->
-
-<!--    </table>-->
-<!--        <tbody>-->
-<!--        <tr aria-selected="false" class="slds-hint-parent">-->
-<!--            <td class="slds-text-align_right" role="gridcell">-->
-<!--                <lightning-input type="checkbox" variant="label-hidden"></lightning-input>-->
-<!--            </td>-->
-<!--            <th scope="row">-->
-<!--                <div class="slds-truncate table-cell-spacing" title="Acme - 1,200 Widgets">-->
-<!--                    <a href="javascript:void(0);" tabindex="0">Acme - 1,200 Widgets</a>-->
-<!--                </div>-->
-<!--            </th>-->
-<!--            <td role="gridcell">-->
-<!--                <div class="slds-truncate table-cell-spacing" title="Acme">Acme</div>-->
-<!--            </td>-->
-<!--            <td role="gridcell">-->
-<!--                <div class="slds-truncate table-cell-spacing" title="4/10/15">4/10/15</div>-->
-<!--            </td>-->
-<!--            <td role="gridcell">-->
-<!--                <div class="slds-truncate table-cell-spacing" title="Value Proposition">Value Proposition</div>-->
-<!--            </td>-->
-<!--            <td role="gridcell">-->
-<!--                <div class="slds-truncate table-cell-spacing" title="30%">30%</div>-->
-<!--            </td>-->
-<!--            <td role="gridcell">-->
-<!--                <div class="slds-truncate table-cell-spacing" title="$25,000,000">$25,000,000</div>-->
-<!--            </td>-->
-<!--            <td role="gridcell">-->
-<!--                <div class="slds-truncate table-cell-spacing" title="jrogers@acme.com">-->
-<!--                    <a href="javascript:void(0);" tabindex="0">jrogers@acme.com</a>-->
-<!--                </div>-->
-<!--            </td>-->
-<!--            <td role="gridcell">-->
-<!--                <button class="slds-button slds-button_icon slds-button_icon-border-filled slds-button_icon-x-small"-->
-<!--                        aria-haspopup="true" tabindex="0" title="More actions for Acme - 1,200 Widgets">-->
-<!--                    <lightning-icon icon-name="utility:down" size="xx-small"></lightning-icon>-->
-<!--                </button>-->
-<!--            </td>-->
-<!--        </tr>-->
-<!--        <tr aria-selected="false" class="slds-hint-parent">-->
-<!--            <td class="slds-text-align_right" role="gridcell">-->
-<!--                <lightning-input type="checkbox" variant="label-hidden"></lightning-input>-->
-<!--            </td>-->
-<!--            <th scope="row">-->
-<!--                <div class="slds-truncate table-cell-spacing" title="Acme - 200 Widgets">-->
-<!--                    <a href="javascript:void(0);" tabindex="0">Acme - 200 Widgets</a>-->
-<!--                </div>-->
-<!--            </th>-->
-<!--            <td role="gridcell">-->
-<!--                <div class="slds-truncate table-cell-spacing" title="Acme">Acme</div>-->
-<!--            </td>-->
-<!--            <td role="gridcell">-->
-<!--                <div class="slds-truncate table-cell-spacing" title="1/31/15">1/31/15</div>-->
-<!--            </td>-->
-<!--            <td role="gridcell">-->
-<!--                <div class="slds-truncate table-cell-spacing" title="Prospecting">Prospecting</div>-->
-<!--            </td>-->
-<!--            <td role="gridcell">-->
-<!--                <div class="slds-truncate table-cell-spacing" title="60%">60%</div>-->
-<!--            </td>-->
-<!--            <td role="gridcell">-->
-<!--                <div class="slds-truncate table-cell-spacing" title="$5,000,000">$5,000,000</div>-->
-<!--            </td>-->
-<!--            <td role="gridcell">-->
-<!--                <div class="slds-truncate table-cell-spacing" title="bob@acme.com">-->
-<!--                    <a href="javascript:void(0);" tabindex="0">bob@acme.com</a>-->
-<!--                </div>-->
-<!--            </td>-->
-<!--            <td role="gridcell">-->
-<!--                <button class="slds-button slds-button_icon slds-button_icon-border-filled slds-button_icon-x-small"-->
-<!--                        aria-haspopup="true" tabindex="0" title="More actions for Acme - 200 Widgets">-->
-<!--                    <lightning-icon icon-name="utility:down" size="xx-small"></lightning-icon>-->
-<!--                </button>-->
-<!--            </td>-->
-<!--        </tr>-->
-<!--        <tr aria-selected="false" class="slds-hint-parent">-->
-<!--            <td class="slds-text-align_right" role="gridcell">-->
-<!--                <lightning-input type="checkbox" variant="label-hidden"></lightning-input>-->
-<!--            </td>-->
-<!--            <th scope="row">-->
-<!--                <div class="slds-truncate table-cell-spacing" title="salesforce.com - 1,000 Widgets">-->
-<!--                    <a href="javascript:void(0);" tabindex="0">salesforce.com - 1,000 Widgets</a>-->
-<!--                </div>-->
-<!--            </th>-->
-<!--            <td role="gridcell">-->
-<!--                <div class="slds-truncate table-cell-spacing" title="salesforce.com">salesforce.com</div>-->
-<!--            </td>-->
-<!--            <td role="gridcell">-->
-<!--                <div class="slds-truncate table-cell-spacing" title="1/31/15 3:45PM">1/31/15 3:45PM</div>-->
-<!--            </td>-->
-<!--            <td role="gridcell">-->
-<!--                <div class="slds-truncate table-cell-spacing" title="Id. Decision Makers">Id. Decision Makers-->
-<!--                </div>-->
-<!--            </td>-->
-<!--            <td role="gridcell">-->
-<!--                <div class="slds-truncate table-cell-spacing" title="70%">70%</div>-->
-<!--            </td>-->
-<!--            <td role="gridcell">-->
-<!--                <div class="slds-truncate table-cell-spacing" title="$25,000">$25,000</div>-->
-<!--            </td>-->
-<!--            <td role="gridcell">-->
-<!--                <div class="slds-truncate table-cell-spacing" title="nathan@salesforce.com">-->
-<!--                    <a href="javascript:void(0);" tabindex="0">nathan@salesforce.com</a>-->
-<!--                </div>-->
-<!--            </td>-->
-<!--            <td role="gridcell">-->
-<!--                <button class="slds-button slds-button_icon slds-button_icon-border-filled slds-button_icon-x-small"-->
-<!--                        aria-haspopup="true" tabindex="0"-->
-<!--                        title="More actions for salesforce.com - 1,000 Widgets">-->
-<!--                    <lightning-icon icon-name="utility:down" size="xx-small"></lightning-icon>-->
-<!--                    <span class="slds-assistive-text">More actions for salesforce.com - 1,000 Widgets</span>-->
-<!--                </button>-->
-<!--            </td>-->
-<!--        </tr>-->
-<!--        </tbody>-->
-<!--    </table>-->
+        <div class="finally-table-body">
+            <div class="finally-table-row slds-hint-parent">
+                <div class="table-body-cell">
+                    <div class="slds-truncate table-cell-spacing" title="Select">
+                        <lightning-input type="checkbox" variant="label-hidden"></lightning-input>
+                    </div>
+                </div>
+                <div class="table-body-cell">
+                    <div class="slds-truncate table-cell-spacing" title="Acme - 1,200 Widgets">
+                        <a href="javascript:void(0);" tabindex="0">Acme - 1,200 Widgets</a>
+                    </div>
+                </div>
+                <div class="table-body-cell">
+                    <div class="slds-truncate table-cell-spacing" title="Acme">Acme</div>
+                </div>
+                <div class="table-body-cell">
+                    <div class="slds-truncate table-cell-spacing" title="4/10/15">4/10/15</div>
+                </div>
+                <div class="table-body-cell">
+                    <div class="slds-truncate table-cell-spacing" title="Value Proposition">Value Proposition</div>
+                </div>
+                <div class="table-body-cell">
+                    <div class="slds-truncate table-cell-spacing" title="30%">30%</div>
+                </div>
+                <div class="table-body-cell">
+                    <div class="slds-truncate table-cell-spacing" title="$25,000,000">$25,000,000</div>
+                </div>
+                <div class="table-body-cell">
+                    <div class="slds-truncate table-cell-spacing" title="jrogers@acme.com">
+                        <a href="javascript:void(0);" tabindex="0">jrogers@acme.com</a>
+                    </div>
+                </div>
+                <div class="table-body-cell">
+                    <button class="slds-button slds-button_icon slds-button_icon-border-filled slds-button_icon-x-small"
+                            aria-haspopup="true" tabindex="0" title="More actions for Acme - 1,200 Widgets">
+                        <lightning-icon icon-name="utility:down" size="xx-small"></lightning-icon>
+                    </button>
+                </div>
+            </div>
+            <div class="finally-table-row">
+                <div class="table-body-cell slds-truncate">
+                    <lightning-input type="checkbox" variant="label-hidden"></lightning-input>
+                </div>
+                <div class="table-body-cell">
+                    <div class="slds-truncate table-cell-spacing" title="Acme - 1,200 Widgets">
+                        <a href="javascript:void(0);" tabindex="0">Acme - 1,200 Widgets</a>
+                    </div>
+                </div>
+                <div class="table-body-cell">
+                    <div class="slds-truncate table-cell-spacing" title="Acme">Acme</div>
+                </div>
+                <div class="table-body-cell">
+                    <div class="slds-truncate table-cell-spacing" title="4/10/15">4/10/15</div>
+                </div>
+                <div class="table-body-cell">
+                    <div class="slds-truncate table-cell-spacing" title="Value Proposition">Value Proposition</div>
+                </div>
+                <div class="table-body-cell">
+                    <div class="slds-truncate table-cell-spacing" title="30%">30%</div>
+                </div>
+                <div class="table-body-cell">
+                    <div class="slds-truncate table-cell-spacing" title="$25,000,000">$25,000,000</div>
+                </div>
+                <div class="table-body-cell">
+                    <div class="slds-truncate table-cell-spacing" title="jrogers@acme.com">
+                        <a href="javascript:void(0);" tabindex="0">jrogers@acme.com</a>
+                    </div>
+                </div>
+                <div class="table-body-cell">
+                    <button class="slds-button slds-button_icon slds-button_icon-border-filled slds-button_icon-x-small"
+                            aria-haspopup="true" tabindex="0" title="More actions for Acme - 1,200 Widgets">
+                        <lightning-icon icon-name="utility:down" size="xx-small"></lightning-icon>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 </template>

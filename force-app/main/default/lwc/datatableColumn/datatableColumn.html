@@ -1,12 +1,10 @@
 <template>
-    <th class="slds-is-resizable slds-is-sortable" scope="col">
-        <a class="slds-th__action slds-text-link_reset" href="javascript:void(0);" role="button">
-            <div class="slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate">
-                <span class="slds-truncate" title={title}>
-                    <slot name="value"></slot>
+    <a class="finally-header-link slds-text-link_reset" role="button" onclick={handleHeaderOnClick}>
+        <div class="slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate">
+                <span class="slds-truncate" title={columnTitle}>
+                     <slot name="headerCell"></slot>
                 </span>
-                <lightning-icon icon-name="utility:arrowdown" size="xx-small"></lightning-icon>
-            </div>
-        </a>
-    </th>
+            <lightning-icon if:true={isSortable} icon-name="utility:arrowdown" size="xx-small"></lightning-icon>
+        </div>
+    </a>
 </template>

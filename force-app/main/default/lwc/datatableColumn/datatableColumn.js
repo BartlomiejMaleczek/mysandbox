@@ -5,25 +5,52 @@
 import {LightningElement, api, track, wire} from 'lwc';
 
 export default class DatatableColumn extends LightningElement {
-    @api isSortable;
-    @api title;
+    _isSortable;
+    @api columnTitle;
     @api columnClasses;
+    @api columnStyle;
 
     constructor() {
         super();
-
-        this.isSortable = false;
     }
 
-    get columnClasses() {
+    connectedCallback() {
+        console.log('Connected Callback');
+        this.classList.add('finally-table-header-cell');
+
         if(this.isSortable) {
-            if(this.columnClasses) {
-                this.columnClasses = this.columnClasses.concat(' slds-is-resizable slds-is-sortable');
-            } else {
-                this.columnClasses = 'slds-is-resizable slds-is-sortable';
-            }
+            this.classList.add('finally-table-header-sortable');
+            this.classList.add('slds-is-sortable');
+        } else {
+            this.classList.add('finally-table-header-not-sortable');
         }
 
-        return this.columnClasses;
+
+        if(this.columnTitle) {
+            this.setAttribute('title', this.columnTitle);
+        }
+
+        console.log(this.template);
+    }
+
+    handleHeaderOnClick(event) {
+        if(this.isSortable) {
+            const linkAction = this.template.querySelector('.finally-header-link');
+            linkAction.setAttribute('tabindex', 0);
+            linkAction.focus();
+        }
+    }
+
+    @api
+    get isSortable() {
+        return this._isSortable;
+    }
+
+    set isSortable(value) {
+        if(value == 'true') {
+            this._isSortable = true;
+        } else if(value == 'false') {
+            this._isSortable = false;
+        }
     }
 }

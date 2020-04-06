@@ -1,3 +1,38 @@
-.table-cell-spacing {
-    padding: 0.25rem 0.5rem;
+:host div.finally-table {
+    width: 100%;
+    display: table;
+    border-collapse: collapse;
+    border-top: 1px solid rgb(221, 219, 218);
+    border-bottom: 1px solid rgb(221, 219, 218);
+    border-spacing: 0;
 }
+
+.finally-table-header{
+    width: 100%;
+    display: table-header-group;
+    background-color: rgb(255, 255, 255);
+    vertical-align: middle;
+    border-color: inherit;
+    border-bottom: 1px solid rgb(221, 219, 218);
+    border-spacing: 0;
+}
+
+.finally-table-body{
+    display: table-row-group;
+}
+
+.finally-table-row{
+    width: 100%;
+    display: table-row;
+    vertical-align: inherit;
+    border-spacing: 0;
+    border-color: inherit;
+    border-bottom: 1px solid rgb(221, 219, 218);
+}
+
+
+.table-body-cell{
+    display: table-cell;
+    padding: 0.25rem 1rem;
+}
+
