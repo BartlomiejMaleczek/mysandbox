@@ -10,11 +10,43 @@ export default class DatatableUsage extends ServiceAbstract {
     @track accounts;
     isLoading;
 
+    emptyColumns;
+
 
     constructor() {
         super();
 
         this.isLoading = true;
+        this.emptyColumns = [
+            {
+                Id: 1,
+                Name: 'Name'
+            },
+            {
+                Id: 2,
+                Name: 'Name'
+            },
+            {
+                Id: 3,
+                Name: 'Name'
+            },
+            {
+                Id: 4,
+                Name: 'Name'
+            },
+            {
+                Id: 5,
+                Name: 'Name'
+            },
+            {
+                Id: 6,
+                Name: 'Name'
+            },
+            {
+                Id: 7,
+                Name: 'Name'
+            },
+        ];
     }
 
     connectedCallback() {
@@ -24,6 +56,8 @@ export default class DatatableUsage extends ServiceAbstract {
             ],
             this.finalizeRendering.bind(this)
         );
+
+
     }
 
     getAccounts() {

@@ -31,7 +31,7 @@
 }
 
 
-.table-body-cell{
+:host div.table-body-cell{
     display: table-cell;
     padding: 0.25rem 1rem;
 }
