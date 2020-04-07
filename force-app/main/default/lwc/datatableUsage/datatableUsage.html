@@ -1,71 +1,147 @@
-<!--
- - Created by BMaleczek on 05.04.2020.
- -->
-
-<!-- Datatable Usage -->
 <template>
 
     <div style="height: 500px;">
         <c-datatable>
-            <c-datatable-column slot="columns" style="width: 3.25rem;" is-sortable="false" column-title="select">
+            <c-datatable-column slot="columns" style="width: 3.25rem;" is-sortable="false" is-truncated="false" column-title="select">
                 <lightning-input slot="headerCell" type="checkbox" variant="label-hidden"></lightning-input>
             </c-datatable-column>
 
-            <c-datatable-column slot="columns" is-sortable="true" column-title="Name">
-                <span slot="headerCell">Name</span>
+            <c-datatable-column class="finally-no-left-padding" slot="columns" is-sortable="false" is-truncated="false" column-title="Name">
+                <lightning-input slot="headerCell" variant="label-hidden" name="input1"
+                                 placeholder="Enter a name"></lightning-input>
             </c-datatable-column>
 
-            <c-datatable-column slot="columns" is-sortable="true" column-title="Account Name">
-                <span slot="headerCell">Account Name</span>
+            <c-datatable-column slot="columns" is-sortable="false" is-truncated="true" column-title="Account Name">
+                <span slot="headerCell">
+                    Account Name
+                    <lightning-icon class="slds-m-left--xxx-small" icon-name="standard:account"
+                                    size="xx-small"></lightning-icon>
+                </span>
             </c-datatable-column>
 
-            <c-datatable-column slot="columns" is-sortable="true" column-title="Close Date">
-                <span slot="headerCell">Close Date</span>
+            <c-datatable-column class="finally-no-left-padding" slot="columns" is-sortable="false" is-truncated="false"
+                                column-title="Close Date">
+                <lightning-input slot="headerCell" variant="label-hidden" type="date" name="input1"
+                                 label="Pick a date"></lightning-input>
             </c-datatable-column>
 
-            <c-datatable-column slot="columns" is-sortable="true" column-title="Stage">
-                <span slot="headerCell">Stage</span>
+            <c-datatable-column class="finally-no-left-padding" slot="columns" is-sortable="false" is-truncated="false" column-title="Stage">
+                <lightning-combobox slot="headerCell"
+                                    name="progress"
+                                    label="Status"
+                                    variant="label-hidden"
+                                    value=""
+                                    placeholder="Select Progress"
+                                    options={options}
+                                    onchange={handleOnChangeStatus}
+                ></lightning-combobox>
             </c-datatable-column>
 
-            <c-datatable-column slot="columns" is-sortable="true" column-title="Confidence">
-                <span slot="headerCell">Confidence</span>
+            <c-datatable-column slot="columns" is-sortable="true" is-truncated="true" column-title="Confidence">
+                <span slot="headerCell">
+                    Confidence
+                    <lightning-helptext
+                            content="The tooltip displays on the lower left of the icon or above the icon if space is available. It automatically adjusts its position according to the viewport."></lightning-helptext>
+                </span>
             </c-datatable-column>
 
-            <c-datatable-column slot="columns" is-sortable="true" column-title="Amount">
+            <c-datatable-column slot="columns" is-sortable="false" is-truncated="true" column-title="Amount">
                 <span slot="headerCell">Amount</span>
             </c-datatable-column>
 
-            <c-datatable-column slot="columns" is-sortable="true" column-title="Contact">
+            <c-datatable-column slot="columns" is-sortable="false" is-truncated="true" column-title="Contact">
                 <span slot="headerCell">Contact</span>
             </c-datatable-column>
 
-            <c-datatable-column slot="columns" is-sortable="false" style="width: 3.25rem;" column-title="Actions">
+            <c-datatable-column slot="columns" is-sortable="false" is-truncated="false" style="width: 3.25rem;" column-title="Actions">
             </c-datatable-column>
 
-            <c-datatable-body-row slot="bodyRow">
-                <c-datatable-cell slot="cell"><lightning-input slot="cellValue" type="checkbox" variant="label-hidden"></lightning-input></c-datatable-cell>
+            <template for:each={records} for:item="record" for:index="index">
+                <c-datatable-body-row key={record.Id} slot="bodyRow" value={record} index={index}>
+                    <c-datatable-cell slot="cell">
+                        <lightning-input slot="cellValue" type="checkbox" variant="label-hidden"></lightning-input>
+                    </c-datatable-cell>
 
-                <c-datatable-cell slot="cell"><a slot="cellValue" href="javascript:void(0);" tabindex="0">Acme - 1,200 Widgets</a></c-datatable-cell>
+                    <c-datatable-cell slot="cell" is-truncated="true" cell-title={record.Name}>
+                            <a slot="cellValue"  onclick={handleRedirectToRecord} href="javascript:void(0);" tabindex="0">
+                                {record.Name}
+                            </a>
+                    </c-datatable-cell>
 
-                <c-datatable-cell slot="cell"><span slot="cellValue">Acme</span></c-datatable-cell>
+                    <c-datatable-cell slot="cell" cell-title={record.AccountName}>
+                            <lightning-input slot="cellValue" value={record.AccountName} variant="label-hidden" name="input1"
+                                             placeholder="Enter a name"></lightning-input>
+                    </c-datatable-cell>
 
-                <c-datatable-cell slot="cell"><span slot="cellValue">4/10/15</span></c-datatable-cell>
+                    <c-datatable-cell slot="cell" is-truncated="false" >
+                        <lightning-input slot="cellValue" variant="label-hidden" type="date" name="input1"
+                                         label="Pick a date"></lightning-input>
+                    </c-datatable-cell>
 
-                <c-datatable-cell slot="cell"><span slot="cellValue">Value Proposition</span></c-datatable-cell>
+                    <c-datatable-cell slot="cell">
+                        <lightning-combobox slot="cellValue"
+                                            name="progress"
+                                            label="Status"
+                                            variant="label-hidden"
+                                            value={record.Stage}
+                                            placeholder="Select Progress"
+                                            options={options}
+                                            onchange={handleOnChangeStatus}
+                        ></lightning-combobox>
+                    </c-datatable-cell>
 
-                <c-datatable-cell slot="cell"><span slot="cellValue">30%</span></c-datatable-cell>
+                    <c-datatable-cell slot="cell" is-truncated="true" cell-title={record.Confidence}>
+                        <span class="slds-truncate" slot="cellValue">{record.Confidence}</span>
+                    </c-datatable-cell>
 
-                <c-datatable-cell slot="cell"><span slot="cellValue">$25,000,000</span></c-datatable-cell>
+                    <c-datatable-cell slot="cell" is-truncated="true" cell-title={record.Amount}>
+                        <span class="slds-truncate" slot="cellValue">{record.Amount}</span>
+                    </c-datatable-cell>
 
-                <c-datatable-cell slot="cell"><a slot="cellValue" href="javascript:void(0);" tabindex="0">jrogers@acme.com</a></c-datatable-cell>
+                    <c-datatable-cell slot="cell" is-truncated="true" cell-title={record.Contact}>
+                            <a slot="cellValue" href="javascript:void(0);" tabindex="0">{record.Contact}</a>
+                    </c-datatable-cell>
 
-                <c-datatable-cell slot="cell">
-                    <button slot="cellValue" class="slds-button slds-button_icon slds-button_icon-border-filled slds-button_icon-x-small"
-                            aria-haspopup="true" tabindex="0" title="More actions for Acme - 1,200 Widgets">
-                        <lightning-icon icon-name="utility:down" size="xx-small"></lightning-icon>
-                    </button>
-                </c-datatable-cell>
-            </c-datatable-body-row>
+                    <c-datatable-cell slot="cell">
+                        <button slot="cellValue"
+                                class="slds-button slds-button_icon slds-button_icon-border-filled slds-button_icon-x-small"
+                                aria-haspopup="true" tabindex="0" title="More actions for Acme - 1,200 Widgets">
+                            <lightning-icon icon-name="utility:down" size="xx-small"></lightning-icon>
+                        </button>
+                    </c-datatable-cell>
+                </c-datatable-body-row>
+            </template>
+
+
+            <!--            <c-datatable-body-row slot="bodyRow">-->
+            <!--                <c-datatable-cell slot="cell">-->
+            <!--                    <lightning-input slot="cellValue" type="checkbox" variant="label-hidden"></lightning-input>-->
+            <!--                </c-datatable-cell>-->
+
+            <!--                <c-datatable-cell slot="cell"><a slot="cellValue" href="javascript:void(0);" tabindex="0">Acme - 1,200-->
+            <!--                    Widgets</a></c-datatable-cell>-->
+
+            <!--                <c-datatable-cell slot="cell"><span slot="cellValue">Acme</span></c-datatable-cell>-->
+
+            <!--                <c-datatable-cell slot="cell"><span slot="cellValue">4/10/15</span></c-datatable-cell>-->
+
+            <!--                <c-datatable-cell slot="cell"><span slot="cellValue">Value Proposition</span></c-datatable-cell>-->
+
+            <!--                <c-datatable-cell slot="cell"><span slot="cellValue">30%</span></c-datatable-cell>-->
+
+            <!--                <c-datatable-cell slot="cell"><span slot="cellValue">$25,000,000</span></c-datatable-cell>-->
+
+            <!--                <c-datatable-cell slot="cell"><span><a slot="cellValue" href="javascript:void(0);" tabindex="0" key={key} onclick={handleRedirectToRecord}></span>jrogers@acme.com</a>-->
+            <!--                </c-datatable-cell>-->
+
+            <!--                <c-datatable-cell slot="cell">-->
+            <!--                    <button slot="cellValue"-->
+            <!--                            class="slds-button slds-button_icon slds-button_icon-border-filled slds-button_icon-x-small"-->
+            <!--                            aria-haspopup="true" tabindex="0" title="More actions for Acme - 1,200 Widgets">-->
+            <!--                        <lightning-icon icon-name="utility:down" size="xx-small"></lightning-icon>-->
+            <!--                    </button>-->
+            <!--                </c-datatable-cell>-->
+            <!--            </c-datatable-body-row>-->
         </c-datatable>
     </div>
 

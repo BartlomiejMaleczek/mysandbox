@@ -6,16 +6,12 @@ import {LightningElement, api, track, wire} from 'lwc';
 
 export default class DatatableColumn extends LightningElement {
     _isSortable;
-    @api columnTitle;
-    @api columnClasses;
-    @api columnStyle;
+    _isTruncated;
+    truncateClass;
 
-    constructor() {
-        super();
-    }
+    @api columnTitle;
 
     connectedCallback() {
-        console.log('Connected Callback');
         this.classList.add('finally-table-header-cell');
 
         if(this.isSortable) {
@@ -42,15 +38,26 @@ export default class DatatableColumn extends LightningElement {
     }
 
     @api
+    get isTruncated() {
+        return this._isTruncated;
+    }
+
+    set isTruncated(value) {
+        this._isTruncated = (value == 'true');
+
+        if(this._isTruncated) {
+            this.truncateClass = 'slds-truncate';
+        } else {
+            this.truncateClass = 'slds-size--1-of-1';
+        }
+    }
+
+    @api
     get isSortable() {
         return this._isSortable;
     }
 
     set isSortable(value) {
-        if(value == 'true') {
-            this._isSortable = true;
-        } else if(value == 'false') {
-            this._isSortable = false;
-        }
+        this._isSortable = (value == 'true');
     }
 }

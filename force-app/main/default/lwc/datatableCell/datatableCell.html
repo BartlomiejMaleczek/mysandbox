@@ -1,5 +1,7 @@
 <template>
-    <div class="slds-truncate table-cell-spacing" title="Select">
-        <slot name="cellValue"></slot>
+    <div style="display: flex;flex-direction: column;" class="slds-has-flexi-truncate">
+        <span class={truncateClass} title={cellTitle}>
+            <slot name="cellValue"></slot>
+        </span>
     </div>
 </template>
