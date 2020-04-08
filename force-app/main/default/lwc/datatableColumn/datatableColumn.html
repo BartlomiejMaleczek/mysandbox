@@ -1,5 +1,5 @@
 <template>
-        <a class="finally-header-link slds-text-link_reset slds-cell-fixed" role="button" onclick={handleHeaderOnClick}>
+            <a class={finallyHeaderLinkClasses} role="button" onclick={handleHeaderOnClick}>
             <div class="slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate">
                 <span class={truncateClass} title={columnTitle}>
                      <slot name="headerCell">

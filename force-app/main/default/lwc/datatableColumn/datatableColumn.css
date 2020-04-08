@@ -7,7 +7,9 @@
     position: relative;
     text-align: left;
     vertical-align: inherit;
+}
 
+:host.finally-table-header-cell-fixed{
     position: static;
     padding: 0;
     border-top: 0;

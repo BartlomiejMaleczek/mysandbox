@@ -15,8 +15,8 @@ export default class DatatableColumn extends LightningElement {
 
     constructor() {
         super();
+        this._isHeaderFixed = false;
         this._isSortable = false;
-        this.finallyHeaderLinkClasses = 'finally-header-link slds-text-link_reset';
     }
 
     connectedCallback() {
@@ -29,11 +29,13 @@ export default class DatatableColumn extends LightningElement {
             this.classList.add('finally-table-header-not-sortable');
         }
 
+        if(this.isHeaderFixed) {
+            this.classList.add('finally-table-header-cell-fixed');
+        }
+
         if(this.columnTitle) {
             this.setAttribute('title', this.columnTitle);
         }
-
-        console.log(this.template);
     }
 
     handleHeaderOnClick(event) {
@@ -50,11 +52,15 @@ export default class DatatableColumn extends LightningElement {
     }
 
     set isHeaderFixed(value) {
+        const FINALLY_HEADER_LINK_CLASSES = 'finally-header-link slds-text-link_reset';
+
         this._isHeaderFixed = (value == 'true');
 
-        if(this._isHeaderFixed)
-            this.finallyHeaderLinkClasses = this.finallyHeaderLinkClasses.concat(' slds-cell-fixed');
-
+        if(this._isHeaderFixed) {
+            this.finallyHeaderLinkClasses = FINALLY_HEADER_LINK_CLASSES.concat(' slds-cell-fixed');
+        } else {
+            this.finallyHeaderLinkClasses = FINALLY_HEADER_LINK_CLASSES;
+        }
     }
 
     @api
