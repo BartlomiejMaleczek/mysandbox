@@ -1,5 +1,5 @@
 <template>
-    <c-card is-footer-visible="true" icon-name="standard:account">
+    <c-modal header='Test Modal' show-modal="true" modal-container-style="min-width: 80%">
         <c-datatable-with-fixed-header-container slot="body">
             <c-datatable slot="table">
                 <c-datatable-column slot="columns" style="width: 3.25rem;" is-truncated="false" is-header-fixed="true"
@@ -92,5 +92,5 @@
                 </template>
             </c-datatable>
         </c-datatable-with-fixed-header-container>
-    </c-card>
+    </c-modal>
 </template>

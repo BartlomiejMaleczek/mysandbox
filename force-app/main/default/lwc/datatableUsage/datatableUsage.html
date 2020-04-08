@@ -1,49 +1,44 @@
 <template>
     <c-card is-footer-visible="true" icon-name="standard:account">
-<!--        <div slot="footer" style="height: 50px">Footer</div>-->
-<!--        <div slot="body" class="slds-table&#45;&#45;header-fixed_container"-->
-<!--             style="display: flex;flex-direction: column;max-height: 100%;overflow: auto;width: 100%;position:relative;">-->
-
-<!--            <div style="display: flex;flex-direction: column;max-height: 100%;overflow: auto;">-->
                 <c-datatable slot="body">
-                    <c-datatable-column slot="columns" style="width: 3.25rem;" is-sortable="false" is-truncated="false"
+                    <c-datatable-column slot="columns" style="width: 3.25rem;" is-sortable="false" is-header-fixed="false" is-truncated="false"
                                         column-title="select">
                         <lightning-input slot="headerCell" type="checkbox" variant="label-hidden"></lightning-input>
                     </c-datatable-column>
 
-                    <c-datatable-column slot="columns" is-sortable="true" is-truncated="true" column-title="Name">
+                    <c-datatable-column slot="columns" is-sortable="true" is-header-fixed="false" is-truncated="true" column-title="Name">
                         <span slot="headerCell">Name</span>
                     </c-datatable-column>
 
-                    <c-datatable-column slot="columns" is-sortable="true" is-truncated="true"
+                    <c-datatable-column slot="columns" is-sortable="true" is-header-fixed="false" is-truncated="true"
                                         column-title="Account Number">
                         <span slot="headerCell">Account Number</span>
                     </c-datatable-column>
 
-                    <c-datatable-column slot="columns" is-sortable="false" is-truncated="true" column-title="Owner">
+                    <c-datatable-column slot="columns" is-sortable="false" is-header-fixed="false" is-truncated="true" column-title="Owner">
                         <span slot="headerCell">Owner</span>
                     </c-datatable-column>
 
-                    <c-datatable-column slot="columns" is-sortable="false" is-truncated="true"
+                    <c-datatable-column slot="columns" is-sortable="false" is-header-fixed="false" is-truncated="true"
                                         column-title="Description">
                         <span slot="headerCell">Description</span>
                     </c-datatable-column>
 
-                    <c-datatable-column slot="columns" is-sortable="false" is-truncated="true" column-title="Phone">
+                    <c-datatable-column slot="columns" is-sortable="false" is-header-fixed="false" is-truncated="true" column-title="Phone">
                 <span slot="headerCell">
                     Phone
                 </span>
                     </c-datatable-column>
 
-                    <c-datatable-column slot="columns" is-sortable="false" is-truncated="true" column-title="Website">
+                    <c-datatable-column slot="columns" is-sortable="false" is-header-fixed="false" is-truncated="true" column-title="Website">
                         <span slot="headerCell">Website</span>
                     </c-datatable-column>
 
-                    <c-datatable-column slot="columns" is-sortable="false" is-truncated="true" column-title="Type">
+                    <c-datatable-column slot="columns" is-sortable="false" is-header-fixed="false" is-truncated="true" column-title="Type">
                         <span slot="headerCell">Type</span>
                     </c-datatable-column>
 
-                    <c-datatable-column slot="columns" is-sortable="false" is-truncated="false" style="width: 3.25rem;"
+                    <c-datatable-column slot="columns" is-sortable="false" is-header-fixed="false" is-truncated="false" style="width: 3.25rem;"
                                         column-title="Actions">
                     </c-datatable-column>
 
