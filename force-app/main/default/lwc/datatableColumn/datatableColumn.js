@@ -7,9 +7,17 @@ import {LightningElement, api, track, wire} from 'lwc';
 export default class DatatableColumn extends LightningElement {
     _isSortable;
     _isTruncated;
+    _isHeaderFixed;
     truncateClass;
+    finallyHeaderLinkClasses;
 
     @api columnTitle;
+
+    constructor() {
+        super();
+        this._isSortable = false;
+        this.finallyHeaderLinkClasses = 'finally-header-link slds-text-link_reset';
+    }
 
     connectedCallback() {
         this.classList.add('finally-table-header-cell');
@@ -20,7 +28,6 @@ export default class DatatableColumn extends LightningElement {
         } else {
             this.classList.add('finally-table-header-not-sortable');
         }
-
 
         if(this.columnTitle) {
             this.setAttribute('title', this.columnTitle);
@@ -35,6 +42,19 @@ export default class DatatableColumn extends LightningElement {
             linkAction.setAttribute('tabindex', 0);
             linkAction.focus();
         }
+    }
+
+    @api
+    get isHeaderFixed() {
+        return this._isHeaderFixed;
+    }
+
+    set isHeaderFixed(value) {
+        this._isHeaderFixed = (value == 'true');
+
+        if(this._isHeaderFixed)
+            this.finallyHeaderLinkClasses = this.finallyHeaderLinkClasses.concat(' slds-cell-fixed');
+
     }
 
     @api

@@ -1,0 +1,97 @@
+<template>
+    <c-card is-footer-visible="true" icon-name="standard:account">
+        <div slot="footer" style="height: 50px">Footer</div>
+        <c-datatable-with-fixed-header-container slot="body">
+            <c-datatable slot="table">
+                <c-datatable-column slot="columns" style="width: 3.25rem;" is-truncated="false" is-header-fixed="true"
+                                    column-title="select">
+                    <lightning-input slot="headerCell" type="checkbox" variant="label-hidden"></lightning-input>
+                </c-datatable-column>
+
+                <c-datatable-column slot="columns" is-truncated="true" is-header-fixed="true" column-title="Name">
+                    <span slot="headerCell">Name</span>
+                </c-datatable-column>
+
+                <c-datatable-column slot="columns" is-truncated="true" is-header-fixed="true"
+                                    column-title="Account Number">
+                    <span slot="headerCell">Account Number</span>
+                </c-datatable-column>
+
+                <c-datatable-column slot="columns" is-truncated="true" is-header-fixed="true" column-title="Owner">
+                    <span slot="headerCell">Owner</span>
+                </c-datatable-column>
+
+                <c-datatable-column slot="columns" is-truncated="true" is-header-fixed="true"
+                                    column-title="Description">
+                    <span slot="headerCell">Description</span>
+                </c-datatable-column>
+
+                <c-datatable-column slot="columns" is-truncated="true" is-header-fixed="true" column-title="Phone">
+                <span slot="headerCell">
+                    Phone
+                </span>
+                </c-datatable-column>
+
+                <c-datatable-column slot="columns" is-truncated="true" is-header-fixed="true" column-title="Website">
+                    <span slot="headerCell">Website</span>
+                </c-datatable-column>
+
+                <c-datatable-column slot="columns" is-truncated="true" is-header-fixed="true" column-title="Type">
+                    <span slot="headerCell">Type</span>
+                </c-datatable-column>
+
+                <c-datatable-column slot="columns" is-truncated="false" style="width: 3.25rem;"
+                                    column-title="Actions">
+                </c-datatable-column>
+
+                <template for:each={accounts} for:item="account" for:index="index">
+                    <c-datatable-body-row key={account.Id} slot="bodyRow" value={account} index={index}>
+                        <c-datatable-cell slot="cell">
+                            <lightning-input slot="cellValue" type="checkbox"
+                                             variant="label-hidden"></lightning-input>
+                        </c-datatable-cell>
+
+                        <c-datatable-cell slot="cell" is-truncated="true" cell-title={account.Name}>
+                            <a slot="cellValue" onclick={handleRedirectToRecord} href="javascript:void(0);"
+                               tabindex="0">
+                                {account.Name}
+                            </a>
+                        </c-datatable-cell>
+
+                        <c-datatable-cell slot="cell" is-truncated="true" cell-title={account.AccountNumber}>
+                            <span slot="cellValue">{account.AccountNumber}</span>
+                        </c-datatable-cell>
+
+                        <c-datatable-cell slot="cell" is-truncated="true" cell-title={account.Owner.Name}>
+                            <span slot="cellValue">{account.Owner.Name}</span>
+                        </c-datatable-cell>
+
+                        <c-datatable-cell slot="cell" is-truncated="true" cell-title={account.Description}>
+                            <span slot="cellValue">{account.Description}</span>
+                        </c-datatable-cell>
+
+                        <c-datatable-cell slot="cell" is-truncated="true" cell-title={account.Phone}>
+                            <span slot="cellValue">{account.Phone}</span>
+                        </c-datatable-cell>
+
+                        <c-datatable-cell slot="cell" is-truncated="true" cell-title={account.Website}>
+                            <span slot="cellValue">{account.Website}</span>
+                        </c-datatable-cell>
+
+                        <c-datatable-cell slot="cell" is-truncated="true" cell-title={account.Type}>
+                            <span slot="cellValue">{account.Type}</span>
+                        </c-datatable-cell>
+
+                        <c-datatable-cell slot="cell">
+                            <button slot="cellValue"
+                                    class="slds-button slds-button_icon slds-button_icon-border-filled slds-button_icon-x-small"
+                                    aria-haspopup="true" tabindex="0" title="More actions for Acme - 1,200 Widgets">
+                                <lightning-icon icon-name="utility:down" size="xx-small"></lightning-icon>
+                            </button>
+                        </c-datatable-cell>
+                    </c-datatable-body-row>
+                </template>
+            </c-datatable>
+        </c-datatable-with-fixed-header-container>
+    </c-card>
+</template>

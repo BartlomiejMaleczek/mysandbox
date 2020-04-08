@@ -8,9 +8,9 @@
     text-align: left;
     vertical-align: inherit;
 
-    /*position: static;*/
-    /*padding: 0;*/
-    /*border-top: 0;*/
+    position: static;
+    padding: 0;
+    border-top: 0;
 }
 
 :host a.slds-text-link_reset:focus{
