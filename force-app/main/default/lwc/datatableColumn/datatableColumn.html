@@ -1,11 +1,12 @@
 <template>
-    <a class="finally-header-link slds-text-link_reset" role="button" onclick={handleHeaderOnClick}>
-        <div class="slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate">
+<!--    slds-cell-fixed-->
+        <a class="finally-header-link slds-text-link_reset" role="button" onclick={handleHeaderOnClick}>
+            <div class="slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate">
                 <span class={truncateClass} title={columnTitle}>
                      <slot name="headerCell">
                      </slot>
                 </span>
-            <lightning-icon if:true={isSortable} icon-name="utility:arrowdown" size="xx-small"></lightning-icon>
-        </div>
-    </a>
+                <lightning-icon if:true={isSortable} icon-name="utility:arrowdown" size="xx-small"></lightning-icon>
+            </div>
+        </a>
 </template>

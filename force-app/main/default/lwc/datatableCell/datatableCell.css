@@ -1,10 +1,5 @@
 :host.table-body-cell{
     display: table-cell;
-    /*padding: 0.25rem 1rem;*
-    /?
-
-     */
-
     padding-left: 1rem;
     padding-top: 0.125rem;
     padding-bottom: 0.125rem;

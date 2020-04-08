@@ -71,10 +71,7 @@ export default class DatatableUsage extends ServiceAbstract {
 
     getAccounts() {
         return new Promise(((resolve, reject) => {
-            getAccountsApex(
-                {
-                    accountId: this.recordId
-                })
+            getAccountsApex({})
                 .then((result) => {
                     this.accounts = result;
                     resolve(result);

@@ -17,6 +17,10 @@
     border-spacing: 0;
 }
 
+.finally-table-header-fixed {
+
+}
+
 .finally-table-body{
     display: table-row-group;
 }

@@ -48,7 +48,7 @@ export default class DatatableColumn extends LightningElement {
         if(this._isTruncated) {
             this.truncateClass = 'slds-truncate';
         } else {
-            this.truncateClass = 'slds-size--1-of-1';
+            this.truncateClass = 'slds-size--1-of-1 ';
         }
     }
 
