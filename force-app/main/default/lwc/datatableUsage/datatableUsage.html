@@ -90,6 +90,9 @@
                         </c-datatable-body-row>
                     </template>
                 </c-datatable>
+
+
+                <c-pagination if:true={accounts} slot="footer" page="0" page-size="10" items-length={accounts.length}></c-pagination>
 <!--            </div>-->
 <!--        </div>-->
     </c-card>
