@@ -1,7 +1,3 @@
-/**
- * Created by BMaleczek on 28.03.2020.
- */
-
 function isValidDateType(dateValue) {
     const inputDateValue = new Date(dateValue);
 
@@ -86,7 +82,7 @@ function onSort(collection, key, order) {
 }
 
 function copyObjectWithoutProperties(object, keys) {
-    let  target = {};
+    let target = {};
 
     for (let i in object) {
         if (keys.indexOf(i) >= 0) continue;
@@ -124,6 +120,31 @@ function searchInCollection(searchStr, collection, fieldsToSearch) {
     }
 }
 
+function addDays(dateToAddDays, days) {
+    let newDate = new Date(dateToAddDays);
+    newDate.setDate(dateToAddDays.getDate() + days);
+    return newDate;
+}
+
+function startOfWeek(date) {
+    let diff = date.getDate() - date.getDay() + (date.getDay() === 0 ? -6 : 1);
+
+    return new Date(date.setDate(diff));
+}
+
+function formatDateYYYYMMDD(date) {
+    let month = date.getMonth() + 1,
+        formattedDate = date.getFullYear() + '-' + (month > 9 ? month : '0' + month) + "-" + date.getDate();
+    return formattedDate;
+}
+
+function getWeekNumber(date) {
+    let january = new Date(date.getFullYear(), 0, 1),
+        week = Math.ceil((((date - january) / 86400000) + january.getDay() + 1) / 7);
+
+    return week;
+}
+
 function removeWhitespaces(text) {
     return text.replace(/ /g, '').trim();
 }
@@ -134,11 +155,11 @@ function getURLParams(url) {
 
     let paramMap = {};
 
-    if(pageURL) {
-        if(pageURL.length > 1) {
+    if (pageURL) {
+        if (pageURL.length > 1) {
             const params = pageURL[1].split('&');
 
-            if(params) {
+            if (params) {
                 params.forEach(function (param) {
                     paramMap = param.split('=');
                     paramsMap[paramMap[0]] = (paramMap[1] ? paramMap[1] : '');
@@ -160,7 +181,11 @@ const _jsUtils = {
     copyObjectWithoutProperties: copyObjectWithoutProperties,
     searchInCollection: searchInCollection,
     removeWhitespaces: removeWhitespaces,
-    getURLParams: getURLParams
+    getURLParams: getURLParams,
+    addDays: addDays,
+    startOfWeek: startOfWeek,
+    formatDateYYYYMMDD: formatDateYYYYMMDD,
+    getWeekNumber: getWeekNumber
 }
 
 export {_jsUtils};

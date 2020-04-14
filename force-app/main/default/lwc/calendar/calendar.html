@@ -1,0 +1,58 @@
+<template>
+    <c-card is-footer-visible="false" icon-name="standard:event" title="Data wizyty">
+        <div slot="body" class="slds-col slds-align--absolute-center slds-text-heading_small"
+             style="letter-spacing: 1px; text-transform: capitalize;">
+        <span class="slds-text-link" style="text-decoration: none;">
+            <p>{titleDate}</p>
+        </span>
+        </div>
+        <div slot="body" style="display: flex; flex-direction: row;position: relative;" class="slds-box slds-m-around--small">
+            <lightning-spinner if:true={isLoading} alternative-text="Loading"></lightning-spinner>
+
+            <div class="slds-m-right_x-small">
+                <lightning-button-icon disabled={isPrevWeekButtonDisabled}
+                                       icon-name="utility:chevronleft" alternative-text="Week before"
+                                       onclick={handlePreviousWeek}></lightning-button-icon>
+            </div>
+
+
+                <c-datatable style="border-bottom: none;">
+                    <template for:each={columns} for:item="column" for:index="index">
+                        <c-datatable-column class="finally-column-no-padding" key={column.weekDay} style="background-color: white;" slot="columns"
+                                            is-sortable={column.isSortable} is-header-fixed={column.isFixed}
+                                            is-truncated={column.isTruncated}
+                                            column-title="select">
+                    <span class="slds-text-align_center" slot="headerCell" style="font-size: smaller;">
+                        <p>{column.weekDay}</p>
+                        <p><lightning-formatted-date-time value={column.date} month="2-digit"
+                                                          day="2-digit"></lightning-formatted-date-time></p>
+                    </span>
+                        </c-datatable-column>
+                    </template>
+
+                    <template for:each={days} for:item="day" for:index="index">
+                        <c-datatable-body-row style="border-bottom: none;" key={day.Id} slot="bodyRow" value="TETEST"
+                                              index={index}>
+
+                            <template for:each={columns} for:item="column" for:index="index">
+                                <c-datatable-cell  class="calendar-padding slds-text-align_center" key={day.Id} slot="cell">
+                                    <button if:true={day.isVisible} disabled={day.isDisabled}
+                                            slot="cellValue" class="slds-button slds-button_outline-brand" style="width: 10%;font-size: x-small;" onclick={handleClickButton}>13:15</button>
+                                    <span slot="cellValue" if:false={day.isVisible}>--</span>
+                                </c-datatable-cell>
+                            </template>
+
+                        </c-datatable-body-row>
+                    </template>
+                </c-datatable>
+
+            <div class="slds-m-left_x-small">
+                <lightning-button-icon variant="brand-outline"
+                                       icon-name="utility:chevronright" alternative-text="Week before"
+                                       onclick={handleNextWeek}></lightning-button-icon>
+            </div>
+
+
+        </div>
+    </c-card>
+</template>

@@ -1,4 +1,4 @@
-:host div.finally-table {
+:host.finally-table {
     width: 100%;
     display: table;
     border-collapse: collapse;
@@ -13,7 +13,7 @@
     background-color: rgb(255, 255, 255);
     vertical-align: middle;
     border-color: inherit;
-    border-bottom: 1px solid rgb(221, 219, 218);
+    /*border-bottom: 1px solid rgb(221, 219, 218);*/
     border-spacing: 0;
 }
 
@@ -35,8 +35,8 @@
 }
 
 
-:host div.table-body-cell{
-    display: table-cell;
-    padding: 0.25rem 1rem;
-}
+/*:host div.table-body-cell{*/
+/*    display: table-cell;*/
+/*    padding: 0.25rem 1rem;*/
+/*}*/
 

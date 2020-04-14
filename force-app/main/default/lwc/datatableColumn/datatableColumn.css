@@ -30,11 +30,19 @@
 }
 
 :host a.slds-text-link_reset{
-    padding-left: 1rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
     height: 2rem;
     display: flex;
     align-items: center;
 }
+
+:host(.finally-column-no-padding) a.slds-text-link_reset{
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+
 
 :host.finally-table-header-not-sortable a.slds-text-link_reset{
     cursor: default;
