@@ -17,28 +17,31 @@
 
 
                 <c-datatable style="border-bottom: none;">
-                    <template for:each={columns} for:item="column" for:index="index">
-                        <c-datatable-column class="finally-column-no-padding" key={column.weekDay} style="background-color: white;" slot="columns"
-                                            is-sortable={column.isSortable} is-header-fixed={column.isFixed}
-                                            is-truncated={column.isTruncated}
-                                            column-title="select">
-                    <span class="slds-text-align_center" slot="headerCell" style="font-size: smaller;">
+                    <c-datatable-header-row slot="headerRow">
+                        <template for:each={columns} for:item="column" for:index="index">
+                            <c-datatable-column class="finally-column-no-padding" key={column.weekDay} style="background-color: white;"
+                                                is-sortable={column.isSortable} is-header-fixed={column.isFixed}
+                                                is-truncated={column.isTruncated}
+                                                column-title="select">
+                    <span class="slds-text-align_center" style="font-size: smaller;">
                         <p>{column.weekDay}</p>
                         <p><lightning-formatted-date-time value={column.date} month="2-digit"
                                                           day="2-digit"></lightning-formatted-date-time></p>
                     </span>
-                        </c-datatable-column>
-                    </template>
+                            </c-datatable-column>
+                        </template>
+                    </c-datatable-header-row>
+
 
                     <template for:each={days} for:item="day" for:index="index">
                         <c-datatable-body-row style="border-bottom: none;" key={day.Id} slot="bodyRow" value="TETEST"
                                               index={index}>
 
                             <template for:each={columns} for:item="column" for:index="index">
-                                <c-datatable-cell  class="calendar-padding slds-text-align_center" key={day.Id} slot="cell">
+                                <c-datatable-cell  class="calendar-padding slds-text-align_center" key={day.Id}>
                                     <button if:true={day.isVisible} disabled={day.isDisabled}
-                                            slot="cellValue" class="slds-button slds-button_outline-brand" style="width: 10%;font-size: x-small;" onclick={handleClickButton}>13:15</button>
-                                    <span slot="cellValue" if:false={day.isVisible}>--</span>
+                                             class="slds-button slds-button_outline-brand" style="width: 10%;font-size: x-small;" onclick={handleClickButton}>13:15</button>
+                                    <span if:false={day.isVisible}>--</span>
                                 </c-datatable-cell>
                             </template>
 
