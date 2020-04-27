@@ -3,7 +3,7 @@ function callPromises(promisesMap, finalMethod) {
         firstElement = 0;
 
     console.groupCollapsed('Promises Framework');
-    console.log('PromisesMap:', promisesMap);
+    console.log('Levels:', promisesMap.length);
     console.log('OnFinalMethod:', finalMethod.name);
     console.groupEnd();
 
@@ -34,7 +34,7 @@ function callPromiseLevel(promisesMap, finalMethod, iteration) {
                 }
 
             }).catch(function (error) {
-                promisesMap[finalMethod]();
+                finalMethod();
                 console.error('Promises finished with Errors:', error);
                 console.groupEnd();
             });

@@ -1,13 +1,15 @@
 import {ShowToastEvent} from 'lightning/platformShowToastEvent';
 
 function showToast(cmp, title, message, variant) {
-    cmp.dispatchEvent(
-        new ShowToastEvent({
-            title: title,
-            message: message,
-            variant: variant
-        })
-    );
+    if(message) {
+        cmp.dispatchEvent(
+            new ShowToastEvent({
+                title: title,
+                message: message,
+                variant: variant
+            })
+        );
+    }
 }
 
 function fireCustomEvent(cmp, name, propagation, detail) {
