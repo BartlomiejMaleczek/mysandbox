@@ -125,6 +125,7 @@
         <members>WireAndApexCallController</members>
         <members>ZuoraAddProductTest</members>
         <members>tenPageSizeExt</members>
+        <members>TimesheetController</members>
         <name>ApexClass</name>
     </types>
     <types>
@@ -291,6 +292,8 @@
         <members>successLoginEvent</members>
         <members>testDataTable</members>
         <members>toggleCss</members>
+        <members>CmpEvent</members>
+        <members>CmpEventHandler</members>
         <name>AuraDefinitionBundle</name>
     </types>
     <types>
@@ -475,6 +478,7 @@
         <members>templateOne</members>
         <members>templateTwo</members>
         <members>wireAndApexCall</members>
+        <members>practiceCssPositioning</members>
         <name>LightningComponentBundle</name>
     </types>
     <version>48.0</version>

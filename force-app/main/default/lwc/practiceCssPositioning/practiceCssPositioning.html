@@ -1,0 +1,30 @@
+
+<template>
+    <div style="background-color: white;position: absolute;top: 0;bottom: 0;left: 0;right: 0;">
+        <div class="flex-grid" style="border-color: red;">
+           <div style="background-color: yellow;">
+               <p>czesc</p>
+           </div>
+<!--            flex-grow: 1 jesli nie flex grid-->
+            <div class="flex-grid" style="border-color: blue;">
+                <div class="flex-grid" style="border: 5px solid deeppink;position: relative;">
+                    Header Fixed Container
+                    <div class="flex-grid" style="border: 5px solid darkblue;">
+                        Scrollable Container
+                        <div style="background-color: coral;">
+                            Table
+                            <div style="background-color: blueviolet;position: absolute;top:0;left: 0;right: 0;">
+                                Header
+                            </div>
+
+                            <div style="background-color: limegreen;height: 2000px;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="background-color: yellow;">
+                <p>czesc</p>
+            </div>
+        </div>
+    </div>
+</template>

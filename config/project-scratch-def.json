@@ -1,10 +1,13 @@
 {
     "orgName": "Internal Scratch",
     "edition": "Developer",
-    "features":["PlatformEncryption"],    
+    "features":["Communities"],    
     "settings": {
         "lightningExperienceSettings": {
             "enableS1DesktopEnabled": true
-        }
+        },
+	"orgPreferenceSettings": {
+      		"enableNetworksEnabled": true
+    	}
     }
 }

@@ -1,0 +1,50 @@
+<aura:component description="Timesheet" controller="TimesheetController" implements="force:appHostable,flexipage:availableForAllPageTypes,force:LightningQuickAction,forceCommunity:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,force:hasSObjectName">
+    <aura:attribute name="recordId" type="String" />
+    <aura:attribute name="sObjectName" type="String" />
+
+    <aura:attribute name="data" type="Map" />
+    <aura:attribute name="currentData" type="Object[]" />
+
+    <aura:attribute name="startRangeWeekDate" type="Date"/>
+    <aura:attribute name="endRangeWeekDate" type="Date"/>
+    <aura:attribute name="weekNumber" type="Integer"/>
+
+    <aura:attribute name="rowToAcceptOrReject" type="Object" default="{}"/>
+    <aura:attribute name="isAcceptOrRejectPopupVisible" type="Boolean" default="false"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.handleInit}"/>
+    <aura:handler name="cmpEvent" event="c:CmpEvent" action="{!c.handleComponentEvent}"/>
+
+    <c:UtilsComponent aura:id="UtilsService"/>
+    <c:ServiceComponentApexCall aura:id="ApexService"/>
+    <c:PromisesFramework aura:Id="PromisesService"/>
+    <c:CmpEventHandler aura:id="CmpEventHandler"/>
+
+    <lightning:card>
+        <div class="slds slds-box slds-m-around--small">
+<!--            <lightning:spinner aura:id="spinner" alternativeText="Loading"/>-->
+            <div class="slds-grid slds-wrap">
+                <c:TimesheetFilter weekNumber="{!v.weekNumber}"  startRangeWeekDate="{!v.startRangeWeekDate}" endRangeWeekDate="{!v.endRangeWeekDate}"/>
+            </div>
+<!--            data="{!v.data}" currentData="{!v.currentData}"-->
+                    <c:TimesheetDatatable startRangeWeekDate="{!v.startRangeWeekDate}" endRangeWeekDate="{!v.endRangeWeekDate}" />
+        </div>
+    </lightning:card>
+
+
+
+<!--    <aura:if isTrue="{!v.isAcceptOrRejectPopupVisible}" >-->
+<!--        <c:Modal title="{!if(v.rowToAcceptOrReject.row.isAccepted, 'Accpet', 'Reject'" handleCloseAction="{!c.handleCloseAcceptOrRejectPopup}">-->
+<!--            <aura:set attribute="modalContent">-->
+<!--                <lightning:textarea aura:id="acceptOrRejectRowTextArea" messageWhenValueMissing="{!$Label.c.Timsheet_Comment_Input_Required_Error_Msg}" name="comment" required="{!v.rowToAcceptOrReject.row.isRejected}" label="{!$Label.c.Timsheet_Comment_Input_Label}" placeholder="{!$Label.c.Timesheet_Comment_Input_Placeholder}"/>-->
+<!--            </aura:set>-->
+<!--            <aura:set attribute="modalFooter">-->
+<!--                <lightning:buttonGroup>-->
+<!--                    <lightning:button aura:id="cancelBtn" variant="neutral" label="{!$Label.c.Timsheet_Cancel_Button_Label}" onclick="{!c.handleCloseAcceptOrRejectPopup}"/>-->
+<!--                    <lightning:button aura:id="submitBtn" variant="brand" label="{!$Label.c.Timsheet_Save_Button_Label}" type="Submit"  onclick="{!c.handleAcceptOrRejectRow}"/>-->
+<!--                </lightning:buttonGroup>-->
+<!--            </aura:set>-->
+<!--        </c:Modal>-->
+<!--    </aura:if>-->
+
+</aura:component>

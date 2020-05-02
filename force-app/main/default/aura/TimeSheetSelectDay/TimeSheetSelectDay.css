@@ -1,0 +1,10 @@
+.THIS {
+}
+
+.THIS.slds-button_neutral.isWeekend {
+    background-color: #f3f2f2;
+}
+
+.THIS.slds-button_brand.isWeekend {
+    background-color: rgb(24, 61, 109);
+}

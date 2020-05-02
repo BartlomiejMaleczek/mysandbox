@@ -7,6 +7,7 @@
 import {ServiceAbstract} from 'c/serviceAbstract';
 export default class ShareJavaScriptCodeParent extends ServiceAbstract {
 
+    @api recordId;
     connectedCallback() {
         console.log('SHARE PARENT');
         console.log(this.utils.getTermOptions());

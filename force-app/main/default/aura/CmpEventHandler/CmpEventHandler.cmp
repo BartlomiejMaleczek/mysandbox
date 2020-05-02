@@ -1,0 +1,30 @@
+<aura:component description="CmpEventHandler">
+    <aura:registerEvent name="cmpEvent" type="c:CmpEvent"/>
+
+    <aura:method name="fireManageSkillCommunity" action="{!c.onFireManageSkillCommunity}">
+        <aura:attribute name="payload" type="Object"/>
+    </aura:method>
+
+    <aura:method name="isManageSkillCommunityEvtActionType" action="{!c.onIsManageSkillCommunityEvtActionType}">
+        <aura:attribute name="cmpEvent" type="Object"/>
+        <aura:attribute name="callback" type="Object"/>
+    </aura:method>
+
+    <aura:method name="fireTimesheetAcceptOrRejectEvt" action="{!c.onFireTimesheetAcceptOrRejectEvt}">
+        <aura:attribute name="payload" type="Object"/>
+    </aura:method>
+
+    <aura:method name="isTimesheetAcceptOrRejectEvtActionType" action="{!c.onIsTimesheetAcceptOrRejectEvtActionType}">
+        <aura:attribute name="cmpEvent" type="Object"/>
+        <aura:attribute name="callback" type="Object"/>
+    </aura:method>
+
+    <aura:method name="fireRemoveNewSkillCommunityEvt" action="{!c.onFireRemoveNewSkillCommunity}">
+        <aura:attribute name="payload" type="Object"/>
+    </aura:method>
+
+    <aura:method name="isRemoveNewSkillCommunityEvtActionType" action="{!c.onIsRemoveNewSkillCommunityEvtActionType}">
+        <aura:attribute name="cmpEvent" type="Object"/>
+        <aura:attribute name="callback" type="Object"/>
+    </aura:method>
+</aura:component>

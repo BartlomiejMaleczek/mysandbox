@@ -1,0 +1,57 @@
+<aura:component description="TimesheetDatatable">
+    <aura:attribute name="data" type="Object[]" />
+    <aura:attribute name="currentData" type="Object[]" />
+
+    <aura:attribute name="columns" type="Object[]"/>
+
+    <aura:attribute name="startRangeWeekDate" type="Date"/>
+    <aura:attribute name="endRangeWeekDate" type="Date"/>
+
+<!--    <aura:handler name="change" value="{!v.startRangeWeekDate}" action="{!c.handleTimeRangeChange}"/>-->
+<!--    <aura:handler name="change" value="{!v.data}" action="{!c.handleDataChange}"/>-->
+    <aura:handler name="init" value="{!this}" action="{!c.handleInit}"/>
+
+    <c:UtilsComponent aura:id="UtilsService"/>
+    <c:PromisesFramework aura:Id="PromisesService"/>
+    <c:ServiceComponentApexCall aura:id="ApexService"/>
+
+<!--    <lightning:spinner aura:id="spinner" class="slds-hide" alternativeText="Loading"/>-->
+    <table class="slds-table slds-table_cell-buffer slds-table_fixed-layout">
+        <thead>
+        <tr>
+<!--            <th scope="col" width="13%">-->
+<!--            </th>-->
+
+            <aura:iteration var="column" items="{!v.columns}">
+                <th scope="col">
+                    <div class="slds-grid slds-align--absolute-center slds-col" style="text-transform: capitalize;">
+                        <p><lightning:formattedDateTime value="{!column}" month="2-digit" day="2-digit" weekday="long" /></p>
+                    </div>
+                </th>
+            </aura:iteration>
+
+<!--            <th scope="col" class="slds-align&#45;&#45;absolute-center slds-col">-->
+<!--                Sum-->
+<!--            </th>-->
+
+<!--            <th width="6%">-->
+<!--            </th>-->
+
+<!--            <th width="3%">-->
+<!--            </th>-->
+        </tr>
+        </thead>
+
+        <tbody>
+
+        <c:TimesheetDatatableRow />
+        <c:TimesheetDatatableRow />
+        <c:TimesheetDatatableRow />
+        <c:TimesheetDatatableRow />
+        <c:TimesheetDatatableRow />
+<!--            <aura:iteration items="{!v.currentData}" var="row" indexVar="index">-->
+<!--                <c:TimesheetDatatableRow row="{!row}" index="{!index}"/>-->
+<!--            </aura:iteration>-->
+        </tbody>
+    </table>
+</aura:component>

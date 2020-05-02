@@ -2,6 +2,31 @@
 <template>
     <p>RECORD ID {recordId}</p>
 
+
+
+    <lightning-record-edit-form
+            object-api-name="Account"
+            record-id={recordId}>
+        <lightning-messages></lightning-messages>
+        <div class="slds-grid">
+            <div class="slds-col slds-size_1-of-2">
+                <lightning-input-field field-name="Name"></lightning-input-field>
+                <lightning-input-field field-name="Title"></lightning-input-field>
+            </div>
+            <div class="slds-col slds-size_1-of-2">
+                <lightning-input-field field-name="Phone"></lightning-input-field>
+                <lightning-input-field field-name="Email"></lightning-input-field>
+            </div>
+        </div>
+        <div class="slds-m-top_medium">
+            <lightning-button  variant="brand" label="Edit Contact" onclick={handleSubmit}></lightning-button>
+        </div>
+    </lightning-record-edit-form>
+
+
+
+
+
     <lightning-button variant="base" label="Base" title="Looks like a link" onclick={handleClick} class="slds-m-left_x-small"></lightning-button>
 
 <!--    <c-bike bike={bike}></c-bike>-->

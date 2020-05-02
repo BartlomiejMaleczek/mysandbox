@@ -1,0 +1,79 @@
+<aura:component description="TimesheetDatatableRow">
+    <aura:attribute name="row" type="Object"/>
+    <aura:attribute name="index" type="Integer"/>
+
+    <c:CmpEventHandler aura:id="CmpEventHandler"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.handleInit}"/>
+
+    <tr>
+<!--        <td>-->
+<!--            <p class="slds-truncate slds-text-link" style="text-decoration: none; cursor: default"-->
+<!--               title="Andrzej Skorupko">-->
+<!--                Andrzej Skorupko-->
+<!--            </p>-->
+
+<!--            <p class="slds-truncate slds-text-link" style="text-decoration: none; cursor: default"-->
+<!--               title="Lab space">Lab space</p>-->
+<!--        </td>-->
+<!--        <aura:iteration items="{!v.row.timesheetWeekDayEntries}" var="timesheetWeekDayEntry">-->
+            <td>
+                <p class="slds-align--absolute-center">
+                    --
+                </p>
+            </td>
+        <td>
+            <p class="slds-align--absolute-center">
+                <lightning:button disabled="true" label="13:15"></lightning:button>
+            </p>
+        </td>
+        <td>
+            <p class="slds-align--absolute-center">
+                <lightning:button label="13:15"></lightning:button>
+            </p>
+        </td>
+        <td>
+            <p class="slds-align--absolute-center">
+                <lightning:button label="13:15"></lightning:button>
+            </p>
+        </td>
+        <td>
+            <p class="slds-align--absolute-center">
+                <lightning:button label="13:15"></lightning:button>
+            </p>
+        </td>
+        <td>
+            <p class="slds-align--absolute-center">
+                <lightning:button label="13:15"></lightning:button>
+            </p>
+        </td>
+        <td>
+            <p class="slds-align--absolute-center">
+                <lightning:button label="13:15"></lightning:button>
+            </p>
+        </td>
+<!--        </aura:iteration>-->
+<!--        <td>-->
+<!--            <p class="slds-align&#45;&#45;absolute-center">{!v.row.weeklySum}</p>-->
+<!--        </td>-->
+<!--        <td>-->
+<!--            <aura:if isTrue="{!greaterthanorequal(v.row.weeklySum, 1)}">-->
+<!--                <lightning:buttonGroup>-->
+<!--                    <lightning:buttonIcon iconName="utility:check" class="{!if(v.row.isAccepted, 'approve-decline-button-disabled', '') + ' approve-decline-button-hover slds-m-right&#45;&#45;x-small'}"-->
+<!--                                          disabled="{!v.row.isAccepted}" size="large" variant="bare"-->
+<!--                                          title="Accept"-->
+<!--                                          onclick="{!c.handleFireAcceptRowEvt}"/>-->
+<!--                    <lightning:buttonIcon iconName="utility:close" class="{!if(v.row.isRejected, 'approve-decline-button-disabled', '') + ' approve-decline-button-hover'}"-->
+<!--                                          disabled="{!v.row.isRejected}"-->
+<!--                                          size="large" variant="bare"-->
+<!--                                          title="Reject"-->
+<!--                                          onclick="{!c.handleFireRejectRowEvt}"/>-->
+<!--                </lightning:buttonGroup>-->
+<!--            </aura:if>-->
+<!--        </td>-->
+<!--        <td>-->
+<!--            <c:TimesheetDatatablePopoverCellIcon message="{!v.row.comment}" type="info" iconName="utility:info_alt"-->
+<!--                                                 iconClass="slds-icon-text-default"/>-->
+<!--        </td>-->
+    </tr>
+</aura:component>

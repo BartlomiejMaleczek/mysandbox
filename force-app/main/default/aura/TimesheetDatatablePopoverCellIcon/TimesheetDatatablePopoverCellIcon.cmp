@@ -1,0 +1,26 @@
+<aura:component description="TimesheetDatatablePopoverCellIcon">
+    <aura:attribute name="message" type="Object"/>
+    <aura:attribute name="index" type="Integer"/>
+    <aura:attribute name="type" type="String" default="info" description="info/error" access="public"/>
+    <aura:attribute name="basicHtmlPopoverClass" type="String" default="slds-popover slds-popover_tooltip slds-rise-from-ground slds-nubbin_bottom-left slds-hide" access="private"/>
+    <aura:attribute name="iconName" type="String" default="utility:info_alt" access="public"/>
+    <aura:attribute name="iconClass" type="String" default="slds-icon-text-default" access="public"/>
+
+    <aura:if isTrue="{!not(empty(v.message))}">
+
+         <div aura:id="popover" class="{!if(v.type == 'info', v.basicHtmlPopoverClass + ' slds-theme--alt-inverse', v.basicHtmlPopoverClass + ' slds-theme_error')}" role="tooltip"
+              style="position: absolute; left: -7px; height: auto;  width: auto; max-width: none !important; top: -2.0rem">
+            <div class="slds-popover__body"
+                 style="white-space: pre;"><p>
+                    {!v.message}
+            </p></div>
+        </div>
+
+        <lightning:buttonIcon alternativeText="{!v.message}" name="{!v.index}" iconName="{!v.iconName}" size="medium"
+                              title="{!v.message}"
+                              onblur="{!c.handleHideInfoErrorPopup}"
+                              onclick="{!c.handleShowInfoErrorPopup}" variant="bare"
+                              iconClass="slds-icon-text-default"/>
+
+    </aura:if>
+</aura:component>

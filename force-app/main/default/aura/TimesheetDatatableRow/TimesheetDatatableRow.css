@@ -1,0 +1,8 @@
+.THIS .approve-decline-button-hover svg:hover {
+    fill: rgb(224, 0, 77);
+}
+
+.THIS .approve-decline-button-disabled svg{
+    fill: rgb(224, 0, 77) !important;
+}
+

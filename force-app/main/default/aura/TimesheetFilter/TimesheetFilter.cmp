@@ -1,0 +1,22 @@
+<aura:component description="TimesheetFilter">
+    <aura:attribute name="startRangeWeekDate" type="Date"/>
+    <aura:attribute name="endRangeWeekDate" type="Date"/>
+    <aura:attribute name="weekNumber" type="Integer"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.handleInit}"/>
+
+    <c:UtilsComponent aura:id="UtilsService"/>
+
+    <div class="slds-colslds-order--3 slds-medium-order--1slds-size--1-of-1 slds-medium-size--1-of-9 slds-p-bottom--small">
+        <lightning:buttonGroup>
+            <lightning:buttonIcon iconName="utility:chevronleft" onclick="{!c.handlePreviousWeek}" alternativeText="Week before"/>
+            <lightning:buttonIcon iconName="utility:chevronright" onclick="{!c.handleNextWeek}" alternativeText="Week after"/>
+            <lightning:button class="slds-small" label="Today" onclick="{!c.handleToday}"/>
+        </lightning:buttonGroup>
+    </div>
+    <div class="slds-col slds-order--2 slds-medium-order--2 slds-align--absolute-center slds-p-bottom--small slds-text-heading_small" style="letter-spacing: 1px; text-transform: capitalize;">
+        <span class="slds-text-link" style="text-decoration: none;">
+            <p><lightning:formattedDateTime year="numeric" month="long" value="{!v.startRangeWeekDate}"/>, Week {!v.weekNumber}</p>
+        </span>
+    </div>
+</aura:component>

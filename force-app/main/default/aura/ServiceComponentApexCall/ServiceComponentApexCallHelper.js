@@ -6,9 +6,9 @@
             const state = response.getState();
 
             console.group('Callapex: ', controllerMethod);
-            console.log('params:', actionParameters);
+            // console.log('params:', actionParameters);
             console.log('State:', state);
-            console.log('Return:', response.getReturnValue());
+            // console.log('Return:', response.getReturnValue());
             console.log('Errors:', response.getError());
             console.groupEnd();
 

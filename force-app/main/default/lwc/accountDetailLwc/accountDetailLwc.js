@@ -112,5 +112,10 @@ export default class AccountDetailLwc extends LightningElement {
         this.page = this.page + 1;
     }
 
+    handleSubmit(evt) {
+        evt.preventDefault();
+        console.log(evt);
+    }
+
 
 }

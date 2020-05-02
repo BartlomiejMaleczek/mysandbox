@@ -1,0 +1,33 @@
+<aura:component description="TimesheetDatatableRowActionMenu">
+    <aura:attribute name="isRowActionMenuOpen" type="Boolean" default="false" access="private"/>
+
+    <c:UtilsComponent aura:id="UtilsService"/>
+
+    <div class="slds-dropdown-trigger slds-dropdown-trigger_click slds-is-open" onblur="{!c.handleOnBlurEditMenu}">
+        <lightning:buttonIcon name="row-action-edit-menu" iconName="utility:down" alternativeText="Show More" size="x-small"
+                              onblur="{!c.handleOnBlurEditMenu}"
+                              onclick="{!c.handleShowEditMenu}"/>
+        <aura:if isTrue="{!v.isRowActionMenuOpen}">
+            <span>
+        <div class="slds-dropdown slds-dropdown_right">
+            <ul class="slds-dropdown__list" role="menu">
+                <li class="slds-dropdown__item" role="editRow" onclick="{!c.handleRowActionEdit}">
+                    <a href="javascript:void(0);" class="slds-is-disabled">
+                        <span class="slds-truncate" title="Edit">
+                            <lightning:icon title="Edit" class="slds-is-disabled" size="xx-small" alternativeText="test" iconName="utility:check"/>&nbsp; Accept
+                        </span>
+                    </a>
+                </li>
+                <li class="slds-dropdown__item" role="removeRow" onclick="{!c.handleRowActionRemove}">
+                    <a href="javascript:void(0);">
+                        <span class="slds-truncate" title="Remove">
+                            <lightning:icon title="test" size="xx-small" alternativeText="test" iconName="utility:close"/>&nbsp; Reject
+                        </span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </span>
+        </aura:if>
+    </div>
+</aura:component>

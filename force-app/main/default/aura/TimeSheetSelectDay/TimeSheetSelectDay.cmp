@@ -1,0 +1,8 @@
+<aura:component >
+    <aura:attribute name="calendarDay" type="Object" default="{}" />
+    <aura:handler name="render" value="{!this}" action="{!c.handleRender}"/>
+
+    <button class="slds-button" onclick="{!c.toggleDaySelected}" aura:id="button">
+        <lightning:formattedDateTime value="{!v.calendarDay.date}" day="numeric"/>
+    </button>
+</aura:component>
