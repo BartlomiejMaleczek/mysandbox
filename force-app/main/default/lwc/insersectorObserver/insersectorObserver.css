@@ -1,0 +1,39 @@
+.section-one {
+    width: 200px;
+    height: 300px;
+    background-color: red;
+    transition: transform 500ms ease-in-out 250ms;
+    transform: translateX(-500px);
+    /*opacity: 0;*/
+    /*transition: opacity 1s ease-in-out 250ms;*/
+}
+
+.seperator {
+    background-color: #3e3e3c;
+    height: 150vh;
+}
+
+.section-two {
+    width: 200px;
+    height: 300px;
+    background-color: blue;
+    transition: transform 500ms ease-in-out 250ms;
+    transform: translateX(100vw);
+    /*opacity: 0;*/
+    /*transition: opacity 1s ease-in-out 250ms;*/
+}
+
+.wrapper {
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    /*display: flex;*/
+    /*flex-direction: column;*/
+}
+
+.visible-class {
+    transform: translateX(0);
+    /*opacity: 1;*/
+
+}
