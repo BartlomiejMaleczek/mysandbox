@@ -1,0 +1,76 @@
+<aura:component description="condensedThemeLayout" implements="forceCommunity:themeLayout,forceCommunity:layout" extends="forceCommunity:navigationMenuBase">
+    <aura:attribute name="blueBackground" type="Boolean" default="false"/>
+    <aura:attribute name="smallLogo" type="Boolean" default="false" />
+<!--    <aura:attribute name="search" type="Aura.Component[]"/>-->
+<!--    <aura:attribute name="hero" type="Aura.Component[]"/>-->
+<!--    <aura:attribute name="sidebarFooter" type="Aura.Component[]"/>-->
+    <aura:attribute name="themeHeader" type="Aura.Component[]" required="false"/>
+    <aura:attribute name="themeHero" type="Aura.Component[]" required="false"/>
+    <aura:attribute name="themeNav" type="Aura.Component[]" required="false"/>
+
+<!--    <div class="slds-grid slds-wrap" style="width: 2000px;">-->
+<!--        <div class="slds-col">-->
+<!--            <div class="slds-grid">-->
+<!--                <div class="slds-col">-->
+<!--&lt;!&ndash;                    {!v.themeHero}&ndash;&gt;-->
+<!--                </div>-->
+<!--                <div class="slds-col">-->
+<!--                    {!v.themeHeader}-->
+<!--                </div>-->
+<!--                <div class="slds-col">-->
+<!--                    {!v.themeNavigationMenuBase}-->
+<!--                </div>-->
+<!--                <div class="slds-col">-->
+<!--                    <div class="slds-grid slds-grid&#45;&#45;vertical slds-navigation-list&#45;&#45;vertical">-->
+<!--                        <ul onclick="{!c.onClick}">-->
+<!--                            <aura:iteration items="{!v.menuItems}" var="item">-->
+<!--                                <li class="{!item.active ? 'slds-is-active' : ''}">-->
+<!--                                    <a href="javascript:void(0);" data-menu-item-id="{!item.id}" class="slds-navigation-list&#45;&#45;vertical__action slds-text-link&#45;&#45;reset">-->
+<!--                                        {!item.label}-->
+<!--                                    </a>-->
+<!--                                </li>-->
+<!--                            </aura:iteration>-->
+<!--                        </ul>-->
+<!--                    </div>-->
+<!--                    {!v.sidebarFooter}-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="slds-col content">-->
+<!--&lt;!&ndash;            {!v.body}&ndash;&gt;-->
+<!--        </div>-->
+
+
+<!--    </div>-->
+
+    <aura:attribute name="search" type="Aura.Component[]" required="false"/>
+    <aura:attribute name="profileMenu" type="Aura.Component[]" required="false"/>
+    <aura:attribute name="navBar" type="Aura.Component[]" required="false"/>
+    <aura:attribute name="newHeader" type="Aura.Component[]" required="false"/>
+    <aura:attribute name="templateHeader" type="Aura.Component[]" required="false"/>
+
+
+    <div>
+        <div class="searchRegion">
+            {!v.templateHeader}
+        </div>
+        <div class="profileMenuRegion">
+            {!v.profileMenu}
+        </div>
+        <div class="navigation">
+            <div style="width: 50%;float: right;background-color: aqua;">
+                {!v.navBar}
+            </div>
+
+<!--            {!v.themeNav}-->
+        </div>
+        <div class="newHeader">
+<!--            {!v.newHeader}-->
+            {!v.themeHeader}
+        </div>
+        <div class="mainContentArea">
+            {!v.body}
+        </div>
+    </div>
+
+</aura:component>
