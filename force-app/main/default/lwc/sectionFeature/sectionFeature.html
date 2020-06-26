@@ -1,0 +1,18 @@
+<template>
+
+    <div class="slds-grid slds-wrap">
+        <div class="slds-col slds-size_1-of-1 slds-align_absolute-center" >
+            <p>Thick or bothersome mucus can</p>
+        </div>
+
+        <template for:each={featureContent} for:item="content">
+            <div key={content.contentNodes.contentUrlName} class="slds-col">
+                <img src={content.contentNodes.Image.url}>
+            </div>
+        </template>
+    </div>
+<!--    <template for:each={featureContent} for:item="content">-->
+<!--        <p key={content.contentNodes.contentUrlName}>SIEMKA</p>-->
+<!--        <p key={contact.Id}>{contact.Name}</p>-->
+<!--    </template>-->
+</template>
