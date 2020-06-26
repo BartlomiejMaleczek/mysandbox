@@ -35,40 +35,38 @@ export default class SectionFeatureGroup extends LightningElement {
 
     constructor() {
         super();
-        this.handleLoad();
+        // this.handleLoad();
 
     }
-
-    handleLoad() {
-        return new Promise((
-            (resolve, reject) => {
-                getFeaturesGroupContentApex(
-                    {
-                        contentType: 'Features1'
-                    }
-                ).then((result) => {
-                    console.log("RESULTS", result);
-                    resolve(result);
-                }).catch((error) => {
-                    console.log("error", error);
-                    reject(error);
-                });
-            }
-        ));
-    }
+    //
+    // handleLoad() {
+    //     return new Promise((
+    //         (resolve, reject) => {
+    //             getFeaturesGroupContentApex(
+    //                 {
+    //                     contentType: 'Features1'
+    //                 }
+    //             ).then((result) => {
+    //                 console.log("RESULTS", result);
+    //                 resolve(result);
+    //             }).catch((error) => {
+    //                 console.log("error", error);
+    //                 reject(error);
+    //             });
+    //         }
+    //     ));
+    // }
 
     @wire(getFeaturesGroupContentApex, {contentType: '$dynamicContent'})
     wiredGroupContent({ error, data }) {
-
-
-
-
+        console.log('getFeaturesGroupContentApexxxxx');
+        console.log(data);
         if (data) {
             this.featureGroupContent = data;
 
-            this.description1 = this.featureGroupContent.contentNodes.Description1.value.replace(/&lt;/g, "<").replace(/&gt;/g, ">");
-            this.description2 = this.featureGroupContent.contentNodes.Description2.value.replace(/&lt;/g, "<").replace(/&gt;/g, ">");
-            this.description3 = this.featureGroupContent.contentNodes.Description3.value.replace(/&lt;/g, "<").replace(/&gt;/g, ">");
+            this.description1 = this.featureGroupContent.data.contentNodes.Description1.value.replace(/&lt;/g, "<").replace(/&gt;/g, ">");
+            this.description2 = this.featureGroupContent.data.contentNodes.Description2.value.replace(/&lt;/g, "<").replace(/&gt;/g, ">");
+            this.description3 = this.featureGroupContent.data.contentNodes.Description3.value.replace(/&lt;/g, "<").replace(/&gt;/g, ">");
 
             console.log(JSON.stringify(this.featureGroupContent, undefined, 4));
             this.error = undefined;

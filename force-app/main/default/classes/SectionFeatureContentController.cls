@@ -1,8 +1,8 @@
 public with sharing class SectionFeatureContentController {
 
     @AuraEnabled(cacheable=true)
-    public static List<ConnectApi.ManagedContentVersion> getFeatureContentApex(){
-        return ManagedContentController.getFeatureContent();
+    public static List<ContentService.Content> getFeatureContentApex(){
+        return ManagedContentController.getAllFeatureContent();
     }
 //    extends VisualEditor.DynamicPickList
 

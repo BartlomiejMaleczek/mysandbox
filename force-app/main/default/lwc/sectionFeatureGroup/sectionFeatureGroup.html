@@ -3,8 +3,8 @@
     <div class="slds-grid slds-wrap">
         <template if:true={featureGroupContent}>
         <div class="slds-col slds-size_1-of-1 slds-align_absolute-center" >
-            <p>{featureGroupContent.contentNodes.Name.value}</p>
-            <img src="/sfsites/c/file-asset/BartSnap">
+<!--            <p>{featureGroupContent.data.main.Name.value}</p>-->
+<!--            <img src="/sfsites/c/file-asset/BartSnap">-->
         </div>
 
 
@@ -12,8 +12,8 @@
 
             <div class="slds-col slds-grid slds-wrap slds-size_1-of-3">
                 <div class="slds-col slds-size_1-of-1">
-                    <img src="/sfsites/c/file-asset/BartSnap"/>
-<!--                    <img src={featureGroupContent.contentNodes.Image1.url}>-->
+<!--                    <img src="/sfsites/c/file-asset/BartSnap"/>-->
+                    <img src={featureGroupContent.data.contentNodes.Image1.url}>
                 </div>
 
                 <div class="slds-col slds-size_1-of-1 testDiv">
@@ -27,7 +27,7 @@
 
             <div class="slds-col slds-grid slds-wrap slds-size_1-of-3">
                 <div class="slds-col slds-size_1-of-1">
-                    <img src={featureGroupContent.contentNodes.Image2.url}>
+                    <img src={featureGroupContent.data.contentNodes.Image2.url}>
                 </div>
 
                 <div class="slds-col slds-size_1-of-1">
@@ -42,7 +42,7 @@
 
             <div class="slds-col slds-grid slds-wrap slds-size_1-of-3">
                 <div class="slds-col slds-size_1-of-1">
-                    <img src={featureGroupContent.contentNodes.Image3.url}>
+                    <img src={featureGroupContent.data.contentNodes.Image3.url}>
                 </div>
 
                 <div class="slds-col slds-size_1-of-1">

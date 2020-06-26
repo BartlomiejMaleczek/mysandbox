@@ -20,19 +20,20 @@ export default class SectionBrands extends LightningElement {
                     {}
                 ).then((result) => {
                     this.brands = result;
+                    console.log("RESULTS", result);
                     const carouselItems = [];
                     this.brands.forEach(function(brand) {
                         carouselItems.push(
                             {
-                                RecommendedProductImage: brand.contentNodes.RecommendedProductImage.url,
-                                RecommendedProductTitle: brand.contentNodes.RecommendedProductTitle.value
+                                RecommendedProductImage: brand.data.contentNodes.RecommendedProductImage.url,
+                                RecommendedProductTitle: brand.data.contentNodes.RecommendedProductTitle.value
                             }
                         );
                     });
 
                     this.carouselItems = carouselItems;
                     // this.selectedBrand = [result[1]];
-                    console.log("RESULTS", result);
+
                     resolve(result);
                 }).catch((error) => {
                     console.log("error", error);

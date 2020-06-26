@@ -15,6 +15,16 @@ public with sharing class CMSContentWrapper{
         this.unescapedContentNodes = this.getUnescapedContentNodes();
     }
 
+    public class ManagedContentTextNodeValue {
+        public String  nodeType;
+        public String value;
+
+        public ManagedContentTextNodeValue(String nodeType, String value){
+            this.nodeType = nodeType;
+            this.value = value;
+        }
+    }
+
     private Map<String, Object> getUnescapedContentNodes(){
         Map<String, Object> unescapedContentNodes = new Map<String, Object>();
 
@@ -26,10 +36,12 @@ public with sharing class CMSContentWrapper{
                 if(textContentNode.nodeType == ConnectApi.ConnectManagedContentNodeType.RichText){
                     unescapedContentNodes.put(
                         sContentNodeKey,
+                        new  ManagedContentTextNodeValue(textContentNode.nodeType.name(),
                         StringService.getInstance(textContentNode.value)
                             .replaceLowerThanTags()
                             .replaceGraterThanTags()
                             .getValue()
+                        )
                     );
                 }
             }

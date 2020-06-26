@@ -1,6 +1,6 @@
 public with sharing class SectionBrandsController {
     @AuraEnabled(cacheable=true)
-    public static List<ConnectApi.ManagedContentVersion> getBrandContentApex(){
-        return ManagedContentController.getBrandContent();
+    public static List<ContentService.Content> getBrandContentApex(){
+        return ManagedContentController.getAllBrandContent();
     }
 }

@@ -6,8 +6,8 @@
         </div>
 
         <template for:each={featureContent} for:item="content">
-            <div key={content.contentNodes.contentUrlName} class="slds-col">
-                <img src={content.contentNodes.Image.url}>
+            <div key={content.data.contentNodes.contentUrlName} class="slds-col">
+                <img src={content.data.contentNodes.Image.url}>
             </div>
         </template>
     </div>
