@@ -42,23 +42,61 @@ export default class SectionBrandFadeInOut extends LightningElement {
     }
 
     handleShowBrand(event) {
-        let target = event.currentTarget,
-            productImage = this.template.querySelector('.product-image'),
-            productIndex = event.currentTarget.getAttribute('aria-rowindex');
+        try {
+            console.log('handleShowBrand');
+            let target = event.currentTarget,
+                productImage = this.template.querySelector('.product-image'),
+                productIndex = event.currentTarget.getAttribute('aria-rowindex'),
+                imageBrand = this.template.querySelector('.image-brand');
 
-        if (!target.classList.contains('active')) {
-            productImage.classList.remove('product-image-visible');
+            if (!target.classList.contains('active')) {
+                productImage.classList.remove('product-image-visible');
+                // productImage.classList.add('slds-hide');
 
-            window.setTimeout(function () {
+                //
+                // this.selectedBrand = {
+                //     RecommendedProductImage: this.brands[productIndex].data.contentNodes.RecommendedProductImage.url,
+                //     RecommendedProductTitle: this.brands[productIndex].data.contentNodes.RecommendedProductTitle.value
+                // };
 
-                this.selectedBrand = {
-                    RecommendedProductImage: this.brands[productIndex].data.contentNodes.RecommendedProductImage.url,
-                    RecommendedProductTitle: this.brands[productIndex].data.contentNodes.RecommendedProductTitle.value
-                };
-                console.log('TIMEOUT', productImage);
-                productImage.classList.add('product-image-visible');
-            }.bind(this), 250);
+                window.setTimeout(function () {
 
+                    this.selectedBrand = {
+                        RecommendedProductImage: this.brands[productIndex].data.contentNodes.RecommendedProductImage.url,
+                        RecommendedProductTitle: this.brands[productIndex].data.contentNodes.RecommendedProductTitle.value
+                    };
+
+
+                    // console.log('TIMEOUT', imageBrand.complete());
+
+
+
+                }.bind(this), 150);
+
+                // window.setTimeout(function () {
+                //     // productImage.classList.remove('slds-hide');
+                //
+                //
+                // }.bind(this), 400);
+
+            }
+        } catch (e) {
+            console.error(e);
         }
+
+    }
+
+    onLoad() {
+        console.log('ONLOAD');
+        let productImage = this.template.querySelector('.product-image');
+        productImage.classList.add('product-image-visible');
+    }
+
+    async loadImage(url, elem) {
+        return new Promise((resolve, reject) => {
+            elem.onload = () => resolve(elem);
+            elem.onerror = reject;
+            elem.src = src;
+        });
     }
 }
