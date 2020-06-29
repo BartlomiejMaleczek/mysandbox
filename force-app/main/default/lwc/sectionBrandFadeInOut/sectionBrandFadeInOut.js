@@ -51,13 +51,6 @@ export default class SectionBrandFadeInOut extends LightningElement {
 
             if (!target.classList.contains('active')) {
                 productImage.classList.remove('product-image-visible');
-                // productImage.classList.add('slds-hide');
-
-                //
-                // this.selectedBrand = {
-                //     RecommendedProductImage: this.brands[productIndex].data.contentNodes.RecommendedProductImage.url,
-                //     RecommendedProductTitle: this.brands[productIndex].data.contentNodes.RecommendedProductTitle.value
-                // };
 
                 window.setTimeout(function () {
 
@@ -66,18 +59,7 @@ export default class SectionBrandFadeInOut extends LightningElement {
                         RecommendedProductTitle: this.brands[productIndex].data.contentNodes.RecommendedProductTitle.value
                     };
 
-
-                    // console.log('TIMEOUT', imageBrand.complete());
-
-
-
                 }.bind(this), 150);
-
-                // window.setTimeout(function () {
-                //     // productImage.classList.remove('slds-hide');
-                //
-                //
-                // }.bind(this), 400);
 
             }
         } catch (e) {

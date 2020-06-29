@@ -1,17 +1,21 @@
 <template>
     <div class="slds-grid slds-wrap slds-box">
-        <div class="slds-col slds-grid slds-size_1-of-1 slds-gutters">
+        <div class="slds-col slds-grid slds-size_1-of-1 slds-gutters" >
             <template for:each={topics} for:item="topic" for:index="index">
                 <div key={topic} class="slds-col tab-item slds-border_right slds-align_absolute-center">
-                <span class="tab-item-text">
+                <span class="tab-item-text" onclick={handleChangeTab} data-tab-name={topic}>
                      {topic}
                 </span>
                 </div>
             </template>
         </div>
 
-        <div class="slds-col slds-size_1-of-1 tab-item-content slds-border_top slds-m-top_x-large" style="height: 200px;">
-
+        <div class="slds-col slds-size_1-of-1 tab-item-content slds-border_top slds-m-top_x-large slds-grid slds-grid_align-center" style="height: 400px;">
+            <template for:each={selectedTopicContent} for:item="topicContent">
+                <div key={topicContent.data.contentNodes.Name.value} class="slds-col">
+                    <img style="height: 300px;width: 200px;" src={topicContent.data.contentNodes.RecommendedProductImage.url}/>
+                </div>
+            </template>
         </div>
     </div>
 

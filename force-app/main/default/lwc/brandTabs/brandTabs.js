@@ -5,6 +5,7 @@ export default class BrandTabs extends LightningElement {
     topicsWithBrands;
     topics;
     selectedTopicContent;
+    selectedTopic
 
     constructor() {
         super();
@@ -19,8 +20,7 @@ export default class BrandTabs extends LightningElement {
                 ).then((result) => {
                     this.topicsWithBrands = result;
                     this.topics = Object.keys(this.topicsWithBrands);
-                    console.log('HANDLE LOAD GET ALL');
-                    console.log(result);
+
                     resolve(result);
                 }).catch((error) => {
                     console.log("error", error);
@@ -28,5 +28,15 @@ export default class BrandTabs extends LightningElement {
                 });
             }
         ));
+    }
+
+    handleChangeTab(event) {
+        let target = event.currentTarget,
+            tabName = target.getAttribute('data-tab-name');
+
+        console.log(tabName);
+        console.log(this.topicsWithBrands[tabName]);
+
+        this.selectedTopicContent = this.topicsWithBrands[tabName];
     }
 }
