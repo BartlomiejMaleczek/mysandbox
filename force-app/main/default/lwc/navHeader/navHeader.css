@@ -1,0 +1,83 @@
+header {
+    background: transparent;
+}
+
+.button-order-samples {
+    border-radius:28px;
+    background-color: #d21e77;
+    /*padding:5px 21px;*/
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.40);
+    border: 1px solid #d21e77;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.nav-item-icon {
+    cursor: pointer;
+    position: relative;
+}
+
+.button-order-samples:hover {
+    filter: brightness(1.2);
+}
+
+.button-order-samples a {
+    text-decoration: none;
+    color: white;
+    transition: none;
+    padding:5px 21px;
+}
+
+.nav-item {
+    font-size: 15px;
+}
+
+.nav-item > span, .nav-item-icon{
+    border-bottom: 2px solid transparent;
+}
+
+.nav-item > span:hover, .nav-item-icon:hover{
+    border-bottom-color: #d21e77;
+}
+
+.nav-item-icon:hover > svg {
+    fill: #d21e77;
+}
+
+.nav-item > span > a:hover, .nav-item-icon:hover > a {
+    color: #d21e77;
+}
+
+.nav-item > span > a, .nav-item-icon > a {
+    text-decoration: none;
+    color: black;
+    transition: none;
+}
+
+.nav-item-svg {
+    height: 24pt;
+    height: 24pt;
+    display: block;
+}
+
+.numerator {
+    position: absolute;
+    background: #d21e77;
+    color: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    right: 0;
+    top: 25%;
+    font-size: 12px;
+}
+
+.hamburger-icon > svg {
+    fill: #d21e77;
+    cursor: pointer;
+}
+
+.hamburger-icon:hover > svg {
+    filter: brightness(1.2);
+}
+

@@ -1,0 +1,94 @@
+<template>
+    <header>
+        <nav>
+            <div class="slds-grid">
+                <div class="slds-col slds-float_left slds-size_1-of-12 slds-align_absolute-center">
+                    <img src={logo}>
+                </div>
+
+
+                <div class="slds-col slds-grid slds-grid_align-end slds-gutters slds-grid_vertical-align-center">
+                    <template if:true={_isLargeScreen}>
+
+                    <div class="slds-grid slds-grid_vertical-align-center slds-col slds-border_right">
+                            <template for:each={navItems} for:item="navItem">
+                                <div key={navItem.key} class="slds-col nav-item slds-m-around_medium">
+                            <span>
+                                <a href="#">{navItem.value}</a>
+                            </span>
+
+                                </div>
+                            </template>
+
+                            <div class="slds-col nav-item slds-m-around_medium">
+                                <div class="button-order-samples">
+                                    <a href="#">Order Samples</a>
+                                </div>
+                            </div>
+                    </div>
+                    </template>
+
+                    <div class="slds-grid slds-grid_vertical-align-center slds-col ">
+                        <div class="slds-col nav-item slds-m-around_medium slds-text-align_center">
+                            <div class="nav-item-icon">
+                                <svg width="24pt" height="24pt" class="nav-item-svg slds-align--absolute-center" xmlns="http://www.w3.org/2000/svg" >
+                                    <use xlink:href={svgProfile}></use>
+                                </svg>
+
+                                <a href="#">
+                                    profile
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="slds-col nav-item slds-m-around_medium slds-text-align_center">
+                            <div class="nav-item-icon">
+                                <svg width="24pt" height="24pt" class="nav-item-svg slds-align--absolute-center" xmlns="http://www.w3.org/2000/svg" >
+                                    <use xlink:href={svgCart}></use>
+                                </svg>
+
+                                <div class="numerator">
+                                    1
+                                </div>
+
+                                <a href="#">
+                                    orders
+                                </a>
+
+
+                            </div>
+                        </div>
+
+                        <div class="slds-col nav-item slds-m-around_medium slds-text-align_center">
+                            <div class="nav-item-icon">
+                                <svg width="24pt" height="24pt" class="nav-item-svg slds-align--absolute-center" xmlns="http://www.w3.org/2000/svg" >
+                                    <use xlink:href={svgBookmark}></use>
+                                </svg>
+
+                                <div class="numerator">
+                                    3
+                                </div>
+
+                                <a href="#">
+                                    resources
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <template if:false= {_isLargeScreen}>
+                        <div class="slds-col hamburger-icon">
+                            <svg width="30px" height="30pt" class="slds-align--absolute-center" xmlns="http://www.w3.org/2000/svg" >
+                                <use xlink:href={svgHamburger}></use>
+                            </svg>
+                        </div>
+
+                    </template>
+
+                </div>
+
+
+            </div>
+        </nav>
+    </header>
+</template>
