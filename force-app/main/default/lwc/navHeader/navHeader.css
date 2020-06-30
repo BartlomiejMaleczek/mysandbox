@@ -32,11 +32,11 @@ header {
     font-size: 15px;
 }
 
-.nav-item > span, .nav-item-icon{
+ .nav-item-icon{
     border-bottom: 2px solid transparent;
 }
 
-.nav-item > span:hover, .nav-item-icon:hover{
+ .nav-item-icon:hover{
     border-bottom-color: #d21e77;
 }
 
@@ -44,14 +44,17 @@ header {
     fill: #d21e77;
 }
 
-.nav-item > span > a:hover, .nav-item-icon:hover > a {
-    color: #d21e77;
-}
+/*.nav-item > a:hover,*/
 
-.nav-item > span > a, .nav-item-icon > a {
+
+.nav-item > a, .nav-item-icon > a {
     text-decoration: none;
     color: black;
     transition: none;
+}
+
+.nav-item-icon:hover > a, .nav-item > a.is-active {
+    color: #d21e77;
 }
 
 .nav-item-svg {
@@ -79,5 +82,36 @@ header {
 
 .hamburger-icon:hover > svg {
     filter: brightness(1.2);
+}
+
+.under-bar{
+    width: 0;
+    height: 3px;
+    background: #d21e77;
+    bottom: 25px;
+    position: absolute;
+    transition: width 200ms ease, left 200ms ease;
+}
+
+.nav-dropdown {
+    left: 0;
+    right: 0;
+    max-height: 0px;
+    opacity: 0;
+    /*height: 0px;*/
+    background-color: white;
+    position: absolute;
+    top: 85px;
+    transition: max-height 400ms ease-in-out 100ms, opacity 400ms ease-in-out 300ms;
+    overflow: hidden;
+    z-index: 5;
+    box-shadow: 0 3px 3px -2px rgba(0, 0, 0, 0.16);
+    border: 1px solid rgb(212, 212, 212);
+    border-top: none;
+}
+
+.header-border{
+    border: 1px solid rgb(212, 212, 212);
+    border-bottom: none;
 }
 

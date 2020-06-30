@@ -11,6 +11,7 @@ import headerSvg from '@salesforce/resourceUrl/headerSvg';
 export default class NavHeader extends LightningElement {
     logo = rbLogo;
     navItems;
+
     svgProfile = `${headerSvg}#male`;
     svgCart = `${headerSvg}#cart`;
     svgBookmark = `${headerSvg}#bookmark`;
@@ -19,6 +20,12 @@ export default class NavHeader extends LightningElement {
     _isSmallScreen;
     _isMediumScreen;
     _isLargeScreen;
+
+    currentNavItem;
+    isMouseOverStarted;
+    timeout = null;
+    expandableContent;
+
 
     constructor() {
         super();
@@ -31,31 +38,62 @@ export default class NavHeader extends LightningElement {
         isMediumScreen.addListener(this.isMediumScreen.bind(this));
         isLargeScreen.addListener(this.isLargeScreen.bind(this));
 
-       this._isLargeScreen = isLargeScreen.matches;
+        this._isLargeScreen = isLargeScreen.matches;
 
-       console.log('IS LARGE SCREEN', isLargeScreen.matches);
+        window.onresize = this.onWindowResize.bind(this);
+
+        console.log('IS LARGE SCREEN', isLargeScreen.matches);
         console.log('IS MEDIUM SCREEN', isMediumScreen.matches);
         console.log('IS SMALL SCREEN', isSmallScreen.matches);
 
         this.navItems = [
             {
                 value: 'Home',
-                key: 'key1'
+                key: 'key1',
+                styleClasses: 'is-current-page is-active'
             },
             {
                 value: 'Our Brands',
-                key: 'key2'
+                key: 'key2',
+                styleClasses: 'is-expandable',
+                expandableContent: [
+                    'Our Brands Content1',
+                    'Our Brands Content2',
+                    'Our Brands Content3',
+                    'Our Brands Content4',
+                    'Our Brands Content5',
+                    'Our Brands Content6'
+                ]
             },
             {
                 value: 'Resource Center',
-                key: 'key3'
+                key: 'key3',
+                styleClasses: 'is-expandable',
+                expandableContent: [
+                    'Resource Center Content1',
+                    'Resource Center Content2',
+                    'Resource Center Content3',
+                    'Resource Center Content4',
+                    'Resource Center Content5',
+                    'Resource Center Content6'
+                ]
             },
             {
                 value: 'About Us',
-                key: 'key4'
+                key: 'key4',
+                styleClasses: ''
             }
 
         ];
+    }
+
+    renderedCallback() {
+        console.log('RENDERED CALLBACK');
+        this.switchToCurrentPage();
+    }
+
+    onWindowResize() {
+        this.switchToCurrentPage();
     }
 
     isSmallScreen(event) {
@@ -73,6 +111,57 @@ export default class NavHeader extends LightningElement {
     get isSmallOrMediumScreen() {
         return this._isMediumScreen || this._isSmallScreen;
     }
+
+    handleLinkMouseOver(event) {
+        clearTimeout(this.timeout);
+
+        const target = event.currentTarget;
+        this.switchActiveNavItem(target);
+
+        if (target.classList.contains('is-expandable')) {
+            this.openDropdown();
+        }
+    }
+
+    handleLinkMouseLeave(event) {
+        this.timeout = setTimeout(function () {
+            this.switchToCurrentPage();
+        }.bind(this), 400);
+
+        this.closeDropdown();
+    }
+
+    switchActiveNavItem(newActiveItem) {
+        const underBar = this.template.querySelector('.under-bar'),
+            oldActiveItem = this.template.querySelector('.is-active');
+
+        underBar.style.setProperty('left', (newActiveItem.offsetLeft - 2) + 'px');
+        underBar.style.setProperty('width', (newActiveItem.offsetWidth + 3) + 'px');
+
+        oldActiveItem.classList.remove('is-active');
+        newActiveItem.classList.add('is-active');
+    }
+
+    switchToCurrentPage() {
+        const currentPageNavItem = this.template.querySelector('.is-current-page');
+
+        if (currentPageNavItem) {
+            this.switchActiveNavItem(currentPageNavItem);
+        }
+    }
+
+    openDropdown() {
+        const navDropdown = this.template.querySelector('.nav-dropdown');
+        navDropdown.style.setProperty('max-height', '1000px');
+        navDropdown.style.setProperty('opacity', '1');
+    }
+
+    closeDropdown() {
+        const navDropdown = this.template.querySelector('.nav-dropdown');
+        navDropdown.style.setProperty('max-height', '0px');
+        navDropdown.style.setProperty('opacity', '0');
+    }
+
 
     // get navItemsIconsClasses() {
     //        slds-col slds-border_left slds-m-around_medium
