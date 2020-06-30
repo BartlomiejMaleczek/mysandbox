@@ -1,21 +1,13 @@
 <template>
-    <header class="slds-is-relative">
+    <header>
         <nav>
             <div class="slds-grid header-border ">
-                <div class="nav-dropdown slds-align_absolute-center">
+                <div class="nav-dropdown slds-align_absolute-center" onmouseover={handleDropdownMouseOver} onmouseleave={handleDropdownMouseLeave}>
                     <ul>
-                        <li>Content1</li>
-                        <li>Content1</li>
-                        <li>Content1</li>
-                        <li>Content1</li>
-                        <li>Content1</li>
-                        <li>Content1</li>
-                        <li>Content1</li>
-                        <li>Content1</li>
-                        <li>Content1</li>
-                        <li>Content1</li>
-                        <li>Content1</li>
-                        <li>Content1</li>
+                        <template for:each={expandableContent} for:item="item">
+                            <li key={item.key}>{item.value}</li>
+                        </template>
+
                     </ul>
                 </div>
 
@@ -29,9 +21,9 @@
                     <template if:true={_isLargeScreen}>
 
                         <div class="slds-grid slds-grid_vertical-align-center slds-col slds-border_right">
-                            <template for:each={navItems} for:item="navItem">
+                            <template for:each={navItems} for:item="navItem" for:index="index">
                                 <div key={navItem.key} class="slds-col nav-item slds-m-around_medium">
-                                    <a class={navItem.styleClasses} href="#" onmouseover={handleLinkMouseOver} onmouseleave={handleLinkMouseLeave}>{navItem.value}</a>
+                                    <a class={navItem.styleClasses} href="#" aria-rowindex={index} onmouseover={handleLinkMouseOver} onmouseleave={handleLinkMouseLeave}>{navItem.value}</a>
 
                                 </div>
                             </template>

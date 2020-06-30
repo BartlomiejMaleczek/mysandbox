@@ -21,11 +21,11 @@ export default class NavHeader extends LightningElement {
     _isMediumScreen;
     _isLargeScreen;
 
-    currentNavItem;
-    isMouseOverStarted;
-    timeout = null;
-    expandableContent;
+    linkMouseOverTimeout = null;
+    dropdownMouseOverTimeout = null;
 
+    expandableContent = [];
+    isRendered = false;
 
     constructor() {
         super();
@@ -57,12 +57,32 @@ export default class NavHeader extends LightningElement {
                 key: 'key2',
                 styleClasses: 'is-expandable',
                 expandableContent: [
-                    'Our Brands Content1',
-                    'Our Brands Content2',
-                    'Our Brands Content3',
-                    'Our Brands Content4',
-                    'Our Brands Content5',
-                    'Our Brands Content6'
+                    {
+                        key: 'keyContent1',
+                        value: 'Our Brands Content1'
+                    },
+                    {
+                        key: 'keyContent2',
+                        value: 'Our Brands Content2'
+                    },
+                    {
+                        key: 'keyContent3',
+                        value: 'Our Brands Content3'
+                    },
+                    {
+                        key: 'keyContent4',
+                        value: 'Our Brands Content4'
+                    },
+                    {
+                        key: 'keyContent5',
+                        value: 'Our Brands Content5'
+                    },
+                    {
+                        key: 'keyContent6',
+                        value: 'Our Brands Content6'
+                    }
+
+
                 ]
             },
             {
@@ -70,12 +90,30 @@ export default class NavHeader extends LightningElement {
                 key: 'key3',
                 styleClasses: 'is-expandable',
                 expandableContent: [
-                    'Resource Center Content1',
-                    'Resource Center Content2',
-                    'Resource Center Content3',
-                    'Resource Center Content4',
-                    'Resource Center Content5',
-                    'Resource Center Content6'
+                    {
+                        key: 'keyContent7',
+                        value: 'Resource Center Content1'
+                    },
+                    {
+                        key: 'keyContent8',
+                        value: 'Resource Center Content2'
+                    },
+                    {
+                        key: 'keyContent9',
+                        value: 'Resource Center Content3'
+                    },
+                    {
+                        key: 'keyContent10',
+                        value: 'Resource Center Content4'
+                    },
+                    {
+                        key: 'keyContent11',
+                        value: 'Resource Center Content5'
+                    },
+                    {
+                        key: 'keyContent12',
+                        value: 'Resource Center Content6'
+                    }
                 ]
             },
             {
@@ -85,11 +123,15 @@ export default class NavHeader extends LightningElement {
             }
 
         ];
+
     }
 
     renderedCallback() {
-        console.log('RENDERED CALLBACK');
-        this.switchToCurrentPage();
+        if(!this.isRendered) {
+            this.switchToCurrentPage();
+            this.isRendered = true;
+        }
+
     }
 
     onWindowResize() {
@@ -113,22 +155,29 @@ export default class NavHeader extends LightningElement {
     }
 
     handleLinkMouseOver(event) {
-        clearTimeout(this.timeout);
+        clearTimeout(this.linkMouseOverTimeout);
 
         const target = event.currentTarget;
         this.switchActiveNavItem(target);
 
         if (target.classList.contains('is-expandable')) {
+            clearTimeout(this.dropdownMouseOverTimeout);
+
+            this.expandableContent = [...this.navItems[target.getAttribute('aria-rowindex')].expandableContent];
             this.openDropdown();
         }
     }
 
     handleLinkMouseLeave(event) {
-        this.timeout = setTimeout(function () {
+        this.linkMouseOverTimeout = setTimeout(function () {
             this.switchToCurrentPage();
-        }.bind(this), 400);
+        }.bind(this), 600);
 
-        this.closeDropdown();
+        if (event.currentTarget.classList.contains('is-expandable')) {
+            this.dropdownMouseOverTimeout = setTimeout(function () {
+                this.closeDropdown();
+            }.bind(this), 200);
+        }
     }
 
     switchActiveNavItem(newActiveItem) {
@@ -150,6 +199,19 @@ export default class NavHeader extends LightningElement {
         }
     }
 
+    handleDropdownMouseOver() {
+        clearTimeout(this.dropdownMouseOverTimeout);
+        clearTimeout(this.linkMouseOverTimeout);
+    }
+
+    handleDropdownMouseLeave() {
+        this.closeDropdown();
+
+        this.linkMouseOverTimeout = setTimeout(function () {
+            this.switchToCurrentPage();
+        }.bind(this), 300);
+    }
+
     openDropdown() {
         const navDropdown = this.template.querySelector('.nav-dropdown');
         navDropdown.style.setProperty('max-height', '1000px');
@@ -161,14 +223,4 @@ export default class NavHeader extends LightningElement {
         navDropdown.style.setProperty('max-height', '0px');
         navDropdown.style.setProperty('opacity', '0');
     }
-
-
-    // get navItemsIconsClasses() {
-    //        slds-col slds-border_left slds-m-around_medium
-    //     const styleClasses = [
-    //       'slds-grid',
-    //       'slds-gutters',
-    //       'slds-grid_vertical-align-center'
-    //     ];
-    // }
 }
