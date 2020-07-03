@@ -57,23 +57,27 @@
 
                     </template>
 
-                    <div class="slds-grid slds-grid_vertical-align-center slds-col" style="padding-right: 200px;">
-                        <div class="slds-col nav-item slds-m-around_medium slds-text-align_center">
-                            <div class="nav-item-icon">
-                                <svg width="24pt" height="24pt" class="nav-item-svg slds-align--absolute-center"
-                                     xmlns="http://www.w3.org/2000/svg">
+                    <div class="slds-grid slds-grid_vertical-align-center slds-col nav-items-icons-group">
+                        <div class="slds-col nav-item nav-item-icon-wrapper slds-text-align_center">
+                            <div id="profile" data-nav-icon-type="profile" class="nav-item-icon" onmouseover={handleMouseOverNavIcon} onmouseleave={handleMouseLeaveNavIcon}>
+                                <span>
+                                    <svg width="20px" height="24px" class="nav-item-svg slds-align--absolute-center"
+                                         xmlns="http://www.w3.org/2000/svg">
                                     <use xlink:href={svgProfile}></use>
                                 </svg>
 
                                 <a href="#">
                                     profile
                                 </a>
+                                </span>
+
                             </div>
                         </div>
 
-                        <div class="slds-col nav-item slds-m-around_medium slds-text-align_center">
-                            <div class="nav-item-icon">
-                                <svg width="24pt" height="24pt" class="nav-item-svg slds-align--absolute-center"
+                        <div class="slds-col nav-item nav-item-icon-wrapper slds-text-align_center">
+                            <div id="orders" data-nav-icon-type="orders" class="nav-item-icon" onmouseover={handleMouseOverNavIcon} onmouseleave={handleMouseLeaveNavIcon}>
+                                <span>
+                                <svg width="20px" height="24px" class="nav-item-svg slds-align--absolute-center"
                                      xmlns="http://www.w3.org/2000/svg">
                                     <use xlink:href={svgCart}></use>
                                 </svg>
@@ -85,15 +89,16 @@
                                 <a href="#">
                                     orders
                                 </a>
-
+                                </span>
 
                             </div>
                         </div>
 
-                        <div class="slds-col nav-item slds-m-around_medium slds-text-align_center">
-                            <div class="nav-item-icon">
-                                <svg width="24pt" height="24pt" class="nav-item-svg slds-align--absolute-center"
-                                     xmlns="http://www.w3.org/2000/svg">
+                        <div class="slds-col nav-item nav-item-icon-wrapper slds-text-align_center">
+                            <div id="resources" data-nav-icon-type="resources" class="nav-item-icon" onmouseover={handleMouseOverNavIcon} onmouseleave={handleMouseLeaveNavIcon}>
+                                <span>
+                                    <svg width="20px" height="24px" class="nav-item-svg slds-align--absolute-center"
+                                         xmlns="http://www.w3.org/2000/svg">
                                     <use xlink:href={svgBookmark}></use>
                                 </svg>
 
@@ -104,6 +109,28 @@
                                 <a href="#">
                                     resources
                                 </a>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="nav-items-icons-group-dropdown" onmouseover={handleMouseOverDropdownIcons} onmouseleave={handleMouseLeaveDropdownIcons}>
+                            <div class="slds-grid">
+                                <template if:true={isProfileIconActive}>
+                                    <div class="slds-col slds-align_absolute-center">
+                                        <p>PROFILE ACTIVE ICON</p>
+                                    </div>
+                                </template>
+
+                                <template if:true={isOrderIconActive}>
+                                    <div class="slds-col slds-align_absolute-center">
+                                        <p>ORDER ACTIVE ICON</p>
+                                    </div>
+                                </template>
+
+                                <template if:true={isResourcesIconActive}>
+                                    <div class="slds-col slds-align_absolute-center">
+                                        <p>PROFILE RESOURCES</p>
+                                    </div>
+                                </template>
                             </div>
                         </div>
                     </div>
@@ -117,6 +144,7 @@
                         </div>
 
                     </template>
+
 
                 </div>
 
