@@ -1,10 +1,10 @@
 header {
     background: white;
     position: fixed;
-    left: 0;
-    right: 0;
+    left: 0px;
+    right: 0px;
     z-index: 10;
-    top:0;
+    top:0px;
 }
 
 .button-order-samples {
@@ -45,20 +45,26 @@ header {
     border-bottom-color: #d21e77;
 }
 
-.nav-item-icon:hover > svg {
+.nav-item-icon:hover > svg,  li > a > svg {
     fill: #d21e77;
 }
 
-/*.nav-item > a:hover,*/
+.nav-dropdown-chevron-right-icon {
+    opacity: 0;
+    transition: opacity ease-in-out 200ms;
+}
 
+.nav-dropdown-chevron-right-icon-is-active {
+    opacity: 1;
+}
 
-.nav-item > a, .nav-item-icon > a {
+.nav-item > a, .nav-item-icon > a, li > a {
     text-decoration: none;
     color: black;
     transition: none;
 }
 
-.nav-item-icon:hover > a, .nav-item > a.is-active {
+.nav-item-icon:hover > a, .nav-item > a.is-active, li > a:hover {
     color: #d21e77;
 }
 
@@ -110,12 +116,29 @@ header {
     overflow: hidden;
     z-index: 5;
     box-shadow: 0 3px 3px -2px rgba(0, 0, 0, 0.16);
-    border: 1px solid rgb(212, 212, 212);
-    border-top: none;
+    border-bottom: 1px solid rgb(212, 212, 212);
+    font-size: 19px;
 }
 
-.header-border{
-    border: 1px solid rgb(212, 212, 212);
-    border-bottom: none;
+.nav-dropdown > div:first-child{
+    border-right: 1px solid rgba(239, 237, 237, .5);
+    min-width: 250px;
 }
+
+.nav-dropdown > div > ul > li {
+    margin: 0.75rem;
+}
+
+.brand-image {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+}
+
+.nav-dropdown-content {
+    min-width: 250px;
+    transition: opacity 500ms ease-in-out 1s;
+    opacity: 1;
+}
+
 

@@ -2,37 +2,54 @@
     <header>
         <nav>
             <div class="slds-grid header-border ">
-                <div class="nav-dropdown slds-align_absolute-center" onmouseover={handleDropdownMouseOver} onmouseleave={handleDropdownMouseLeave}>
-                    <ul>
-                        <template for:each={expandableContent} for:item="item">
-                            <li key={item.key}>{item.value}</li>
-                        </template>
+                <div class="nav-dropdown slds-align_absolute-center" onmouseover={handleDropdownMouseOver}
+                     onmouseleave={handleDropdownMouseLeave}>
+                        <div class="slds-grid slds-p-top_xx-large slds-p-bottom_xx-large slds-p-right_xx-large  slds-m-bottom_xx-large">
+                            <ul>
+                                <template for:each={dropdownNavItems} for:item="dropdownNavItem" for:index="index">
+                                    <li key={dropdownNavItem.item.Id}>
+                                        <a href="#" data-dropdown-nav-item-index={index} onmouseover={handleDropdownLinkMouseOver}>{dropdownNavItem.item.Label}
+                                            <svg width="10pt" height="10pt" xmlns="http://www.w3.org/2000/svg"
+                                                 class={dropdownNavItem.item.styleClasses}>
+                                                <use xlink:href={svgChevronRight}></use>
+                                            </svg>
+                                        </a>
+                                    </li>
+                                </template>
+                            </ul>
+                        </div>
 
-                    </ul>
+                    <template if:true={isDropdownContentNotEmpty}>
+                        <div class="slds-grid nav-dropdown-content slds-text-align_center slds-p-left_xx-large slds-m-bottom_xx-large">
+                            <div class="slds-col slds-wrap">
+                                <div class="slds-col">
+                                    <img class="brand-image slds-box_border" src={dropdownContent.item.imageSrc} onload={handleDropdownContentImageLoaded}>
+                                </div>
+
+                                <div class="slds-col slds-text-align_center">
+                                    <p>{dropdownContent.item.Label}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+
                 </div>
-
 
                 <div class="slds-col slds-float_left slds-size_1-of-12 slds-align_absolute-center">
                     <img src={logo}>
                 </div>
-
 
                 <div class="slds-col slds-grid slds-grid_align-end slds-gutters slds-grid_vertical-align-center">
                     <template if:true={_isLargeScreen}>
 
                         <div class="slds-grid slds-grid_vertical-align-center slds-col slds-border_right">
                             <template for:each={navItems} for:item="navItem" for:index="index">
-                                <div key={navItem.key} class="slds-col nav-item slds-m-around_medium">
-                                    <a class={navItem.styleClasses} href="#" aria-rowindex={index} onmouseover={handleLinkMouseOver} onmouseleave={handleLinkMouseLeave}>{navItem.value}</a>
-
+                                <div key={navItem.item.Id} class="slds-col nav-item slds-m-around_medium">
+                                    <a class={navItem.item.styleClasses} data-has-sub-items={navItem.hasSubItems} href="#" aria-rowindex={index}
+                                       data-nav-item-name={navItem.item.Label} onmouseover={handleLinkMouseOver}
+                                       onmouseleave={handleLinkMouseLeave}>{navItem.item.Label}</a>
                                 </div>
                             </template>
-
-                            <div class="slds-col nav-item slds-m-around_medium">
-                                <div class="button-order-samples">
-                                    <a href="#">Order Samples</a>
-                                </div>
-                            </div>
 
                             <div class="under-bar"></div>
                         </div>
@@ -40,7 +57,7 @@
 
                     </template>
 
-                    <div class="slds-grid slds-grid_vertical-align-center slds-col ">
+                    <div class="slds-grid slds-grid_vertical-align-center slds-col" style="padding-right: 200px;">
                         <div class="slds-col nav-item slds-m-around_medium slds-text-align_center">
                             <div class="nav-item-icon">
                                 <svg width="24pt" height="24pt" class="nav-item-svg slds-align--absolute-center"
