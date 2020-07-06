@@ -23,7 +23,7 @@ header {
 
 .nav-items-icons-group-dropdown {
     position: absolute;
-    top: 90px;
+    top: 70px;
     min-height: 200px;
     left: 24px;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
@@ -34,7 +34,7 @@ header {
     z-index: 4;
     background-color: white;
     opacity: 0;
-    transition: opacity 500ms ease-in-out;
+    transition: 250ms linear;
 }
 
 .nav-items-icons-group-dropdown > div {
@@ -64,30 +64,45 @@ li > a > svg {
     cursor: pointer;
     position: relative;
     border-bottom: 2px solid transparent;
-    transition: box-shadow 100ms ease-in-out;
-    min-width: 45px;
-    font-size: 15px;
+
+    /*width: 75px;*/
+    font-size: 14px;
     max-width: 100px;
-    padding-left: 10px;
-    padding-right: 10px;
-    padding-bottom: 30px;
-    padding-top: 30px;
+    /*height: 60px;*/
+    /*padding-left: 10px;*/
+    /*padding-right: 10px;*/
+    padding-top: 5px;
     background-color: white;
+    z-index: 4;
     /*border-radius: 10px;*/
 }
+
+.nav-item-icon-small, .nav-item-icon-small > div.nav-item-icon {
+    width: 60px;
+}
+
+.nav-item-icon-big, .nav-item-icon-big > div.nav-item-icon {
+    width: 80px;
+}
+
 
 .nav-item-icon > span {
     border-bottom: 2px solid transparent;
 }
 
 .nav-item-icon-wrapper {
-    min-width: 120px;
+    margin-right: 15px;
+    margin-left: 15px;
 }
 
 .nav-item-icon:hover,  .nav-item-icon-is-active{
     box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
     clip-path: inset(0px -3px 6px);
+    position: absolute;
+    top: 0;
+    padding-bottom: 35px;
     z-index: 5;
+    transition: box-shadow 250ms linear;
 }
 
 .nav-item-icon:hover > span .nav-item-icon-is-active > span {
@@ -96,6 +111,8 @@ li > a > svg {
 
 .nav-item-icon:hover > span > svg, .nav-item-icon-is-active > span > svg {
     fill: #d21e77;
+    /*margin-left: 25%;*/
+    /*margin-right: 25%;*/
 }
 
 .nav-dropdown-chevron-right-icon {
@@ -128,11 +145,11 @@ li > a > svg {
     background: #d21e77;
     color: white;
     border-radius: 50%;
-    width: 20px;
-    height: 20px;
-    right: 25%;
-    top: 25%;
-    font-size: 12px;
+    width: 15px;
+    height: 15px;
+    right: 27%;
+    top: 14px;
+    font-size: 10px;
 }
 
 .hamburger-icon > svg {
