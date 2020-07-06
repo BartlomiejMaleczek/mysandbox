@@ -81,6 +81,7 @@ li > a > svg {
     fill: #d21e77;
 }
 
+
 .nav-item-icon {
     cursor: pointer;
     position: relative;
@@ -166,6 +167,11 @@ li > a > svg {
     transition: none;
 }
 
+.nav-item > a:hover > div.nav-dropdown {
+    max-height: 500px;
+    opacity: 1;
+}
+
 .nav-item-icon:hover > span > a, .nav-item > a.is-active, li > a:hover {
     color: #d21e77;
 }
@@ -213,12 +219,11 @@ li > a > svg {
     opacity: 0;
     background-color: white;
     position: absolute;
-    top: 85px;
-    transition: max-height 400ms ease 100ms, opacity 250ms ease-in-out 250ms;
+    top: 60px;
+    transition: opacity 400ms linear, max-height 400ms linear;
     overflow: hidden;
     z-index: 5;
     box-shadow: 0 3px 3px -2px rgba(0, 0, 0, 0.16);
-    border-bottom: 1px solid rgb(212, 212, 212);
     font-size: 19px;
 }
 

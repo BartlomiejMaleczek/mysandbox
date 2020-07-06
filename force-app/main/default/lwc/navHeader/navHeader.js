@@ -161,30 +161,30 @@ export default class NavHeader extends LightningElement {
 
         this.switchActiveNavItem(target);
 
-        if (hasSubItems === 'true') {
-            clearTimeout(this.dropdownMouseOverTimeout);
-
-            const rowIndex = target.getAttribute('aria-rowindex');
-            this.dropdownNavItems = JSON.parse(JSON.stringify(this.navItems[rowIndex].subItems));
-
-            this.dropdownContent = Object.assign({}, this.dropdownNavItems[0]);
-
-            this.openDropdown();
-        }
+        // if (hasSubItems === 'true') {
+        //     clearTimeout(this.dropdownMouseOverTimeout);
+        //
+        //     const rowIndex = target.getAttribute('aria-rowindex');
+        //     this.dropdownNavItems = JSON.parse(JSON.stringify(this.navItems[rowIndex].subItems));
+        //
+        //     this.dropdownContent = Object.assign({}, this.dropdownNavItems[0]);
+        //
+        //     this.openDropdown();
+        // }
     }
 
     handleLinkMouseLeave(event) {
-        const hasSubItems = event.currentTarget.getAttribute('data-has-sub-items');
+        // const hasSubItems = event.currentTarget.getAttribute('data-has-sub-items');
 
         this.linkMouseOverTimeout = setTimeout(function () {
             this.switchToCurrentPage();
-        }.bind(this), 600);
+        }.bind(this), 300);
 
-        if (hasSubItems === 'true') {
-            this.dropdownMouseOverTimeout = setTimeout(function () {
-                this.closeDropdown();
-            }.bind(this), 200);
-        }
+        // if (hasSubItems === 'true') {
+        //     this.dropdownMouseOverTimeout = setTimeout(function () {
+        //         this.closeDropdown();
+        //     }.bind(this), 200);
+        // }
     }
 
     switchActiveNavItem(newActiveItem) {
@@ -210,28 +210,28 @@ export default class NavHeader extends LightningElement {
     }
 
     handleDropdownMouseOver() {
-        clearTimeout(this.dropdownMouseOverTimeout);
-        clearTimeout(this.linkMouseOverTimeout);
+        // clearTimeout(this.dropdownMouseOverTimeout);
+        // clearTimeout(this.linkMouseOverTimeout);
     }
 
     handleDropdownMouseLeave() {
-        this.closeDropdown();
-
-        this.linkMouseOverTimeout = setTimeout(function () {
-            this.switchToCurrentPage();
-        }.bind(this), 300);
+        // this.closeDropdown();
+        //
+        // this.linkMouseOverTimeout = setTimeout(function () {
+        //     this.switchToCurrentPage();
+        // }.bind(this), 300);
     }
 
     openDropdown() {
-        const navDropdown = this.template.querySelector('.nav-dropdown');
-        navDropdown.style.setProperty('max-height', '1000px');
-        navDropdown.style.setProperty('opacity', '1');
+        // const navDropdown = this.template.querySelector('.nav-dropdown');
+        // navDropdown.style.setProperty('max-height', '1000px');
+        // navDropdown.style.setProperty('opacity', '1');
     }
 
     closeDropdown() {
-        const navDropdown = this.template.querySelector('.nav-dropdown');
-        navDropdown.style.setProperty('max-height', '0px');
-        navDropdown.style.setProperty('opacity', '0');
+        // const navDropdown = this.template.querySelector('.nav-dropdown');
+        // navDropdown.style.setProperty('max-height', '0px');
+        // navDropdown.style.setProperty('opacity', '0');
     }
 
     get isBrandNavItem() {
@@ -247,18 +247,18 @@ export default class NavHeader extends LightningElement {
     }
 
     handleDropdownLinkMouseOver(event) {
-        window.setTimeout(function () {
-            const contentElem = this.template.querySelector('.nav-dropdown-content');
-            contentElem.setAttribute('opacity', 0);
-        }.bind(this), 500);
-
-        const target = event.currentTarget,
-            dropdownContentIndex = target.getAttribute('data-dropdown-nav-item-index');
-
-        this.dropdownContent = Object.assign({}, this.dropdownNavItems[dropdownContentIndex]);
-
-        this.hideCurrentDropdownChevronRightIcon();
-        this.showDropdownChevronRightIcon(dropdownContentIndex);
+        // window.setTimeout(function () {
+        //     const contentElem = this.template.querySelector('.nav-dropdown-content');
+        //     contentElem.setAttribute('opacity', 0);
+        // }.bind(this), 500);
+        //
+        // const target = event.currentTarget,
+        //     dropdownContentIndex = target.getAttribute('data-dropdown-nav-item-index');
+        //
+        // this.dropdownContent = Object.assign({}, this.dropdownNavItems[dropdownContentIndex]);
+        //
+        // this.hideCurrentDropdownChevronRightIcon();
+        // this.showDropdownChevronRightIcon(dropdownContentIndex);
     }
 
     showDropdownChevronRightIcon(dropdownContentIndex) {
@@ -272,10 +272,10 @@ export default class NavHeader extends LightningElement {
     }
 
     handleDropdownContentImageLoaded(event) {
-        window.setTimeout(function () {
-            const contentElem = this.template.querySelector('.nav-dropdown-content');
-            contentElem.setAttribute('opacity', 1);
-        }.bind(this), 500);
+        // window.setTimeout(function () {
+        //     const contentElem = this.template.querySelector('.nav-dropdown-content');
+        //     contentElem.setAttribute('opacity', 1);
+        // }.bind(this), 500);
 
     }
 

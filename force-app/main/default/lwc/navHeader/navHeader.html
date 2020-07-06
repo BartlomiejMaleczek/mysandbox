@@ -16,10 +16,6 @@
                                         </a>
                                     </li>
 
-<!--                                    <template if:true={dropdownNavItem.hasSubItems}>-->
-
-<!--                                    </template>-->
-
                                 </template>
                             </ul>
                         </div>
@@ -50,8 +46,19 @@
                         <div class="slds-grid slds-grid_vertical-align-center slds-border_right">
                             <template for:each={navItems} for:item="navItem" for:index="index">
                                 <div key={navItem.item.Id} class="slds-col nav-item slds-m-around_medium">
-                                    <a class={navItem.item.styleClasses} data-has-sub-items={navItem.hasSubItems} href="#" aria-rowindex={index}
-                                       data-nav-item-name={navItem.item.Label}>{navItem.item.Label}</a>
+                                    <a class={navItem.item.styleClasses} data-has-sub-items={navItem.hasSubItems} href="#" aria-rowindex={index} onmouseover={handleLinkMouseOver} onmouseleave={handleLinkMouseLeave}
+                                       data-nav-item-name={navItem.item.Label}>{navItem.item.Label}
+
+                                        <template if:true={navItem.hasSubItems} >
+                                            <div class="nav-dropdown slds-align_absolute-center">
+                                                <div style="height: 300px">
+
+                                                </div>
+
+                                            </div>
+                                        </template>
+
+                                    </a>
                                 </div>
                             </template>
 
