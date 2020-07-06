@@ -4,7 +4,7 @@
             <div class="slds-grid header-border ">
                 <div class="nav-dropdown slds-align_absolute-center" onmouseover={handleDropdownMouseOver}
                      onmouseleave={handleDropdownMouseLeave}>
-                        <div class="slds-grid slds-p-top_xx-large slds-p-bottom_xx-large slds-p-right_xx-large  slds-m-bottom_xx-large">
+                        <div class="slds-grid slds-p-top_xx-large slds-p-bottom_xx-large slds-p-right_xx-large slds-m-bottom_xx-large">
                             <ul>
                                 <template for:each={dropdownNavItems} for:item="dropdownNavItem" for:index="index">
                                     <li key={dropdownNavItem.item.Id}>
@@ -15,6 +15,11 @@
                                             </svg>
                                         </a>
                                     </li>
+
+<!--                                    <template if:true={dropdownNavItem.hasSubItems}>-->
+
+<!--                                    </template>-->
+
                                 </template>
                             </ul>
                         </div>
@@ -42,12 +47,11 @@
                 <div class="slds-col slds-grid slds-grid_align-end slds-gutters slds-grid_vertical-align-center">
                     <template if:true={_isLargeScreen}>
 
-                        <div class="slds-grid slds-grid_vertical-align-center">
+                        <div class="slds-grid slds-grid_vertical-align-center slds-border_right">
                             <template for:each={navItems} for:item="navItem" for:index="index">
                                 <div key={navItem.item.Id} class="slds-col nav-item slds-m-around_medium">
                                     <a class={navItem.item.styleClasses} data-has-sub-items={navItem.hasSubItems} href="#" aria-rowindex={index}
-                                       data-nav-item-name={navItem.item.Label} onmouseover={handleLinkMouseOver}
-                                       onmouseleave={handleLinkMouseLeave}>{navItem.item.Label}</a>
+                                       data-nav-item-name={navItem.item.Label}>{navItem.item.Label}</a>
                                 </div>
                             </template>
 
@@ -57,12 +61,10 @@
 
                     </template>
 
-                    <div class="slds-grid slds-grid_vertical-align-center slds-col nav-items-icons-group slds-border_left">
+                    <div class="slds-grid slds-grid_vertical-align-center slds-col nav-items-icons-group ">
                         <div class="slds-col nav-item nav-item-icon-wrapper nav-item-icon-small slds-text-align_center">
                             <div id="profile" data-nav-icon-type="profile" class="nav-item-icon" onmouseover={handleMouseOverNavIcon} onmouseleave={handleMouseLeaveNavIcon}>
                                 <span>
-<!--                                     slds-align&#45;&#45;absolute-center-->
-<!--                                    style="margin-right: 25%; margin-left: 25%;"-->
                                     <svg width="20px" height="24px" class="nav-item-svg slds-align_absolute-center"
                                          xmlns="http://www.w3.org/2000/svg">
                                     <use xlink:href={svgProfile}></use>
@@ -73,11 +75,15 @@
                                 </a>
                                 </span>
 
+                                <div class="nav-items-icons-group-dropdown nav-item-icon-profile-dropdown">
+
+                                </div>
+
                             </div>
                         </div>
 
                         <div class="slds-col nav-item nav-item-icon-wrapper nav-item-icon-small slds-text-align_center">
-                            <div id="orders" data-nav-icon-type="orders" class="nav-item-icon" onmouseover={handleMouseOverNavIcon} onmouseleave={handleMouseLeaveNavIcon}>
+                            <div id="orders" data-nav-icon-type="orders" class="nav-item-icon">
                                 <span>
                                 <svg width="20px" height="24px" class="nav-item-svg slds-align--absolute-center"
                                      xmlns="http://www.w3.org/2000/svg">
@@ -93,11 +99,15 @@
                                 </a>
                                 </span>
 
+                                <div class="nav-items-icons-group-dropdown nav-item-icon-orders-dropdown">
+
+                                </div>
+
                             </div>
                         </div>
 
-                        <div class="slds-col nav-item nav-item-icon-wrapper nav-item-icon-small slds-text-align_center">
-                            <div id="resources" data-nav-icon-type="resources" class="nav-item-icon" onmouseover={handleMouseOverNavIcon} onmouseleave={handleMouseLeaveNavIcon}>
+                        <div class="slds-col nav-item nav-item-icon-wrapper nav-item-icon-big slds-text-align_center">
+                            <div id="resources" data-nav-icon-type="resources" class="nav-item-icon">
                                 <span>
                                     <svg width="20px" height="24px" class="nav-item-svg slds-align--absolute-center"
                                          xmlns="http://www.w3.org/2000/svg">
@@ -112,29 +122,33 @@
                                     resources
                                 </a>
                                 </span>
+
+                                <div class="nav-items-icons-group-dropdown nav-item-icon-resources-dropdown">
+
+                                </div>
                             </div>
                         </div>
-                        <div class="nav-items-icons-group-dropdown" onmouseover={handleMouseOverDropdownIcons} onmouseleave={handleMouseLeaveDropdownIcons}>
-                            <div class="slds-grid">
-                                <template if:true={isProfileIconActive}>
-                                    <div class="slds-col slds-align_absolute-center">
-                                        <p>PROFILE ACTIVE ICON</p>
-                                    </div>
-                                </template>
+<!--                        <div class="nav-items-icons-group-dropdown" onmouseover={handleMouseOverDropdownIcons} onmouseleave={handleMouseLeaveDropdownIcons}>-->
+<!--                            <div class="slds-grid">-->
+<!--                                <template if:true={isProfileIconActive}>-->
+<!--                                    <div class="slds-col slds-align_absolute-center">-->
+<!--                                        <p>PROFILE ACTIVE ICON</p>-->
+<!--                                    </div>-->
+<!--                                </template>-->
 
-                                <template if:true={isOrderIconActive}>
-                                    <div class="slds-col slds-align_absolute-center">
-                                        <p>ORDER ACTIVE ICON</p>
-                                    </div>
-                                </template>
+<!--                                <template if:true={isOrderIconActive}>-->
+<!--                                    <div class="slds-col slds-align_absolute-center">-->
+<!--                                        <p>ORDER ACTIVE ICON</p>-->
+<!--                                    </div>-->
+<!--                                </template>-->
 
-                                <template if:true={isResourcesIconActive}>
-                                    <div class="slds-col slds-align_absolute-center">
-                                        <p>PROFILE RESOURCES</p>
-                                    </div>
-                                </template>
-                            </div>
-                        </div>
+<!--                                <template if:true={isResourcesIconActive}>-->
+<!--                                    <div class="slds-col slds-align_absolute-center">-->
+<!--                                        <p>PROFILE RESOURCES</p>-->
+<!--                                    </div>-->
+<!--                                </template>-->
+<!--                            </div>-->
+<!--                        </div>-->
                     </div>
 
                     <template if:false={_isLargeScreen}>

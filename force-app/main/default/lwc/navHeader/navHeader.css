@@ -1,8 +1,8 @@
 header {
     background: white;
     position: fixed;
-    left: 0px;
-    right: 40px;
+    left: 80px;
+    right: 80px;
     z-index: 10;
     top:30px;
 }
@@ -23,18 +23,39 @@ header {
 
 .nav-items-icons-group-dropdown {
     position: absolute;
-    top: 70px;
-    min-height: 200px;
-    left: 24px;
+    cursor: default;
+    /*top: 70px;*/
+    top: 67px;
+    /*min-height: 200px;*/
+    width: 300px;
+    /*left: 24px;*/
+
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
     clip-path: inset(0px -3px -16px);
     border-top: none;
     border-radius: 14px;
-    right: 24px;
+    /*right: 24px;*/
+    /*left: 0;*/
+    /*right: 0;*/
     z-index: 4;
     background-color: white;
     opacity: 0;
-    transition: 250ms linear;
+    transition: opacity 250ms linear, height 250ms linear;
+    height: 0;
+}
+
+.nav-item-icon-profile-dropdown {
+    border-top-left-radius: 0px;
+    left: 0;
+}
+
+.nav-item-icon-orders-dropdown {
+    left: -130px;
+}
+
+.nav-item-icon-resources-dropdown {
+    right: 0;
+    border-top-right-radius: 0px;
 }
 
 .nav-items-icons-group-dropdown > div {
@@ -72,6 +93,7 @@ li > a > svg {
     /*padding-left: 10px;*/
     /*padding-right: 10px;*/
     padding-top: 5px;
+    padding-bottom: 15px;
     background-color: white;
     z-index: 4;
     /*border-radius: 10px;*/
@@ -85,7 +107,6 @@ li > a > svg {
     width: 80px;
 }
 
-
 .nav-item-icon > span {
     border-bottom: 2px solid transparent;
 }
@@ -97,13 +118,28 @@ li > a > svg {
 
 .nav-item-icon:hover,  .nav-item-icon-is-active{
     box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
-    clip-path: inset(0px -3px 6px);
-    position: absolute;
-    top: 0;
-    padding-bottom: 35px;
+    /*clip-path: inset(0px -3px 6px);*/
+    /*position: absolute;*/
+    /*top: 0;*/
+    /*padding-bottom: 35px;*/
     z-index: 5;
     transition: box-shadow 250ms linear;
+    /*height: 300px;*/
 }
+
+.nav-item-icon:hover > div.nav-items-icons-group-dropdown {
+     opacity: 1;
+    height: 300px;
+}
+
+
+/*.nav-item-icon:hover > div.dropdown {*/
+/*    width: 300px;*/
+/*}*/
+
+/*.nav-item-icon > div.dropdown {*/
+/*    */
+/*}*/
 
 .nav-item-icon:hover > span .nav-item-icon-is-active > span {
     border-bottom-color: #d21e77;
@@ -165,7 +201,7 @@ li > a > svg {
     width: 0;
     height: 3px;
     background: #d21e77;
-    bottom: 38px;
+    bottom: 28px;
     position: absolute;
     transition: width 200ms ease, left 200ms ease;
 }

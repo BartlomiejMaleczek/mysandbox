@@ -272,26 +272,11 @@ export default class NavHeader extends LightningElement {
     }
 
     handleDropdownContentImageLoaded(event) {
-
         window.setTimeout(function () {
             const contentElem = this.template.querySelector('.nav-dropdown-content');
             contentElem.setAttribute('opacity', 1);
         }.bind(this), 500);
 
-    }
-
-    handleMouseOverNavIcon(event) {
-        clearTimeout(this.dropdownIconsMouseOverTimeout);
-
-        this.activeNavIconId = event.currentTarget.getAttribute('data-nav-icon-type');
-
-        this.openNavIconDropdown();
-    }
-
-    handleMouseLeaveNavIcon() {
-        this.dropdownIconsMouseOverTimeout = setTimeout(function () {
-            this.closeNavIconDropdown();
-        }.bind(this), 200);
     }
 
     openNavIconDropdown() {
@@ -302,31 +287,6 @@ export default class NavHeader extends LightningElement {
     closeNavIconDropdown() {
         const navIconDropdown = this.template.querySelector('.nav-items-icons-group-dropdown');
         navIconDropdown.style.setProperty('opacity', '0');
-    }
-
-    activateNavIcon() {
-        // const navIcon = this.template.querySelector('div[data-nav-icon-type=' + this.activeNavIconId + ']');
-        // console.log('navIcon', navIcon);
-        // navIcon.classList.add('nav-item-icon-is-active');
-    }
-
-    deactivateNavIcon() {
-        // const navIcon = this.template.querySelector('.nav-item-icon-is-active');
-        //
-        // if(navIcon) {
-        //     navIcon.classList.remove('nav-item-icon-is-active');
-        // }
-    }
-
-    handleMouseOverDropdownIcons() {
-        clearTimeout(this.dropdownIconsMouseOverTimeout);
-
-        // this.activateNavIcon();
-    }
-
-    handleMouseLeaveDropdownIcons() {
-        this.closeNavIconDropdown();
-        // this.deactivateNavIcon();
     }
 
     get isProfileIconActive() {
