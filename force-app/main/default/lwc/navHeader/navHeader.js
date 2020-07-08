@@ -23,11 +23,11 @@ export default class NavHeader extends LightningElement {
     @track ourBrandsDropdownNavItems = [];
     @track resourceCenterDropdownNavItems = [];
 
-    svgProfile = `${headerSvg}#male`;
-    svgCart = `${headerSvg}#cart`;
-    svgBookmark = `${headerSvg}#bookmark`;
+    svgProfile = `${headerSvg}#user`;
+    svgCart = `${headerSvg}#shopping-bag`;
+    svgBookmark = `${headerSvg}#Save_Resources_Icon`;
     svgHamburger = `${headerSvg}#hamburger`;
-    svgChevronRight = `${headerSvg}#line-angle-right`;
+    svgChevronRight = `${headerSvg}#Arrow`;
 
     _isSmallScreen;
     _isMediumScreen;
