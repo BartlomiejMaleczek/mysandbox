@@ -1,0 +1,24 @@
+<aura:component description="oneToThreeRatioFullWidthColumnLayout" implements="forceCommunity:themeLayout">
+    <aura:attribute name="header" type="Aura.Component[]" required="false"/>
+    <aura:attribute name="leftContent" type="Aura.Component[]" required="false"/>
+    <aura:attribute name="rightContent" type="Aura.Component[]" required="false"/>
+    <aura:attribute name="footer" type="Aura.Component[]" required="false"/>
+
+    <div class="slds-grid slds-wrap full-width">
+        <div class="slds-col slds-size_1-of-1 header">
+            {!v.header}
+        </div>
+
+        <div class="slds-col slds-size_1-of-3 content">
+            {!v.leftContent}
+        </div>
+
+        <div class="slds-col slds-size_2-of-3 content">
+            {!v.rightContent}
+        </div>
+
+        <div class="slds-col slds-size_1-of-1 footer">
+            {!v.footer}
+        </div>
+    </div>
+</aura:component>
