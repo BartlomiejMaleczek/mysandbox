@@ -9,9 +9,9 @@
                 <div class="slds-col slds-grid slds-grid_align-end slds-gutters slds-grid_vertical-align-center">
                     <template if:true={_isLargeScreen}>
 
-                        <div class="slds-grid slds-grid_vertical-align-center slds-border_right">
+                        <ul class="slds-grid slds-grid_vertical-align-center">
                             <template for:each={navItems} for:item="navItem" for:index="index">
-                                <div key={navItem.item.Id} class="slds-col nav-item slds-m-around_medium">
+                                <li key={navItem.item.Id} class="slds-col nav-item slds-m-around_medium">
                                     <a class={navItem.item.styleClasses} data-has-sub-items={navItem.hasSubItems}
                                        href="#" aria-rowindex={index} onmouseover={handleLinkMouseOver}
                                        onmouseleave={handleLinkMouseLeave}
@@ -55,31 +55,20 @@
                                                             </div>
                                                         </div>
                                                     </div>
-<!--                                                </template>-->
-
-<!--                                                <template if:true={isResourceCenterActive}>-->
-<!--                                                    <a href="#">SIEMKAAA</a>-->
-<!--                                                </template>-->
-
-
-                                                <!--                                                <div style="height: 300px">-->
-                                                <!--                                                    <a href="#">SIEMKAAA</a>-->
-                                                <!--                                                </div>-->
-
                                             </div>
                                         </template>
 
                                     </a>
-                                </div>
+                                </li>
                             </template>
 
                             <div class="under-bar"></div>
-                        </div>
+                        </ul>
 
 
                     </template>
 
-                    <div class="slds-grid slds-grid_vertical-align-center slds-col nav-items-icons-group ">
+                    <div class="slds-grid slds-grid_vertical-align-center slds-col nav-items-icons-group slds-border_left">
                         <div class="slds-col nav-item nav-item-icon-wrapper nav-item-icon-small slds-text-align_center">
                             <div id="profile" data-nav-icon-type="profile" class="nav-item-icon"
                                  onmouseover={handleMouseOverNavIcon} onmouseleave={handleMouseLeaveNavIcon}>
