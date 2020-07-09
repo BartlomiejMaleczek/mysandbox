@@ -45,6 +45,10 @@ export default class NavHeader extends LightningElement {
     activeNavItem;
     activeNavIconId;
 
+
+    currentPageNavItemLinkTarget;
+    switchUnderBarToCurrentNavItemLinkPageTimeout;
+
     constructor() {
         super();
 
@@ -84,11 +88,16 @@ export default class NavHeader extends LightningElement {
                         ];
 
                         result.forEach(function (item, index) {
-                            if (index == 0) {
-                                item.item['styleClasses'] = ['is-current-page', 'is-active'].join(' ');
+                            if(index == 0) {
+                                item.item['isCurrentPage'] = true;
                             } else {
-                                item.item['styleClasses'] = '';
+                                item.item['isCurrentPage'] = false;
                             }
+                            // if (index == 0) {
+                            //     item.item['styleClasses'] = ['is-current-page'].join(' ');
+                            // } else {
+                            //     item.item['styleClasses'] = '';
+                            // }
 
                             if (item.hasSubItems) {
                                 item.subItems.forEach(function (subItem, index) {
@@ -118,6 +127,8 @@ export default class NavHeader extends LightningElement {
                     this.ourBrandsDropdownContent = Object.assign({}, this.ourBrandsDropdownNavItems[0]);
                     this.navItems = result;
 
+                    console.log(result);
+
                     resolve(result);
                 }).catch((error) => {
                     console.log("error", error);
@@ -130,16 +141,36 @@ export default class NavHeader extends LightningElement {
     renderedCallback() {
         try {
 
-            if (!this.isRendered) {
-                this.isRendered = this.switchToCurrentPage();
+            // if (!this.isRendered) {
+            //     this.isRendered = this.switchToCurrentPage();
+            console.log('renderedCallback PARENT');
+            if(this.currentPageNavItemLinkTarget) {
+                const underBar = this.template.querySelector('.under-bar');
+                underBar.style.setProperty('left', (this.currentPageNavItemLinkTarget.offsetLeft - 2) + 'px');
+                underBar.style.setProperty('width', (this.currentPageNavItemLinkTarget.offsetWidth + 3) + 'px');
             }
+
+            // }
         } catch (e) {
             console.error(e);
         }
     }
 
+    handleSetCurrentPageNavItemLinkTarget(event) {
+        this.currentPageNavItemLinkTarget = event.detail;
+        // try {
+        //     console.log('handleSetCurrentPageNavItemLinkTarget', event.detail);
+        //     const underBar = this.template.querySelector('.under-bar');
+        //     underBar.style.setProperty('left', (event.detail.offsetLeft - 2) + 'px');
+        //     underBar.style.setProperty('width', (event.detail.offsetWidth + 3) + 'px');
+        // } catch (e) {
+        //     console.error(e);
+        // }
+
+    }
+
     onWindowResize() {
-        this.switchToCurrentPage();
+        // this.switchToCurrentPage();
     }
 
     isSmallScreen(event) {
@@ -165,7 +196,7 @@ export default class NavHeader extends LightningElement {
             hasSubItems = target.getAttribute('data-has-sub-items');
 
         if(this.activeNavItem != target.getAttribute('data-nav-item-name')) {
-            this.switchActiveNavItem(target.firstElementChild);
+            this.switchUnderBar(target.firstElementChild);
         }
 
         console.log(target);
@@ -198,25 +229,34 @@ export default class NavHeader extends LightningElement {
         // }
     }
 
-    switchActiveNavItem(newActiveItem) {
-        const underBar = this.template.querySelector('.under-bar'),
-            dataNavItemName = newActiveItem.getAttribute('data-nav-item-name');
+    handleSwitchActiveNavItemLink(event) {
+        console.log('switchTo active link');
+        clearTimeout(this.switchUnderBarToCurrentNavItemLinkPageTimeout);
 
-        this.activeNavItem = dataNavItemName;
-
-        underBar.style.setProperty('left', (newActiveItem.offsetLeft - 2) + 'px');
-        underBar.style.setProperty('width', (newActiveItem.offsetWidth + 3) + 'px');
+        this.switchUnderBar(event.detail);
     }
 
-    switchToCurrentPage() {
-        const currentPageNavItem = this.template.querySelector('.is-current-page');
+    switchUnderBar(newActiveNavItemLink) {
+        const underBar = this.template.querySelector('.under-bar');
+        underBar.style.setProperty('left', (newActiveNavItemLink.offsetLeft - 2) + 'px');
+        underBar.style.setProperty('width', (newActiveNavItemLink.offsetWidth + 3) + 'px');
+    }
 
-        if (currentPageNavItem) {
-            this.switchActiveNavItem(currentPageNavItem);
-            return true;
-        } else {
-            return false;
-        }
+    handleSwitchToCurrentNavItemLinkPage(event) {
+        console.log('switchToCurrentPage');
+
+        this.switchUnderBarToCurrentNavItemLinkPageTimeout = setTimeout(function () {
+            this.switchUnderBar(this.currentPageNavItemLinkTarget);
+        }.bind(this), 300);
+
+        // const currentPageNavItem = this.template.querySelector('.is-current-page');
+        //
+        // if (currentPageNavItem) {
+        //     this.switchActiveNavItem(currentPageNavItem);
+        //     return true;
+        // } else {
+        //     return false;
+        // }
     }
 
     get isOurBrandsActive() {

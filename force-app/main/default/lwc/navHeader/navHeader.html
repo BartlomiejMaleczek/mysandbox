@@ -11,53 +11,61 @@
 
                         <ul class="slds-grid slds-grid_vertical-align-center nav-items-wrapper">
                             <template for:each={navItems} for:item="navItem" for:index="index">
-                                <li key={navItem.item.Id} class="slds-col nav-item slds-m-around_medium slds-align_absolute-center" onmouseover={handleLinkMouseOver}
-                                    onmouseleave={handleLinkMouseLeave}>
-                                    <a class={navItem.item.styleClasses} data-has-sub-items={navItem.hasSubItems}
-                                       href="#" aria-rowindex={index}
-                                       data-nav-item-name={navItem.item.Label}>
-                                        <span>{navItem.item.Label}</span>
-                                    </a>
+                                <c-nav-item-link
+                                        key={navItem.item.Id}
+                                        nav-item={navItem}
+                                        svg-chevron-right={svgChevronRight}
+                                        onswitchtocurrentnavitemlinkpage={handleSwitchToCurrentNavItemLinkPage}
+                                        onswitchactivenavitemlink={handleSwitchActiveNavItemLink}
+                                        onsetcurrentpagenavitemlinktarget={handleSetCurrentPageNavItemLinkTarget}>
+                                </c-nav-item-link>
+<!--                                <li key={navItem.item.Id} class="slds-col nav-item slds-m-around_medium slds-align_absolute-center" onmouseover={handleLinkMouseOver}-->
+<!--                                    onmouseleave={handleLinkMouseLeave}>-->
+<!--                                    <a class={navItem.item.styleClasses} data-has-sub-items={navItem.hasSubItems}-->
+<!--                                       href="#" aria-rowindex={index}-->
+<!--                                       data-nav-item-name={navItem.item.Label}>-->
+<!--                                        <span>{navItem.item.Label}</span>-->
+<!--                                    </a>-->
 
-                                    <template if:true={navItem.hasSubItems}>
-                                        <div class="nav-dropdown slds-align_absolute-center">
-                                            <!--                                                <template if:true={isOurBrandsActive}>-->
-                                            <div class="slds-grid slds-p-top_xx-large slds-p-bottom_xx-large slds-p-right_xx-large slds-m-bottom_xx-large">
-                                                <ul>
+<!--                                    <template if:true={navItem.hasSubItems}>-->
+<!--                                        <div class="nav-dropdown slds-align_absolute-center">-->
+<!--                                            &lt;!&ndash;                                                <template if:true={isOurBrandsActive}>&ndash;&gt;-->
+<!--                                            <div class="slds-grid slds-p-top_xx-large slds-p-bottom_xx-large slds-p-right_xx-large slds-m-bottom_xx-large">-->
+<!--                                                <ul>-->
 
-                                                    <template for:each={ourBrandsDropdownNavItems}
-                                                              for:item="dropdownNavItem" for:index="index">
-                                                        <li key={dropdownNavItem.item.Id}>
-                                                            <a href="#" data-dropdown-nav-item-index={index}
-                                                               onmouseover={handleDropdownLinkMouseOver}>{dropdownNavItem.item.Label}
-                                                                <svg width="10pt" height="10pt"
-                                                                     xmlns="http://www.w3.org/2000/svg"
-                                                                     class={dropdownNavItem.item.styleClasses}>
-                                                                    <use xlink:href={svgChevronRight}></use>
-                                                                </svg>
-                                                            </a>
-                                                        </li>
-                                                    </template>
-                                                </ul>
-                                            </div>
+<!--                                                    <template for:each={ourBrandsDropdownNavItems}-->
+<!--                                                              for:item="dropdownNavItem" for:index="index">-->
+<!--                                                        <li key={dropdownNavItem.item.Id}>-->
+<!--                                                            <a href="#" data-dropdown-nav-item-index={index}-->
+<!--                                                               onmouseover={handleDropdownLinkMouseOver}>{dropdownNavItem.item.Label}-->
+<!--                                                                <svg width="10pt" height="10pt"-->
+<!--                                                                     xmlns="http://www.w3.org/2000/svg"-->
+<!--                                                                     class={dropdownNavItem.item.styleClasses}>-->
+<!--                                                                    <use xlink:href={svgChevronRight}></use>-->
+<!--                                                                </svg>-->
+<!--                                                            </a>-->
+<!--                                                        </li>-->
+<!--                                                    </template>-->
+<!--                                                </ul>-->
+<!--                                            </div>-->
 
 
-                                            <div class="slds-grid nav-dropdown-content slds-text-align_center slds-p-left_xx-large slds-m-bottom_xx-large">
-                                                <div class="slds-col slds-wrap">
-                                                    <div class="slds-col">
-                                                        <img class="brand-image slds-box_border"
-                                                             src={ourBrandsDropdownContent.item.imageSrc}
-                                                             onload={handleDropdownContentImageLoaded}>
-                                                    </div>
+<!--                                            <div class="slds-grid nav-dropdown-content slds-text-align_center slds-p-left_xx-large slds-m-bottom_xx-large">-->
+<!--                                                <div class="slds-col slds-wrap">-->
+<!--                                                    <div class="slds-col">-->
+<!--                                                        <img class="brand-image slds-box_border"-->
+<!--                                                             src={ourBrandsDropdownContent.item.imageSrc}-->
+<!--                                                             onload={handleDropdownContentImageLoaded}>-->
+<!--                                                    </div>-->
 
-                                                    <div class="slds-col slds-text-align_center">
-                                                        <p>{ourBrandsDropdownContent.item.Label}</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </template>
-                                </li>
+<!--                                                    <div class="slds-col slds-text-align_center">-->
+<!--                                                        <p>{ourBrandsDropdownContent.item.Label}</p>-->
+<!--                                                    </div>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                    </template>-->
+<!--                                </li>-->
                             </template>
 
                             <div class="under-bar"></div>
@@ -67,7 +75,7 @@
                     </template>
 
                     <div class="slds-grid slds-grid_vertical-align-center slds-col nav-items-icons-group slds-border_left">
-                        <div class="slds-col nav-item nav-items-icons-wrapper nav-item-icon-small slds-text-align_center">
+                        <div class="slds-col nav-item-link nav-items-icons-wrapper nav-item-icon-small slds-text-align_center">
                             <div id="profile" data-nav-icon-type="profile" class="nav-item-icon">
                                 <span>
                                     <svg  class="nav-item-svg slds-align_absolute-center"
@@ -127,7 +135,7 @@
                             </div>
                         </div>
 
-                        <div class="slds-col nav-item nav-items-icons-wrapper nav-item-icon-small slds-text-align_center">
+                        <div class="slds-col nav-item-link nav-items-icons-wrapper nav-item-icon-small slds-text-align_center">
                             <div id="orders" data-nav-icon-type="orders" class="nav-item-icon">
                                 <span>
                                 <svg  class="nav-item-svg slds-align--absolute-center"
@@ -151,7 +159,7 @@
                             </div>
                         </div>
 
-                        <div class="slds-col nav-item nav-items-icons-wrapper nav-item-icon-big slds-text-align_center">
+                        <div class="slds-col nav-item-link nav-items-icons-wrapper nav-item-icon-big slds-text-align_center">
                             <div id="resources" data-nav-icon-type="resources" class="nav-item-icon">
                                 <span>
                                     <svg  class="nav-item-svg slds-align--absolute-center"
