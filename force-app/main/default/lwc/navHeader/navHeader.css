@@ -20,6 +20,12 @@ header > nav {
     margin-right: 80px;
 }
 
+header::after {
+    content: '';
+    display: table;
+    clear: both;
+}
+
 /*.button-order-samples {*/
 /*    border-radius: 28px;*/
 /*    background-color: #d21e77;*/
@@ -41,9 +47,24 @@ header > nav {
 /*    padding: 5px 21px;*/
 /*}*/
 
+.logo {
+    margin-top: 26px;
+    margin-bottom: 26px;
+}
 
-.nav-item {
+.logo > img {
+    height: 55px;
+    width: 100px;
+}
+
+
+.nav-items-wrapper {
+    height: 100%;
     font-size: 15px;
+}
+
+.nav-items-wrapper > li {
+    height: 100%;
 }
 
 .nav-item > a, .nav-item-icon > span > a, li > a {
@@ -61,13 +82,16 @@ header > nav {
     opacity: 1;
 }
 
-.nav-item > a:hover > div.nav-dropdown {
+.nav-item:hover > div.nav-dropdown {
     max-height: 500px;
     opacity: 1;
 }
 
+.nav-item:hover > a {
+    color: #d21e77;
+}
 
-.nav-item-icon:hover > span > a, .nav-item > a.is-active, .nav-dropdown li > a:hover {
+.nav-item-icon:hover > span > a, .nav-dropdown li > a:hover {
     color: #d21e77;
 }
 
@@ -75,11 +99,11 @@ header > nav {
     width: 0;
     height: 3px;
     background: #d21e77;
-    bottom: 28px;
+    bottom: 38px;
     position: absolute;
     transition: width 200ms ease, left 200ms ease;
+    pointer-events: none;
 }
-
 
 .hamburger-icon > svg {
     fill: #d21e77;
@@ -97,12 +121,13 @@ header > nav {
     opacity: 0;
     background-color: white;
     position: absolute;
-    top: 60px;
-    transition: opacity 400ms linear, max-height 400ms linear;
+    top: 107px;
+    transition: opacity 200ms linear, max-height 400ms linear;
     overflow: hidden;
     box-shadow: 0 3px 3px -2px rgba(0, 0, 0, 0.16);
     font-size: 19px;
     cursor: default;
+    /*display: none;*/
 }
 
 li > a > svg {
@@ -134,7 +159,7 @@ li > a > svg {
     position: relative;
 }
 
-.nav-item-icon-wrapper {
+.nav-items-icons-wrapper {
     margin-right: 15px;
     margin-left: 15px;
 }
@@ -165,7 +190,7 @@ li > a > svg {
     background-color: white;
 }
 
-.nav-item-icon:hover > div.nav-items-icons-group-dropdown {
+.nav-item-icon:hover > div.nav-item-icon-dropdown {
     opacity: 1;
     max-height: 450px;
     pointer-events: all;
@@ -184,7 +209,7 @@ li > a > svg {
     border-bottom: 2px solid transparent;
 }
 
-.nav-items-icons-group-dropdown {
+.nav-item-icon-dropdown {
     position: absolute;
     cursor: default;
     top: 52px;

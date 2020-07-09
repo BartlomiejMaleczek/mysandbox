@@ -9,56 +9,54 @@
                 <div class="slds-col slds-grid slds-grid_align-end slds-gutters slds-grid_vertical-align-center">
                     <template if:true={_isLargeScreen}>
 
-                        <ul class="slds-grid slds-grid_vertical-align-center">
+                        <ul class="slds-grid slds-grid_vertical-align-center nav-items-wrapper">
                             <template for:each={navItems} for:item="navItem" for:index="index">
-                                <li key={navItem.item.Id} class="slds-col nav-item slds-m-around_medium">
+                                <li key={navItem.item.Id} class="slds-col nav-item slds-m-around_medium slds-align_absolute-center" onmouseover={handleLinkMouseOver}
+                                    onmouseleave={handleLinkMouseLeave}>
                                     <a class={navItem.item.styleClasses} data-has-sub-items={navItem.hasSubItems}
-                                       href="#" aria-rowindex={index} onmouseover={handleLinkMouseOver}
-                                       onmouseleave={handleLinkMouseLeave}
+                                       href="#" aria-rowindex={index}
                                        data-nav-item-name={navItem.item.Label}>
-
                                         <span>{navItem.item.Label}</span>
-
-                                        <template if:true={navItem.hasSubItems}>
-                                            <div class="nav-dropdown slds-align_absolute-center">
-<!--                                                <template if:true={isOurBrandsActive}>-->
-                                                    <div class="slds-grid slds-p-top_xx-large slds-p-bottom_xx-large slds-p-right_xx-large slds-m-bottom_xx-large">
-                                                        <ul>
-
-                                                            <template for:each={ourBrandsDropdownNavItems}
-                                                                      for:item="dropdownNavItem" for:index="index">
-                                                                <li key={dropdownNavItem.item.Id}>
-                                                                    <a href="#" data-dropdown-nav-item-index={index}
-                                                                       onmouseover={handleDropdownLinkMouseOver}>{dropdownNavItem.item.Label}
-                                                                        <svg width="10pt" height="10pt"
-                                                                             xmlns="http://www.w3.org/2000/svg"
-                                                                             class={dropdownNavItem.item.styleClasses}>
-                                                                            <use xlink:href={svgChevronRight}></use>
-                                                                        </svg>
-                                                                    </a>
-                                                                </li>
-                                                            </template>
-                                                        </ul>
-                                                    </div>
-
-
-                                                    <div class="slds-grid nav-dropdown-content slds-text-align_center slds-p-left_xx-large slds-m-bottom_xx-large">
-                                                        <div class="slds-col slds-wrap">
-                                                            <div class="slds-col">
-                                                                <img class="brand-image slds-box_border"
-                                                                     src={ourBrandsDropdownContent.item.imageSrc}
-                                                                     onload={handleDropdownContentImageLoaded}>
-                                                            </div>
-
-                                                            <div class="slds-col slds-text-align_center">
-                                                                <p>{ourBrandsDropdownContent.item.Label}</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                            </div>
-                                        </template>
-
                                     </a>
+
+                                    <template if:true={navItem.hasSubItems}>
+                                        <div class="nav-dropdown slds-align_absolute-center">
+                                            <!--                                                <template if:true={isOurBrandsActive}>-->
+                                            <div class="slds-grid slds-p-top_xx-large slds-p-bottom_xx-large slds-p-right_xx-large slds-m-bottom_xx-large">
+                                                <ul>
+
+                                                    <template for:each={ourBrandsDropdownNavItems}
+                                                              for:item="dropdownNavItem" for:index="index">
+                                                        <li key={dropdownNavItem.item.Id}>
+                                                            <a href="#" data-dropdown-nav-item-index={index}
+                                                               onmouseover={handleDropdownLinkMouseOver}>{dropdownNavItem.item.Label}
+                                                                <svg width="10pt" height="10pt"
+                                                                     xmlns="http://www.w3.org/2000/svg"
+                                                                     class={dropdownNavItem.item.styleClasses}>
+                                                                    <use xlink:href={svgChevronRight}></use>
+                                                                </svg>
+                                                            </a>
+                                                        </li>
+                                                    </template>
+                                                </ul>
+                                            </div>
+
+
+                                            <div class="slds-grid nav-dropdown-content slds-text-align_center slds-p-left_xx-large slds-m-bottom_xx-large">
+                                                <div class="slds-col slds-wrap">
+                                                    <div class="slds-col">
+                                                        <img class="brand-image slds-box_border"
+                                                             src={ourBrandsDropdownContent.item.imageSrc}
+                                                             onload={handleDropdownContentImageLoaded}>
+                                                    </div>
+
+                                                    <div class="slds-col slds-text-align_center">
+                                                        <p>{ourBrandsDropdownContent.item.Label}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </template>
                                 </li>
                             </template>
 
@@ -69,30 +67,20 @@
                     </template>
 
                     <div class="slds-grid slds-grid_vertical-align-center slds-col nav-items-icons-group slds-border_left">
-                        <div class="slds-col nav-item nav-item-icon-wrapper nav-item-icon-small slds-text-align_center">
-                            <div id="profile" data-nav-icon-type="profile" class="nav-item-icon"
-                                 onmouseover={handleMouseOverNavIcon} onmouseleave={handleMouseLeaveNavIcon}>
+                        <div class="slds-col nav-item nav-items-icons-wrapper nav-item-icon-small slds-text-align_center">
+                            <div id="profile" data-nav-icon-type="profile" class="nav-item-icon">
                                 <span>
-<!--                                    width="20px" height="24px"-->
                                     <svg  class="nav-item-svg slds-align_absolute-center"
                                          xmlns="http://www.w3.org/2000/svg">
                                     <use xlink:href={svgProfile}></use>
                                 </svg>
-
-<!--                                    <svg style="stroke:#5c5c5c " xmlns="http://www.w3.org/2000/svg" width="17.51" height="19.004" viewBox="0 0 17.51 19.004">-->
-<!--  <g id="user" transform="translate(1 1)">-->
-<!--      <path id="Path_32" data-name="Path 32" d="M19.51,20.816V18.878A3.878,3.878,0,0,0,15.633,15H7.878A3.878,3.878,0,0,0,4,18.878v1.939" transform="translate(-4 -3.813)"  stroke-linecap="round" stroke-linejoin="round" stroke-width="2"> </path>-->
-<!--    <ellipse id="Ellipse_10" data-name="Ellipse 10" cx="3.864" cy="3.864" rx="3.864" ry="3.864" transform="translate(3.892 0)"  stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>-->
-<!--  </g>-->
-<!--</svg>-->
-<!--                                    stroke="#5c5c5c"-->
 
                                 <a href="#">
                                     profile
                                 </a>
                                 </span>
 
-                                <div class="nav-items-icons-group-dropdown nav-item-icon-profile-dropdown slds-p-around_medium">
+                                <div class="nav-item-icon-dropdown nav-item-icon-profile-dropdown slds-p-around_medium">
                                     <div class="slds-grid slds-wrap">
                                         <div class="slds-col slds-size_1-of-1 slds-p-around_medium">
                                             <h1>Dr. Jonathan Doe</h1>
@@ -139,10 +127,9 @@
                             </div>
                         </div>
 
-                        <div class="slds-col nav-item nav-item-icon-wrapper nav-item-icon-small slds-text-align_center">
+                        <div class="slds-col nav-item nav-items-icons-wrapper nav-item-icon-small slds-text-align_center">
                             <div id="orders" data-nav-icon-type="orders" class="nav-item-icon">
                                 <span>
-<!--                                    width="20px" height="24px"-->
                                 <svg  class="nav-item-svg slds-align--absolute-center"
                                      xmlns="http://www.w3.org/2000/svg">
                                     <use xlink:href={svgCart}></use>
@@ -157,17 +144,16 @@
                                 </a>
                                 </span>
 
-                                <div class="nav-items-icons-group-dropdown nav-item-icon-orders-dropdown">
+                                <div class="nav-item-icon-dropdown nav-item-icon-orders-dropdown">
 
                                 </div>
 
                             </div>
                         </div>
 
-                        <div class="slds-col nav-item nav-item-icon-wrapper nav-item-icon-big slds-text-align_center">
+                        <div class="slds-col nav-item nav-items-icons-wrapper nav-item-icon-big slds-text-align_center">
                             <div id="resources" data-nav-icon-type="resources" class="nav-item-icon">
                                 <span>
-<!--                                    width="20px" height="24px"-->
                                     <svg  class="nav-item-svg slds-align--absolute-center"
                                          xmlns="http://www.w3.org/2000/svg">
                                     <use xlink:href={svgBookmark}></use>
@@ -182,32 +168,11 @@
                                 </a>
                                 </span>
 
-                                <div class="nav-items-icons-group-dropdown nav-item-icon-resources-dropdown">
+                                <div class="nav-item-icon-dropdown nav-item-icon-resources-dropdown">
 
                                 </div>
                             </div>
                         </div>
-                        <!--                        <div class="nav-items-icons-group-dropdown" onmouseover={handleMouseOverDropdownIcons} onmouseleave={handleMouseLeaveDropdownIcons}>-->
-                        <!--                            <div class="slds-grid">-->
-                        <!--                                <template if:true={isProfileIconActive}>-->
-                        <!--                                    <div class="slds-col slds-align_absolute-center">-->
-                        <!--                                        <p>PROFILE ACTIVE ICON</p>-->
-                        <!--                                    </div>-->
-                        <!--                                </template>-->
-
-                        <!--                                <template if:true={isOrderIconActive}>-->
-                        <!--                                    <div class="slds-col slds-align_absolute-center">-->
-                        <!--                                        <p>ORDER ACTIVE ICON</p>-->
-                        <!--                                    </div>-->
-                        <!--                                </template>-->
-
-                        <!--                                <template if:true={isResourcesIconActive}>-->
-                        <!--                                    <div class="slds-col slds-align_absolute-center">-->
-                        <!--                                        <p>PROFILE RESOURCES</p>-->
-                        <!--                                    </div>-->
-                        <!--                                </template>-->
-                        <!--                            </div>-->
-                        <!--                        </div>-->
                     </div>
 
                     <template if:false={_isLargeScreen}>

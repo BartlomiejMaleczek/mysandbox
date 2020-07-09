@@ -3,7 +3,7 @@
  */
 
 import {LightningElement, track} from 'lwc';
-import rbLogo from '@salesforce/contentAssetUrl/Rblogo';
+import rbLogo from '@salesforce/contentAssetUrl/Rblogo3';
 import male from '@salesforce/resourceUrl/male';
 import headerSvg from '@salesforce/resourceUrl/headerSvg';
 
@@ -165,8 +165,10 @@ export default class NavHeader extends LightningElement {
             hasSubItems = target.getAttribute('data-has-sub-items');
 
         if(this.activeNavItem != target.getAttribute('data-nav-item-name')) {
-            this.switchActiveNavItem(target);
+            this.switchActiveNavItem(target.firstElementChild);
         }
+
+        console.log(target);
         
         console.log('mouseover', this.activeNavItem);
 
@@ -198,16 +200,12 @@ export default class NavHeader extends LightningElement {
 
     switchActiveNavItem(newActiveItem) {
         const underBar = this.template.querySelector('.under-bar'),
-            oldActiveItem = this.template.querySelector('.is-active'),
             dataNavItemName = newActiveItem.getAttribute('data-nav-item-name');
 
         this.activeNavItem = dataNavItemName;
 
         underBar.style.setProperty('left', (newActiveItem.offsetLeft - 2) + 'px');
         underBar.style.setProperty('width', (newActiveItem.offsetWidth + 3) + 'px');
-
-        oldActiveItem.classList.remove('is-active');
-        newActiveItem.classList.add('is-active');
     }
 
     switchToCurrentPage() {
