@@ -72,7 +72,7 @@
 .nav-item-icon-dropdown {
     position: absolute;
     cursor: default;
-    top: 52px;
+    top: 50px;
     width: 300px;
 
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);

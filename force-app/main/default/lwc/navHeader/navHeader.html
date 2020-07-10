@@ -1,12 +1,12 @@
 <template>
-    <header>
+    <header onscroll={handleOnScroll}>
         <nav>
             <div class="slds-grid header-border ">
                 <div class="slds-col slds-float_left slds-size_1-of-12 slds-align_absolute-center logo">
                     <img src={logo}>
                 </div>
 
-                <div class="slds-col slds-grid slds-grid_align-end slds-gutters slds-grid_vertical-align-center">
+                <div class="slds-col slds-grid nav-items-group slds-grid_align-end slds-gutters slds-grid_vertical-align-center">
                     <template if:true={_isLargeScreen}>
 
                         <ul class="slds-grid slds-grid_vertical-align-center nav-items-wrapper">
@@ -28,7 +28,7 @@
                     </template>
 
                     <div class="slds-grid slds-grid_vertical-align-center slds-col nav-items-icons-group">
-                        <c-nav-item-icon class="nav-item-icon-small nav-item-icon-profile-dropdown nav-item-icon-left" title="profile" icon-svg={svgProfile}>
+                        <c-nav-item-icon class="nav-item-icon-small slds-col nav-item-icon-profile-dropdown nav-item-icon-left" title="profile" icon-svg={svgProfile}>
                             <div slot="dropdownContent" class="slds-grid slds-wrap ">
                                 <div  class="slds-col slds-size_1-of-1 slds-p-around_medium">
                                     <h1>Dr. Jonathan Doe</h1>
@@ -72,26 +72,24 @@
                             </div>
                         </c-nav-item-icon>
 
-                        <c-nav-item-icon class="nav-item-icon-small nav-item-icon-middle" numerator="2" title="orders" icon-svg={svgCart}>
+                        <c-nav-item-icon class="nav-item-icon-small slds-col nav-item-icon-middle" numerator="2" title="orders" icon-svg={svgCart}>
 
                         </c-nav-item-icon>
 
-                        <c-nav-item-icon class="nav-item-icon-big nav-item-icon-right" numerator="2" title="resources" icon-svg={svgBookmark}>
+                        <c-nav-item-icon class="nav-item-icon-big slds-col nav-item-icon-right" numerator="2" title="resources" icon-svg={svgBookmark}>
 
                         </c-nav-item-icon>
+
+                        <template if:false={_isLargeScreen}>
+                            <div class="slds-col hamburger-icon">
+                                <svg width="52.949" height="8.096" class="slds-align--absolute-center"
+                                     xmlns="http://www.w3.org/2000/svg">
+                                    <use xlink:href={svgHamburger}></use>
+                                </svg>
+                            </div>
+                        </template>
+
                     </div>
-
-                    <template if:false={_isLargeScreen}>
-                        <div class="slds-col hamburger-icon">
-                            <svg width="30px" height="30pt" class="slds-align--absolute-center"
-                                 xmlns="http://www.w3.org/2000/svg">
-                                <use xlink:href={svgHamburger}></use>
-                            </svg>
-                        </div>
-
-                    </template>
-
-
                 </div>
 
 

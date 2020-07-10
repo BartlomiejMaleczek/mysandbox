@@ -3,6 +3,7 @@
  */
 
 import {LightningElement, track} from 'lwc';
+
 import rbLogo from '@salesforce/contentAssetUrl/Rblogo3';
 import male from '@salesforce/resourceUrl/male';
 import headerSvg from '@salesforce/resourceUrl/headerSvg';
@@ -24,7 +25,7 @@ export default class NavHeader extends LightningElement {
     svgProfile = `${headerSvg}#user`;
     svgCart = `${headerSvg}#shopping-bag`;
     svgBookmark = `${headerSvg}#Save_Resources_Icon`;
-    svgHamburger = `${headerSvg}#hamburger`;
+    svgHamburger = `${headerSvg}#hamburger-rectangle`;
     svgChevronRight = `${headerSvg}#Arrow`;
 
     _isSmallScreen;
@@ -37,23 +38,44 @@ export default class NavHeader extends LightningElement {
     constructor() {
         super();
 
-        const isSmallScreen = window.matchMedia("(max-width: 480px)");
-        const isMediumScreen = window.matchMedia("(max-width: 768px)");
-        const isLargeScreen = window.matchMedia("(min-width: 1300px)");
+        this._isLargeScreen = true;
+        this._isMediumScreen = false;
+        this._isSmallScreen = false;
 
-        isSmallScreen.addListener(this.isSmallScreen.bind(this));
-        isMediumScreen.addListener(this.isMediumScreen.bind(this));
-        isLargeScreen.addListener(this.isLargeScreen.bind(this));
 
-        this._isLargeScreen = isLargeScreen.matches;
+        // const isSmallScreen = window.matchMedia("(min-width: 480px)");
+        // const isMediumScreen = window.matchMedia("(min-width: 768px)");
+        // const isLargeScreen = window.matchMedia("(min-width: 1300px)");
+        //
+        // isSmallScreen.addListener(this.isSmallScreen.bind(this));
+        // isMediumScreen.addListener(this.isMediumScreen.bind(this));
+        // isLargeScreen.addListener(this.isLargeScreen.bind(this));
+
+        // this._isLargeScreen = isLargeScreen.matches;
 
         window.onresize = this.onWindowResize.bind(this);
 
-        console.log('IS LARGE SCREEN', isLargeScreen.matches);
-        console.log('IS MEDIUM SCREEN', isMediumScreen.matches);
-        console.log('IS SMALL SCREEN', isSmallScreen.matches);
+        // console.log('IS LARGE SCREEN', isLargeScreen.matches);
+        // console.log('IS MEDIUM SCREEN', isMediumScreen.matches);
+        // console.log('IS SMALL SCREEN', isSmallScreen.matches);
 
         this.handleLoad();
+
+        window.onscroll = this.handleOnScroll.bind(this);
+    }
+
+    handleOnScroll(event) {
+        const header = this.template.querySelector('header');
+
+        if (window.scrollY > 10) {
+            if (!header.classList.contains('nav-header-on-scroll')) {
+                header.classList.add('nav-header-on-scroll');
+            }
+        } else {
+            header.classList.remove('nav-header-on-scroll');
+        }
+        console.log(window.scrollY);
+
     }
 
     handleLoad() {
