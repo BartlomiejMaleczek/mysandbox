@@ -3,6 +3,28 @@
     margin-left: 15px;
 }
 
+:host.nav-item-icon-small > div.nav-items-icons-wrapper, :host.nav-item-icon-small > div.nav-items-icons-wrapper > div.nav-item-icon {
+    width: 60px;
+}
+
+:host.nav-item-icon-big > div.nav-items-icons-wrapper, :host.nav-item-icon-big > div.nav-items-icons-wrapper > div.nav-item-icon {
+    width: 80px;
+}
+
+:host.nav-item-icon-left div.nav-item-icon-dropdown{
+    border-top-left-radius: 0px;
+    left: 0;
+}
+
+:host.nav-item-icon-middle div.nav-item-icon-dropdown{
+    left: -130px;
+}
+
+:host.nav-item-icon-right div.nav-item-icon-dropdown{
+    right: 0;
+    border-top-right-radius: 0px;
+}
+
 .nav-item-icon > span > a {
     text-decoration: none;
     color: black;
@@ -18,14 +40,6 @@
     padding-top: 5px;
     background-color: transparent;
     z-index: 4;
-}
-
-:host.nav-item-icon-small > div.nav-items-icons-wrapper, :host.nav-item-icon-small > div.nav-items-icons-wrapper > div.nav-item-icon {
-    width: 60px;
-}
-
-:host.nav-item-icon-big > div.nav-items-icons-wrapper, :host.nav-item-icon-big > div.nav-items-icons-wrapper > div.nav-item-icon {
-    width: 80px;
 }
 
 .nav-item-icon:hover, .nav-item-icon-is-active {
@@ -76,59 +90,6 @@
     pointer-events: none;
 }
 
-.nav-item-icon-profile-dropdown {
-    border-top-left-radius: 0px;
-    left: 0;
-}
-
-.nav-item-icon-profile-dropdown h1 {
-    color: #d21e77;
-    font-size: 20px;
-    float: left;
-}
-
-.nav-item-icon-profile-dropdown h2 {
-    color: black;
-    font-size: 17px;
-    float: left;
-}
-
-.nav-item-icon-profile-dropdown button {
-    border-radius: 14px;
-    background-color: white;
-    border: 1px solid #d21e77;
-    cursor: pointer;
-    padding: 5px;
-    float: right;
-    font-size: 14px;
-    line-height: 11px;
-    color: #d21e77;
-    width: 61px;
-    height: 23px;
-}
-
-.nav-item-icon-profile-dropdown button:hover {
-    background-color: #d21e77;
-    color: white;
-}
-
-.nav-item-icon-profile-dropdown > div.slds-grid > div.slds-col {
-    border-bottom: 1px solid rgba(212, 212, 212, 0.5);
-}
-
-.nav-item-icon-profile-dropdown p {
-    float: left;
-}
-
-.nav-item-icon-orders-dropdown {
-    left: -130px;
-}
-
-.nav-item-icon-resources-dropdown {
-    right: 0;
-    border-top-right-radius: 0px;
-}
-
 .nav-item-svg {
     width: 20px;
     height: 24px;
@@ -148,3 +109,4 @@
     top: 14px;
     font-size: 10px;
 }
+
