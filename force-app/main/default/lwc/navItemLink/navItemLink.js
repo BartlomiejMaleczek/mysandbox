@@ -44,6 +44,7 @@ export default class NavItemLink extends LightningElement {
             {},
             {bubbles: true}
         );
+
     }
 
     fireCustomEvent(cmp, name, detail, propagation) {

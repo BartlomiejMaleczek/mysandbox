@@ -1,0 +1,27 @@
+<template>
+    <div class="slds-col nav-items-icons-wrapper slds-text-align_center">
+        <div id="profile" data-nav-icon-type="profile" class="nav-item-icon">
+            <span>
+                <svg class="nav-item-svg slds-align_absolute-center" xmlns="http://www.w3.org/2000/svg">
+                    <use xlink:href={iconSvg}></use>
+                </svg>
+
+                <template if:true={isNumeratorNotNull}>
+                    <div class="numerator">
+                        {numerator}
+                    </div>
+                </template>
+
+                <a href="#">
+                    {title}
+                </a>
+            </span>
+
+            <div class="nav-item-icon-dropdown nav-item-icon-profile-dropdown slds-p-around_medium">
+                <div class="slds-grid slds-wrap">
+                    <slot name="dropdownContent"></slot>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
