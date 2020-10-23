@@ -1,21 +1,21 @@
 .finally-flex-card {
-    display: flex;
-    flex-direction: column;
-    max-height: 100%;
+  display: flex;
+  flex-direction: column;
+  max-height: 100%;
 }
 
 .finally-flex-grow-body {
-    flex-grow : 1;
+  flex-grow: 1;
 }
 
 .finally-flex-grid {
-    display: flex;
-    flex-direction: column;
-    max-height: 100%;
-    overflow-y: auto;
-    overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  max-height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
-:host(.finally-article-max-width-small) article.slds-card.finally-flex-card{
-    max-width: 400px;
+:host(.finally-article-max-width-small) article.slds-card.finally-flex-card {
+  max-width: 400px;
 }

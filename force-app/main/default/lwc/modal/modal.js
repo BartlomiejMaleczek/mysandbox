@@ -1,55 +1,55 @@
-import { LightningElement, api } from 'lwc';
+import { LightningElement, api } from "lwc";
 
-const CSS_CLASS = 'modal-hidden';
+const CSS_CLASS = "modal-hidden";
 
 export default class Modal extends LightningElement {
-    _modalContainerStyle;
-    showModal = true;
-    _maxWidth;
+  _modalContainerStyle;
+  showModal = true;
+  _maxWidth;
 
-    @api
-    get modalContainerStyle() {
-        return this._modalContainerStyle;
-    }
+  @api
+  get modalContainerStyle() {
+    return this._modalContainerStyle;
+  }
 
-    set modalContainerStyle(value) {
-        this._modalContainerStyle = value;
-    }
+  set modalContainerStyle(value) {
+    this._modalContainerStyle = value;
+  }
 
-    @api
-    set header(value) {
-        this.hasHeaderString = value !== '';
-        this._headerPrivate = value;
-    }
-    get header() {
-        return this._headerPrivate;
-    }
+  @api
+  set header(value) {
+    this.hasHeaderString = value !== "";
+    this._headerPrivate = value;
+  }
+  get header() {
+    return this._headerPrivate;
+  }
 
-    hasHeaderString = false;
-    _headerPrivate;
+  hasHeaderString = false;
+  _headerPrivate;
 
-    @api show() {
-        this.showModal = true;
-    }
+  @api show() {
+    this.showModal = true;
+  }
 
-    @api hide() {
-        this.showModal = false;
-    }
+  @api hide() {
+    this.showModal = false;
+  }
 
-    handleDialogClose() {
-        //Let parent know that dialog is closed (mainly by that cross button) so it can set proper variables if needed
-        const closedialog = new CustomEvent('closedialog');
-        this.dispatchEvent(closedialog);
-        this.hide();
-    }
+  handleDialogClose() {
+    //Let parent know that dialog is closed (mainly by that cross button) so it can set proper variables if needed
+    const closedialog = new CustomEvent("closedialog");
+    this.dispatchEvent(closedialog);
+    this.hide();
+  }
 
-    handleSlotTaglineChange() {
-        const taglineEl = this.template.querySelector('p');
-        taglineEl.classList.remove(CSS_CLASS);
-    }
+  handleSlotTaglineChange() {
+    const taglineEl = this.template.querySelector("p");
+    taglineEl.classList.remove(CSS_CLASS);
+  }
 
-    handleSlotFooterChange() {
-        const footerEl = this.template.querySelector('footer');
-        footerEl.classList.remove(CSS_CLASS);
-    }
+  handleSlotFooterChange() {
+    const footerEl = this.template.querySelector("footer");
+    footerEl.classList.remove(CSS_CLASS);
+  }
 }

@@ -1,29 +1,37 @@
 <template>
-    <div class="slds-grid slds-grid--align-center">
-        <div class="slds-float--right" style="position:absolute; right: 10px;">
-            <lightning-combobox
-                    name="recordsLimit"
-                    dropdown-alignment="bottom-left"
-                    value={pageSize}
-                    placeholder="Display record"
-                    options={recordsPerPageLimit}
-                    onchange={handlePageSizeChange} >
-            </lightning-combobox>
-        </div>
-        <div class="inline slds-align_absolute-center slds-p-top_small">
-            <lightning-button-group >
-                <lightning-button label="First" onclick={goToFirst}></lightning-button>
-                <lightning-button label="Previous" onclick={goToPrevious}></lightning-button>
-
-                <template for:each={paginationItems} for:item="item" for:index="index">
-<!--                    class="{!(v.page == item.value?'currentPage':'') }"-->
-                    <lightning-button key={item.value} name={item.value} label={item.label}
-                                      onclick={goToPage}></lightning-button>
-                </template>
-
-                <lightning-button label="Next" onclick={goToNext}></lightning-button>
-                <lightning-button label="Last" onclick={goToLast}></lightning-button>
-            </lightning-button-group>
-        </div>
+  <div class="slds-grid slds-grid--align-center">
+    <div class="slds-float--right" style="position:absolute; right: 10px;">
+      <lightning-combobox
+        name="recordsLimit"
+        dropdown-alignment="bottom-left"
+        value={pageSize}
+        placeholder="Display record"
+        options={recordsPerPageLimit}
+        onchange={handlePageSizeChange}
+      >
+      </lightning-combobox>
     </div>
+    <div class="inline slds-align_absolute-center slds-p-top_small">
+      <lightning-button-group>
+        <lightning-button label="First" onclick={goToFirst}></lightning-button>
+        <lightning-button
+          label="Previous"
+          onclick={goToPrevious}
+        ></lightning-button>
+
+        <template for:each={paginationItems} for:item="item" for:index="index">
+          <!--                    class="{!(v.page == item.value?'currentPage':'') }"-->
+          <lightning-button
+            key={item.value}
+            name={item.value}
+            label={item.label}
+            onclick={goToPage}
+          ></lightning-button>
+        </template>
+
+        <lightning-button label="Next" onclick={goToNext}></lightning-button>
+        <lightning-button label="Last" onclick={goToLast}></lightning-button>
+      </lightning-button-group>
+    </div>
+  </div>
 </template>

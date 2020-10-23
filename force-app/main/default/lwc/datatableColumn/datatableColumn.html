@@ -1,11 +1,20 @@
 <template>
-            <a class={finallyHeaderLinkClasses} role="button" onclick={handleHeaderOnClick}>
-            <div class="slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate">
-                <span class={truncateClass} title={columnTitle}>
-                     <slot>
-                     </slot>
-                </span>
-                <lightning-icon if:true={isSortable} icon-name="utility:arrowdown" size="xx-small"></lightning-icon>
-            </div>
-        </a>
+  <a
+    class={finallyHeaderLinkClasses}
+    role="button"
+    onclick={handleHeaderOnClick}
+  >
+    <div
+      class="slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate"
+    >
+      <span class={truncateClass} title={columnTitle}>
+        <slot> </slot>
+      </span>
+      <lightning-icon
+        if:true={isSortable}
+        icon-name="utility:arrowdown"
+        size="xx-small"
+      ></lightning-icon>
+    </div>
+  </a>
 </template>

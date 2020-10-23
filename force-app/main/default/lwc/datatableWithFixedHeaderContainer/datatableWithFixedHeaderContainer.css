@@ -1,12 +1,13 @@
-:host.flex-grid, .flex-grid{
-    display: flex;
-    flex-direction: column;
-    max-height: 100%;
-    overflow-y: auto;
-    overflow-x: hidden;
+:host.flex-grid,
+.flex-grid {
+  display: flex;
+  flex-direction: column;
+  max-height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 :host.finally-table--header-fixed_container {
-    width: 100%;
-    position:relative;
+  width: 100%;
+  position: relative;
 }

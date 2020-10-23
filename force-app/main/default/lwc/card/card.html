@@ -1,31 +1,38 @@
 <template>
-    <article class="slds-card finally-flex-card">
-        <div class="slds-card__header slds-grid">
-            <header class="slds-media slds-media_center slds-has-flexi-truncate">
-                <div class="slds-media__figure">
-        <span if:true={isIconNameNotEmpty} class="slds-icon_container slds-icon-standard-account" title={iconName}>
+  <article class="slds-card finally-flex-card">
+    <div class="slds-card__header slds-grid">
+      <header class="slds-media slds-media_center slds-has-flexi-truncate">
+        <div class="slds-media__figure">
+          <span
+            if:true={isIconNameNotEmpty}
+            class="slds-icon_container slds-icon-standard-account"
+            title={iconName}
+          >
             <lightning-icon icon-name={iconName}></lightning-icon>
-          <span class="slds-assistive-text">{iconName}</span>
-        </span>
-                </div>
-                <div class="slds-media__body">
-                    <h2 class="slds-card__header-title">
-                        <a href="javascript:void(0);" class="slds-card__header-link slds-truncate slds-text-link_reset" title={title}>
-                            <span>{title}</span>
-                        </a>
-                    </h2>
-                </div>
-                <div class="slds-no-flex">
-                    <slot name="actions"></slot>
-                </div>
-            </header>
+            <span class="slds-assistive-text">{iconName}</span>
+          </span>
         </div>
-        <div class="slds-scrollable_y finally-flex-grow-body finally-flex-grid">
-            <slot name="body"></slot>
+        <div class="slds-media__body">
+          <h2 class="slds-card__header-title">
+            <a
+              href="javascript:void(0);"
+              class="slds-card__header-link slds-truncate slds-text-link_reset"
+              title={title}
+            >
+              <span>{title}</span>
+            </a>
+          </h2>
         </div>
-        <footer if:true={isFooterVisible} class="slds-card__footer">
-            <slot name="footer"></slot>
-        </footer>
-
-    </article>
+        <div class="slds-no-flex">
+          <slot name="actions"></slot>
+        </div>
+      </header>
+    </div>
+    <div class="slds-scrollable_y finally-flex-grow-body finally-flex-grid">
+      <slot name="body"></slot>
+    </div>
+    <footer if:true={isFooterVisible} class="slds-card__footer">
+      <slot name="footer"></slot>
+    </footer>
+  </article>
 </template>
