@@ -1,5 +1,12 @@
 {
-  "orgName": "Demo company",
+  "orgName": "My Internal Scratch Community2",
   "edition": "Developer",
-  "features": []
+   "features": [
+    "Communities"
+  ],
+  "settings": {
+        "communitiesSettings": {
+            "enableNetworksEnabled": true
+        }
+    }
 }

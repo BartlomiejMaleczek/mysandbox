@@ -1,0 +1,6 @@
+.my-brand {
+    --sds-c-button-brand-color-background: red;
+    --lwc-brandAccessibleActive: red;
+    --lwc-brandAccessible: red;
+    --lwc-buttonBorderRadius: 50%;
+}
