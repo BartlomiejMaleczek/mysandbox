@@ -1,0 +1,8 @@
+<aura:component description="heroWithHeaderThemeLayout" implements="forceCommunity:themeLayout,forceCommunity:layout" extends="forceCommunity:navigationMenuBase">
+    <aura:attribute name="header" type="Aura.Component[]" required="false"/>
+    <aura:attribute name="hero" type="Aura.Component[]" required="false"/>
+    {!v.header}
+    <div style="height: 100vh;width: 100vw;">
+        {!v.hero}
+    </div>
+</aura:component>

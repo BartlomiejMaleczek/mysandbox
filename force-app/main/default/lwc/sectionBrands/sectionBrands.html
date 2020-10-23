@@ -1,0 +1,26 @@
+<template>
+
+    <div class="slds-grid">
+        <div class="slds-col slds-size_1-of-2 slds-grid slds-wrap">
+            <template for:each={brands} for:item="brand" for:index="index">
+                <div key={brand.data.contentNodes.contentUrlName} class="slds-col slds-size_1-of-3">
+                    <img  aria-rowindex={index} class="slds-box_border brand-image slds-m-right_large" src={brand.data.contentNodes.Logo.url} onclick={handleShowBrand}/>
+                </div>
+            </template>
+        </div>
+
+        <div class="slds-col">
+            <c-carousel current-slide-index-element={currentSlideIndexElement} >
+                <template for:each={carouselItems} for:item="carousel" for:index="index">
+                    <c-carousel-item key={carousel.RecommendedProductTitle} class="slds-align--absolute-center product-image-visible" aria-labelledby={index}>
+                        <div class="slds-carousel__content slds-size_1-of-1 slds-col slds-p-top_medium slds-text-align_center" style="height: 400px;">
+                            <h1 class="slds-m-bottom_medium">{carousel.RecommendedProductTitle}</h1>
+
+                            <img style="height: 300px;" src={carousel.RecommendedProductImage}/>
+                        </div>
+                    </c-carousel-item>
+                </template>
+            </c-carousel>
+        </div>
+    </div>
+</template>

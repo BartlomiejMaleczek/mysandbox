@@ -1,0 +1,22 @@
+<template>
+    <div class="slds-grid">
+        <div class="slds-col slds-size_1-of-2 slds-grid slds-wrap">
+            <template for:each={brands} for:item="brand" for:index="index">
+                <div key={brand.data.main.contentUrlName} class="slds-col slds-size_1-of-3">
+                    <img  aria-rowindex={index} class="slds-box_border brand-image slds-m-right_large" src={brand.data.contentNodes.Logo.url} onclick={handleShowBrand}/>
+                </div>
+            </template>
+        </div>
+
+        <div class="slds-col">
+            <template if:true={selectedBrand}>
+                <div class="product-image product-image-visible slds-text-align_center" style="height: 400px;">
+                    <h1 class="slds-m-bottom_medium">{selectedBrand.RecommendedProductTitle}</h1>
+<!--                    src={selectedBrand.RecommendedProductImage}-->
+                    <img style="height: 300px;" src={selectedBrand.RecommendedProductImage}  class="image-brand" onload={onLoad}/>
+                </div>
+            </template>
+
+        </div>
+    </div>
+</template>

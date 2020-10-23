@@ -1,0 +1,56 @@
+
+<template>
+    <div class="slds-grid slds-wrap">
+        <template if:true={featureGroupContent}>
+        <div class="slds-col slds-size_1-of-1 slds-align_absolute-center" >
+<!--            <p>{featureGroupContent.data.main.Name.value}</p>-->
+<!--            <img src="/sfsites/c/file-asset/BartSnap">-->
+        </div>
+
+
+
+
+            <div class="slds-col slds-grid slds-wrap slds-size_1-of-3">
+                <div class="slds-col slds-size_1-of-1">
+<!--                    <img src="/sfsites/c/file-asset/BartSnap"/>-->
+                    <img src={featureGroupContent.data.contentNodes.Image1.url}>
+                </div>
+
+                <div class="slds-col slds-size_1-of-1 testDiv">
+<!--                    <aura:unescapedHtml value="{!v.chatterPost.Body}"/>-->
+<!--                    {convertToPlain}-->
+<!--                    <lightning-formatted-rich-text value={convertToPlain}></lightning-formatted-rich-text>-->
+
+                    <lightning-formatted-rich-text value={description1}></lightning-formatted-rich-text>
+                </div>
+            </div>
+
+            <div class="slds-col slds-grid slds-wrap slds-size_1-of-3">
+                <div class="slds-col slds-size_1-of-1">
+                    <img src={featureGroupContent.data.contentNodes.Image2.url}>
+                </div>
+
+                <div class="slds-col slds-size_1-of-1">
+                    <lightning-formatted-rich-text value={description2}>
+
+                    </lightning-formatted-rich-text>
+<!--                    <lightning-formatted-rich-text value={featureGroupContent.contentNodes.Description2.value}>-->
+
+<!--                    </lightning-formatted-rich-text>-->
+                </div>
+            </div>
+
+            <div class="slds-col slds-grid slds-wrap slds-size_1-of-3">
+                <div class="slds-col slds-size_1-of-1">
+                    <img src={featureGroupContent.data.contentNodes.Image3.url}>
+                </div>
+
+                <div class="slds-col slds-size_1-of-1">
+                    <lightning-formatted-rich-text value={description3}>
+
+                    </lightning-formatted-rich-text>
+                </div>
+            </div>
+        </template>
+    </div>
+</template>

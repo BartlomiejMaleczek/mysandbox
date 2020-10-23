@@ -1,0 +1,19 @@
+<aura:component description="customOneFullWidthColumnLayout" implements="forceCommunity:themeLayout,forceCommunity:layout">
+    <aura:attribute name="header" type="Aura.Component[]" required="false"/>
+    <aura:attribute name="content" type="Aura.Component[]" required="false"/>
+    <aura:attribute name="footer" type="Aura.Component[]" required="false"/>
+
+    <div class="slds-grid slds-wrap full-width">
+        <div class="slds-col slds-size_1-of-1 header">
+            {!v.header}
+        </div>
+
+        <div class="slds-col slds-size_1-of-1 content">
+            {!v.content}
+        </div>
+
+        <div class="slds-col slds-size_1-of-1 footer">
+            {!v.footer}
+        </div>
+    </div>
+</aura:component>

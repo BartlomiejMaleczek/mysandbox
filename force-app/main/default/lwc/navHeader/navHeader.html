@@ -1,0 +1,99 @@
+<template>
+    <header onscroll={handleOnScroll}>
+        <nav>
+            <div class="slds-grid header-border ">
+                <div class="slds-col slds-float_left slds-size_1-of-12 slds-align_absolute-center logo">
+                    <img src={logo}>
+                </div>
+
+                <div class="slds-col slds-grid nav-items-group slds-grid_align-end slds-gutters slds-grid_vertical-align-center">
+                    <template if:true={_isLargeScreen}>
+
+                        <ul class="slds-grid slds-grid_vertical-align-center nav-items-wrapper">
+                            <template for:each={navItems} for:item="navItem" for:index="index">
+                                <c-nav-item-link
+                                        key={navItem.item.Id}
+                                        nav-item={navItem}
+                                        svg-chevron-right={svgChevronRight}
+                                        onswitchtocurrentnavitemlinkpage={handleSwitchToCurrentNavItemLinkPage}
+                                        onswitchactivenavitemlink={handleSwitchActiveNavItemLink}
+                                        onsetcurrentpagenavitemlinktarget={handleSetCurrentPageNavItemLinkTarget}>
+                                </c-nav-item-link>
+                            </template>
+
+                            <div class="under-bar"></div>
+                        </ul>
+
+
+                    </template>
+
+                    <div class="slds-grid slds-grid_vertical-align-center slds-col nav-items-icons-group">
+                        <c-nav-item-icon class="nav-item-icon-small slds-col nav-item-icon-profile-dropdown nav-item-icon-left" title="profile" icon-svg={svgProfile}>
+                            <div slot="dropdownContent" class="slds-grid slds-wrap ">
+                                <div  class="slds-col slds-size_1-of-1 slds-p-around_medium">
+                                    <h1>Dr. Jonathan Doe</h1>
+                                </div>
+
+                                <div class="slds-grid slds-wrap slds-col slds-size_1-of-1 slds-p-around_medium slds-p-around_medium">
+                                    <div class="slds-col slds-size_1-of-1">
+                                        <h2>Address</h2>
+                                        <button>Edit</button>
+                                    </div>
+
+                                    <div class="slds-col slds-size_1-of-1">
+                                        <p>1234 Generic Drive</p>
+                                    </div>
+
+                                    <div class="slds-col slds-size_1-of-1">
+                                        <p>Somewhere Nearby</p>
+                                    </div>
+
+                                    <div class="slds-col slds-size_1-of-1">
+                                        <p>01234-5678</p>
+                                    </div>
+                                    <div class="slds-col slds-size_1-of-1">
+                                        <p>(123) 456-7890</p>
+                                    </div>
+                                </div>
+
+                                <div class="slds-grid slds-wrap slds-col slds-size_1-of-1 slds-p-around_medium slds-p-around_medium">
+                                    <div class="slds-col slds-size_1-of-1">
+                                        <h2>Your orders</h2>
+                                        <button>View</button>
+                                    </div>
+                                </div>
+
+                                <div class="slds-grid slds-wrap slds-col slds-size_1-of-1 slds-p-around_medium slds-p-around_medium">
+                                    <div class="slds-size_1-of-1 slds-col">
+                                        <h2>Privacy Settings</h2>
+                                        <button>Edit</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </c-nav-item-icon>
+
+                        <c-nav-item-icon class="nav-item-icon-small slds-col nav-item-icon-middle" numerator="2" title="orders" icon-svg={svgCart}>
+
+                        </c-nav-item-icon>
+
+                        <c-nav-item-icon class="nav-item-icon-big slds-col nav-item-icon-right" numerator="2" title="resources" icon-svg={svgBookmark}>
+
+                        </c-nav-item-icon>
+
+                        <template if:false={_isLargeScreen}>
+                            <div class="slds-col hamburger-icon">
+                                <svg width="52.949" height="8.096" class="slds-align--absolute-center"
+                                     xmlns="http://www.w3.org/2000/svg">
+                                    <use xlink:href={svgHamburger}></use>
+                                </svg>
+                            </div>
+                        </template>
+
+                    </div>
+                </div>
+
+
+            </div>
+        </nav>
+    </header>
+</template>
