@@ -17,3 +17,4 @@ const _utils = {
 };
 
 export { _utils };
+export * as classUtils from './classUtils';

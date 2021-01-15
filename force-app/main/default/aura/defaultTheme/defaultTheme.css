@@ -1,0 +1,9 @@
+.THIS {
+  --color-background: #E83698;
+  --white-color: white; }
+
+.THIS .slds-button {
+  --sds-c-button-color-background: brown; }
+
+.THIS .container {
+  background-color: var(--color-background); }

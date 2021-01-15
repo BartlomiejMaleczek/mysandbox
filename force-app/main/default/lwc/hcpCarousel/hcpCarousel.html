@@ -1,0 +1,24 @@
+<template>
+    <div class="slds-carousel">
+        <div class="slds-carousel__stage" style={stageStyle}>
+            <div class="slds-carousel__panels" style={carouselTranslate}>
+                <slot onslotchange={handleSlotChange}></slot>
+            </div>
+
+            <template if:true={dots}>
+                <ul class="slds-carousel__indicators" role="tablist">
+                    <template for:each={navItems} for:item="navItem" for:index="index">
+                        <li key={navItem.key} class="slds-carousel__indicator" role="presentation">
+                            <a class={navItem.styleClasses}
+                               tabindex="0"
+                               data-index={navItem.index}
+                               aria-controls={navItem.ariaControls}
+                               onclick={handleSelectSlide}></a>
+                        </li>
+                    </template>
+                </ul>
+            </template>
+
+        </div>
+    </div>
+</template>

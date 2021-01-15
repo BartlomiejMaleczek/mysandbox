@@ -1,0 +1,9 @@
+@import '../../staticresources/defaultTheme2/scss/colors';
+
+.THIS {
+  @import '../../staticresources/defaultTheme2/scss/slds-override';
+
+  .container {
+    background-color: var(--color-background);
+  }
+}
