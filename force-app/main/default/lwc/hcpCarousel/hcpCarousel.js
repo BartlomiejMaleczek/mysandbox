@@ -7,6 +7,7 @@ const SLDS_CAROUSEL_INDICATION_ACTION = 'slds-carousel__indicator-action';
 export default class HcpCarousel extends LightningElement {
     @track navItems = [];
     currSlideNumber = 0;
+    isShiftingBack = false;
 
     _autoPlayTimer;
     _autoPlay = false;
@@ -29,11 +30,11 @@ export default class HcpCarousel extends LightningElement {
     set autoPlay(autoPlay) {
         const _autoPlay = this.normalizeBoolean(autoPlay);
 
-        if(!this._autoPlay && autoPlay && this.navItems.length) {
+        if (!this._autoPlay && autoPlay && this.navItems.length) {
             this.setAutoPlay();
         }
 
-        if(!_autoPlay) {
+        if (!_autoPlay) {
             this.stopAutoPlay();
         }
 
@@ -54,7 +55,14 @@ export default class HcpCarousel extends LightningElement {
     }
 
     get carouselTranslate() {
-        return `transform:translateX(-${this.currSlideNumber * (100 * (this.slidesToScroll / this.slidesToShow))}%);`
+        return `transform:translateX(-${(this.currSlideNumber + 1) * (100 * (this.slidesToScroll / this.slidesToShow))}%);`
+    }
+
+    get carouselPanelsClasses() {
+        return classUtils.set('slds-carousel__panels')
+            .add({
+                'shifting-back': this.isShiftingBack
+            });
     }
 
     handleSlotChange(evt) {
@@ -64,7 +72,7 @@ export default class HcpCarousel extends LightningElement {
         let styleClasses;
         let slideNumber = 0;
 
-        if (slot.assignedNodes() && slot.assignedNodes().length) {
+        if (slot.assignedNodes() && slot.assignedNodes().length && !this.navItems.length) {
             slot.assignedNodes().forEach((carouselItem, index) => {
                 styleClasses = [];
 
@@ -97,6 +105,11 @@ export default class HcpCarousel extends LightningElement {
                 this.setAutoPlay();
             }
 
+            const clonedFirstSlide = slot.assignedNodes()[0].cloneNode(true);
+            const clonedLastSlide = slot.assignedNodes()[slot.assignedNodes().length - 1].cloneNode(true);
+
+            slot.insertBefore(clonedLastSlide, slot.assignedNodes()[0]);
+            slot.appendChild(clonedFirstSlide);
         }
     }
 
@@ -109,61 +122,60 @@ export default class HcpCarousel extends LightningElement {
         clearInterval(this._autoPlayTimer);
     }
 
+    _changeNextSlide = () => {
+        this.changeSlide(1);
+    }
+
     //Use wrapping method, because after query selector component, lambda method cannot be called
     @api
     changeNextSlide() {
-        this._changeNextSlide();
-    }
-
-    _changeNextSlide = () => {
-        let nextSlideNumber = this.currSlideNumber + 1;
-
-        if (nextSlideNumber >= this.navItems.length)
-            nextSlideNumber = 0;
-
-        const currentSlide = this.findCurrSlide();
-        const nextSlide = this.findSlideByNumber(nextSlideNumber);
-
-        this.deactivateSlide(currentSlide);
-        this.activateSlide(nextSlide);
-
-        this.currSlideNumber = nextSlideNumber;
+        this.changeSlide(1);
     }
 
     @api
     changePrevSlide() {
-        let prevSlideNumber = this.currSlideNumber - 1;
+        this.changeSlide(-1);
+    }
 
-        if (prevSlideNumber < 0)
-            prevSlideNumber = this.navItems.length - 1;
+    changeSlide(dir) {
+        if (this.isShiftingBack)
+            this.isShiftingBack = false;
+
+        let nextSlideNumber = this.currSlideNumber + dir;
+
+        if (nextSlideNumber === this.navItems.length) {
+            nextSlideNumber = 0;
+        } else if(nextSlideNumber < 0) {
+            nextSlideNumber = this.navItems.length - 1;
+        }
 
         const currentSlide = this.findCurrSlide();
-        const prevSlide = this.findSlideByNumber(prevSlideNumber);
+        const prevSlide = this.findSlideByNumber(nextSlideNumber);
 
         this.deactivateSlide(currentSlide);
         this.activateSlide(prevSlide);
 
-        this.currSlideNumber = prevSlideNumber;
+        this.currSlideNumber += dir;
     }
 
     handleSelectSlide(event) {
-        if(this._autoPlayTimer)
+        if (this._autoPlayTimer)
             this.stopAutoPlay();
 
         const nextSlideNumber = parseInt(event.currentTarget.dataset.index);
         const nextSlide = this.findSlideByNumber(nextSlideNumber);
         const currentSlide = this.findCurrSlide();
 
-       this.deactivateSlide(currentSlide);
-       this.activateSlide(nextSlide);
+        this.deactivateSlide(currentSlide);
+        this.activateSlide(nextSlide);
 
-       this.currSlideNumber = nextSlideNumber;
+        this.currSlideNumber = nextSlideNumber;
 
         event.target.blur();
     }
 
     findCurrSlide() {
-        return this.navItems.find(item => item.index === this.currSlideNumber);
+        return this.navItems.find(item => item.index === Math.abs(this.currSlideNumber) % this.navItems.length);
     }
 
     findSlideByNumber(slideNumber) {
@@ -180,5 +192,15 @@ export default class HcpCarousel extends LightningElement {
 
     normalizeBoolean(value) {
         return (typeof value === 'string' ? value === 'true' : value);
+    }
+
+    handleTransitioned(event) {
+        if (this.currSlideNumber === this.navItems.length) {
+            this.isShiftingBack = true;
+            this.currSlideNumber = 0;
+        } else if (this.currSlideNumber < 0) {
+            this.isShiftingBack = true;
+            this.currSlideNumber = this.navItems.length - 1;
+        }
     }
 }

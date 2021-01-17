@@ -1,7 +1,7 @@
 <template>
     <div class="slds-carousel">
         <div class="slds-carousel__stage" style={stageStyle}>
-            <div class="slds-carousel__panels" style={carouselTranslate}>
+            <div class={carouselPanelsClasses} style={carouselTranslate} ontransitionend={handleTransitioned}>
                 <slot onslotchange={handleSlotChange}></slot>
             </div>
 

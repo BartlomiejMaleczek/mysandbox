@@ -14,7 +14,7 @@ export default class CarouselUsage extends LightningElement {
         {ariaLabelledBy: 'carousel-item-6'},
         {ariaLabelledBy: 'carousel-item-7'},
         {ariaLabelledBy: 'carousel-item-8'},
-        {ariaLabelledBy: 'carousel-item-9'},
+        {ariaLabelledBy: 'carousel-item-9'}
     ];
 
     autoPlay = true;
