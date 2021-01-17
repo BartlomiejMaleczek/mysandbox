@@ -55,7 +55,7 @@ export default class HcpCarousel extends LightningElement {
     }
 
     get carouselTranslate() {
-        return `transform:translateX(-${(this.currSlideNumber + 1) * (100 * (this.slidesToScroll / this.slidesToShow))}%);`
+        return `transform:translateX(-${(this.currSlideNumber + (this.slidesToShow / this.slidesToScroll))  * (100 * (this.slidesToScroll / this.slidesToShow))}%);`
     }
 
     get carouselPanelsClasses() {
@@ -80,7 +80,7 @@ export default class HcpCarousel extends LightningElement {
                     [`slds-size--1-of-${this.slidesToShow}`]: true
                 });
 
-                if (index % this.slidesToShow === 0) {
+                if (index % this.slidesToScroll === 0) {
                     styleClasses.push(SLDS_CAROUSEL_INDICATION_ACTION);
 
                     if (slideNumber == 0) {
@@ -116,14 +116,15 @@ export default class HcpCarousel extends LightningElement {
     }
 
     appendClonedSlides(slot) {
-        const lastAssignedNodesIndex = slot.assignedNodes().length - 1;
+        const lastAssignedNodesIndex = slot.assignedNodes().length;
         const clonedFirstSlides = slot.assignedNodes()
             .slice(0, this.slidesToShow)
             .map((item) => {return item.cloneNode(true)});
 
         const clonedLastSlides = slot.assignedNodes()
             .slice(lastAssignedNodesIndex - this.slidesToShow, lastAssignedNodesIndex)
-            .map((item) => {return item.cloneNode(true)});
+            .map((item) => {return item.cloneNode(true)})
+            .reverse();
 
         clonedLastSlides.forEach((clonedSlide, index) => {
             if(index === 0) {
@@ -143,7 +144,12 @@ export default class HcpCarousel extends LightningElement {
     }
 
     _changeNextSlide = () => {
-        this.changeSlide(1);
+        try {
+            this.changeSlide(1);
+        } catch (e) {
+            console.error(e);
+        }
+
     }
 
     //Use wrapping method, because after query selector component, lambda method cannot be called
