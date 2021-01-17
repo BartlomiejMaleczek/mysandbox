@@ -1,72 +1,58 @@
 <template>
 <!--    Basic version with dots at the bottom-->
-<!--    <p class="slds-m-top_xx-large">Basic version with dots at the bottom</p>-->
-<!--    <c-hcp-carousel class="carousel" dots>-->
-<!--        <template for:each={items} for:item="navItem" for:index="index">-->
-<!--            <c-hcp-carousel-item key={navItem.ariaLabelledBy} class="slds-align&#45;&#45;absolute-center" >-->
-<!--                <div class="slds-carousel__content slds-size_1-of-1 slds-col slds-p-top_medium">-->
-<!--                    <p>{navItem.ariaLabelledBy}</p>-->
-<!--                </div>-->
-<!--            </c-hcp-carousel-item>-->
-<!--        </template>-->
-<!--    </c-hcp-carousel>-->
+    <p class="slds-m-top_xx-large">Basic version with dots at the bottom</p>
+    <c-hcp-carousel class="carousel" dots>
+        <template for:each={items} for:item="navItem" for:index="index">
+            <c-hcp-carousel-item key={navItem.ariaLabelledBy} class="slds-align--absolute-center" >
+                <div class="slds-carousel__content slds-size_1-of-1 slds-col slds-p-top_medium">
+                    <p>{navItem.ariaLabelledBy}</p>
+                </div>
+            </c-hcp-carousel-item>
+        </template>
+    </c-hcp-carousel>
 
-<!--&lt;!&ndash;    Version with 3 items per slide, moved by one slide. Padding shows elements not in first slide.&ndash;&gt;-->
-<!--    <p class="slds-m-top_xx-large">Version with 3 items per slide, moved by one slide. Padding shows elements not in first slide.</p>-->
-<!--    <c-hcp-carousel class="carousel" slides-to-show="3" slides-to-scroll="1" paddings="padding-right:100px;" dots>-->
-<!--        <template for:each={items} for:item="navItem" for:index="index">-->
-<!--            <c-hcp-carousel-item key={navItem.ariaLabelledBy} class="slds-align&#45;&#45;absolute-center" >-->
-<!--                <div class="slds-carousel__content slds-size_1-of-1 slds-col slds-p-top_medium">-->
-<!--                    <p>{navItem.ariaLabelledBy}</p>-->
-<!--                </div>-->
-<!--            </c-hcp-carousel-item>-->
-<!--        </template>-->
-<!--    </c-hcp-carousel>-->
+<!--    Version with 3 items per slide, moved by one slide. Padding shows elements not in first slide.-->
+    <p class="slds-m-top_xx-large">Version with 3 items per slide, moved by one slide. Padding shows elements not in first slide.</p>
+    <c-hcp-carousel class="carousel" slides-to-show="3" slides-to-scroll="1" paddings="padding-right:250px;" dots>
+        <template for:each={items} for:item="navItem" for:index="index">
+            <c-hcp-carousel-item key={navItem.ariaLabelledBy} class="slds-align--absolute-center" >
+                <div class="slds-carousel__content slds-size_1-of-1 slds-col slds-p-top_medium">
+                    <p>{navItem.ariaLabelledBy}</p>
+                </div>
+            </c-hcp-carousel-item>
+        </template>
+    </c-hcp-carousel>
 
-<!--    &lt;!&ndash; Version with auto play and option to disable and enable auto play from parent cmp&ndash;&gt;-->
-<!--    <p class="slds-m-top_xx-large">Version with auto play and option to disable and enable auto play from parent cmp</p>-->
-<!--    <c-hcp-carousel class="carousel" auto-play-speed="2000" auto-play={autoPlay}>-->
-<!--        <template for:each={items} for:item="navItem" for:index="index">-->
-<!--            <c-hcp-carousel-item key={navItem.ariaLabelledBy} class="slds-align&#45;&#45;absolute-center" >-->
-<!--                <div class="slds-carousel__content slds-size_1-of-1 slds-col slds-p-top_medium">-->
-<!--                    <p>{navItem.ariaLabelledBy}</p>-->
-<!--                </div>-->
-<!--            </c-hcp-carousel-item>-->
-<!--        </template>-->
-<!--    </c-hcp-carousel>-->
+    <!-- Version with auto play and option to disable and enable auto play from parent cmp-->
+    <p class="slds-m-top_xx-large">Version with auto play and option to disable and enable auto play from parent cmp</p>
+    <c-hcp-carousel class="carousel" auto-play-speed="2000" auto-play={autoPlay}>
+        <template for:each={items} for:item="navItem" for:index="index">
+            <c-hcp-carousel-item key={navItem.ariaLabelledBy} class="slds-align--absolute-center" >
+                <div class="slds-carousel__content slds-size_1-of-1 slds-col slds-p-top_medium">
+                    <p>{navItem.ariaLabelledBy}</p>
+                </div>
+            </c-hcp-carousel-item>
+        </template>
+    </c-hcp-carousel>
 
-<!--    <lightning-button label='start auto play' onclick={startAutoPlay}></lightning-button>-->
-<!--    <lightning-button label='stop auto play' onclick={stopAutoPlay}></lightning-button>-->
+    <lightning-button label='start auto play' onclick={startAutoPlay}></lightning-button>
+    <lightning-button label='stop auto play' onclick={stopAutoPlay}></lightning-button>
 
-<!--    &lt;!&ndash; Version with auto play on default set on true but after changing slide, auto play is stopped&ndash;&gt;-->
-<!--    <p class="slds-m-top_xx-large">Version with auto play on default set on true but after changing slide, auto play is stopped</p>-->
-<!--    <c-hcp-carousel class="carousel" auto-play-speed="2000" auto-play dots>-->
-<!--        <template for:each={items} for:item="navItem" for:index="index">-->
-<!--            <c-hcp-carousel-item key={navItem.ariaLabelledBy} class="slds-align&#45;&#45;absolute-center" >-->
-<!--                <div class="slds-carousel__content slds-size_1-of-1 slds-col slds-p-top_medium">-->
-<!--                    <p>{navItem.ariaLabelledBy}</p>-->
-<!--                </div>-->
-<!--            </c-hcp-carousel-item>-->
-<!--        </template>-->
-<!--    </c-hcp-carousel>-->
+    <!-- Version with auto play on default set on true but after changing slide, auto play is stopped-->
+    <p class="slds-m-top_xx-large">Version with auto play on default set on true but after changing slide, auto play is stopped</p>
+    <c-hcp-carousel class="carousel" auto-play-speed="2000" auto-play dots>
+        <template for:each={items} for:item="navItem" for:index="index">
+            <c-hcp-carousel-item key={navItem.ariaLabelledBy} class="slds-align--absolute-center" >
+                <div class="slds-carousel__content slds-size_1-of-1 slds-col slds-p-top_medium">
+                    <p>{navItem.ariaLabelledBy}</p>
+                </div>
+            </c-hcp-carousel-item>
+        </template>
+    </c-hcp-carousel>
 
-<!--    &lt;!&ndash;    Basic version with dots at the bottom and custom changing slide from upper component&ndash;&gt;-->
-<!--    <p class="slds-m-top_xx-large">Basic version with dots at the bottom and custom changing slide from upper component</p>-->
-<!--    <c-hcp-carousel class="carousel carousel-with-custom-next-prev" slides-to-show="3" slides-to-scroll="1" dots>-->
-<!--        <template for:each={items} for:item="navItem" for:index="index">-->
-<!--            <c-hcp-carousel-item key={navItem.ariaLabelledBy} class="slds-align&#45;&#45;absolute-center" >-->
-<!--                <div class="slds-carousel__content slds-size_1-of-1 slds-col slds-p-top_medium">-->
-<!--                    <p>{navItem.ariaLabelledBy}</p>-->
-<!--                </div>-->
-<!--            </c-hcp-carousel-item>-->
-<!--        </template>-->
-<!--    </c-hcp-carousel>-->
-
-<!--    <lightning-button label='previous' onclick={prevSlide}></lightning-button>-->
-<!--    <lightning-button label='next' onclick={nextSlide}></lightning-button>-->
-
+    <!--    Basic version with dots at the bottom and custom changing slide from upper component-->
     <p class="slds-m-top_xx-large">Basic version with dots at the bottom and custom changing slide from upper component</p>
-    <c-hcp-carousel class="carousel carousel-with-custom-next-prev" dots>
+    <c-hcp-carousel class="carousel carousel-with-custom-next-prev" slides-to-show="3" slides-to-scroll="1" dots>
         <template for:each={items} for:item="navItem" for:index="index">
             <c-hcp-carousel-item key={navItem.ariaLabelledBy} class="slds-align--absolute-center" >
                 <div class="slds-carousel__content slds-size_1-of-1 slds-col slds-p-top_medium">
@@ -78,4 +64,5 @@
 
     <lightning-button label='previous' onclick={prevSlide}></lightning-button>
     <lightning-button label='next' onclick={nextSlide}></lightning-button>
+
 </template>
