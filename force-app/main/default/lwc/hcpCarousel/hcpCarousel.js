@@ -105,17 +105,37 @@ export default class HcpCarousel extends LightningElement {
                 this.setAutoPlay();
             }
 
-            const clonedFirstSlide = slot.assignedNodes()[0].cloneNode(true);
-            const clonedLastSlide = slot.assignedNodes()[slot.assignedNodes().length - 1].cloneNode(true);
+            this.appendClonedSlides(slot);
 
-            slot.insertBefore(clonedLastSlide, slot.assignedNodes()[0]);
-            slot.appendChild(clonedFirstSlide);
         }
     }
 
     setAutoPlay() {
         // eslint-disable-next-line @lwc/lwc/no-async-operation
         this._autoPlayTimer = setInterval(this._changeNextSlide, this.autoPlaySpeed);
+    }
+
+    appendClonedSlides(slot) {
+        const lastAssignedNodesIndex = slot.assignedNodes().length - 1;
+        const clonedFirstSlides = slot.assignedNodes()
+            .slice(0, this.slidesToShow)
+            .map((item) => {return item.cloneNode(true)});
+
+        const clonedLastSlides = slot.assignedNodes()
+            .slice(lastAssignedNodesIndex - this.slidesToShow, lastAssignedNodesIndex)
+            .map((item) => {return item.cloneNode(true)});
+
+        clonedLastSlides.forEach((clonedSlide, index) => {
+            if(index === 0) {
+                slot.insertBefore(clonedSlide, slot.assignedNodes()[0]);
+            } else {
+                slot.insertBefore(clonedSlide, clonedLastSlides[index - 1]);
+            }
+        });
+
+        clonedFirstSlides.forEach((clonedSlide) => {
+            slot.appendChild(clonedSlide);
+        });
     }
 
     stopAutoPlay() {
