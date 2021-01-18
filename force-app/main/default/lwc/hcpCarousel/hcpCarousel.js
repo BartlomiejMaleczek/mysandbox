@@ -21,6 +21,7 @@ export default class HcpCarousel extends LightningElement {
 
     _autoPlay = false;
     _dots = false;
+    _infinite = false;
 
     _autoPlaySpeed = 2000;
     _scrollSlideSpeed = 500;
@@ -67,6 +68,15 @@ export default class HcpCarousel extends LightningElement {
     }
 
     @api
+    get infinite() {
+        return this._infinite;
+    }
+
+    set infinite(infinite) {
+        this._infinite = this.normalizeBoolean(infinite);
+    }
+
+    @api
     get scrollSlideSpeed() {
         return this._scrollSlideSpeed;
     }
@@ -89,7 +99,7 @@ export default class HcpCarousel extends LightningElement {
     }
 
     get carouselTranslate() {
-        return `transition: transform ${this.scrollSlideSpeed}ms ease-in;transform:translateX(-${(this.currSlideNumber + (this.slidesToShow / this.slidesToScroll)) * (100 * (this.slidesToScroll / this.slidesToShow))}%);`
+        return `transition: transform ${this.scrollSlideSpeed}ms ease-in;transform:translateX(-${(this.currSlideNumber + this.getInitPosition()) * (100 * (this.slidesToScroll / this.slidesToShow))}%);`
     }
 
     get carouselPanelsClasses() {
@@ -97,6 +107,10 @@ export default class HcpCarousel extends LightningElement {
             .add({
                 'shifting-back': this.isLoopingBack
             });
+    }
+
+    getInitPosition() {
+        return (this.infinite ? (this.slidesToShow / this.slidesToScroll) : 0);
     }
 
     handleSlotChange(evt) {
@@ -135,12 +149,11 @@ export default class HcpCarousel extends LightningElement {
 
             this.navItems = navItems;
 
-
-            if (this.autoPlay) {
+            if (this.autoPlay)
                 this.setAutoPlay();
-            }
 
-            this.appendClonedSlides(slot);
+            if(this.infinite)
+                this.appendClonedSlides(slot);
 
         }
     }
@@ -205,7 +218,7 @@ export default class HcpCarousel extends LightningElement {
 
     @api
     hasNextSlide() {
-        return this.currSlideNumber !== this.navItems.length - 1;
+        return this.currSlideNumber <= this.navItems.length - 1;
     }
 
     @api
@@ -219,23 +232,25 @@ export default class HcpCarousel extends LightningElement {
 
         let nextSlideNumber = this.currSlideNumber + dir;
 
-        if (nextSlideNumber === this.navItems.length) {
+
+        if (this.infinite && nextSlideNumber === this.navItems.length) {
             nextSlideNumber = 0;
-        } else if (nextSlideNumber < 0) {
+        } else if (this.infinite && nextSlideNumber < 0) {
             nextSlideNumber = this.navItems.length - 1;
         }
 
-        const currentSlide = this.findCurrSlide();
-        const prevSlide = this.findSlideByNumber(nextSlideNumber);
+        if(this.infinite || (nextSlideNumber < this.navItems.length && nextSlideNumber >= 0)) {
+            const currentSlide = this.findCurrSlide();
+            const prevSlide = this.findSlideByNumber(nextSlideNumber);
 
-        this.deactivateSlide(currentSlide);
-        this.activateSlide(prevSlide);
+            this.deactivateSlide(currentSlide);
+            this.activateSlide(prevSlide);
 
-        this.currSlideNumber += dir;
-        try {
+            this.currSlideNumber += dir;
+        }
+
+        if(this.infinite) {
             this.loopBack();
-        } catch (e) {
-            console.error(e);
         }
 
     }

@@ -18,6 +18,8 @@ export default class CarouselUsage extends LightningElement {
     ];
 
     autoPlay = true;
+    hasNextSlide = true;
+    hasPrevSlide = false;
 
     startAutoPlay() {
         this.autoPlay = true;
@@ -27,15 +29,28 @@ export default class CarouselUsage extends LightningElement {
         this.autoPlay = false;
     }
 
+    get isPrevDisabled() {
+        return !this.hasPrevSlide;
+    }
+
+    get isNextDisabled() {
+        return !this.hasNextSlide;
+    }
+
     nextSlide() {
         const carousel = this.template.querySelector('.carousel-with-custom-next-prev');
         carousel.changeNextSlide();
+        this.hasNextSlide = carousel.hasNextSlide();
+        this.hasPrevSlide = carousel.hasPrevSlide();
         console.log('hasNextSlide', carousel.hasNextSlide());
+        console.log('hasPrevSlide', carousel.hasPrevSlide());
     }
 
     prevSlide() {
         const carousel = this.template.querySelector('.carousel-with-custom-next-prev');
         carousel.changePrevSlide();
+        this.hasNextSlide = carousel.hasNextSlide();
+        this.hasPrevSlide = carousel.hasPrevSlide();
         console.log('hasPrevSlide', carousel.hasPrevSlide());
     }
 }
