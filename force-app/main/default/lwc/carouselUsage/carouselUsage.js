@@ -9,12 +9,12 @@ export default class CarouselUsage extends LightningElement {
         {ariaLabelledBy: 'carousel-item-1'},
         {ariaLabelledBy: 'carousel-item-2'},
         {ariaLabelledBy: 'carousel-item-3'},
-        {ariaLabelledBy: 'carousel-item-4'},
-        {ariaLabelledBy: 'carousel-item-5'},
-        {ariaLabelledBy: 'carousel-item-6'},
-        {ariaLabelledBy: 'carousel-item-7'},
-        {ariaLabelledBy: 'carousel-item-8'},
-        {ariaLabelledBy: 'carousel-item-9'}
+        // {ariaLabelledBy: 'carousel-item-4'},
+        // {ariaLabelledBy: 'carousel-item-5'},
+        // {ariaLabelledBy: 'carousel-item-6'},
+        // {ariaLabelledBy: 'carousel-item-7'},
+        // {ariaLabelledBy: 'carousel-item-8'},
+        // {ariaLabelledBy: 'carousel-item-9'}
     ];
 
     autoPlay = true;
@@ -30,10 +30,12 @@ export default class CarouselUsage extends LightningElement {
     nextSlide() {
         const carousel = this.template.querySelector('.carousel-with-custom-next-prev');
         carousel.changeNextSlide();
+        console.log('hasNextSlide', carousel.hasNextSlide());
     }
 
     prevSlide() {
         const carousel = this.template.querySelector('.carousel-with-custom-next-prev');
         carousel.changePrevSlide();
+        console.log('hasPrevSlide', carousel.hasPrevSlide());
     }
 }

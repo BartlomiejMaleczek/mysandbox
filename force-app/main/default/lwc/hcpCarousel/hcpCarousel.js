@@ -3,20 +3,36 @@ import {_utils, classUtils} from "c/utils";
 
 const SLDS_IS_ACTIVE = 'slds-is-active';
 const SLDS_CAROUSEL_INDICATION_ACTION = 'slds-carousel__indicator-action';
+const SWIPE_DISTANCE_THRESHOLD = 20;
+const DIRECTION_LEFT = 'left';
+const DIRECTION_RIGHT = 'right';
 
 export default class HcpCarousel extends LightningElement {
     @track navItems = [];
-    currSlideNumber = 0;
-    isShiftingBack = false;
 
-    _autoPlayTimer;
+    currSlideNumber = 0;
+    swipeXStart = 0;
+
+    autoPlayTimer;
+    loopBackTimer;
+
+    isLoopingBack = false;
+    hasLoopBackTimerStarted = false;
+
     _autoPlay = false;
     _dots = false;
+
+    _autoPlaySpeed = 2000;
+    _scrollSlideSpeed = 500;
 
     @api slidesToShow = 1;
     @api slidesToScroll = 1;
     @api paddings = '';
-    @api autoPlaySpeed = 2000;
+
+    constructor() {
+        super();
+        this._debouncedChangeSlide = this.debounce(this.changeSlide.bind(this), 200);
+    }
 
     disconnectedCallback() {
         this.stopAutoPlay();
@@ -42,6 +58,24 @@ export default class HcpCarousel extends LightningElement {
     }
 
     @api
+    get autoPlaySpeed() {
+        return this._autoPlaySpeed;
+    }
+
+    set autoPlaySpeed(autoPlaySpeed) {
+        this._autoPlaySpeed = this.parseIntFromStr(autoPlaySpeed);
+    }
+
+    @api
+    get scrollSlideSpeed() {
+        return this._scrollSlideSpeed;
+    }
+
+    set scrollSlideSpeed(scrollSlideSpeed) {
+        this._scrollSlideSpeed = this.parseIntFromStr(scrollSlideSpeed);
+    }
+
+    @api
     get dots() {
         return this._dots;
     }
@@ -55,13 +89,13 @@ export default class HcpCarousel extends LightningElement {
     }
 
     get carouselTranslate() {
-        return `transform:translateX(-${(this.currSlideNumber + (this.slidesToShow / this.slidesToScroll))  * (100 * (this.slidesToScroll / this.slidesToShow))}%);`
+        return `transition: transform ${this.scrollSlideSpeed}ms ease-in;transform:translateX(-${(this.currSlideNumber + (this.slidesToShow / this.slidesToScroll)) * (100 * (this.slidesToScroll / this.slidesToShow))}%);`
     }
 
     get carouselPanelsClasses() {
         return classUtils.set('slds-carousel__panels')
             .add({
-                'shifting-back': this.isShiftingBack
+                'shifting-back': this.isLoopingBack
             });
     }
 
@@ -101,6 +135,7 @@ export default class HcpCarousel extends LightningElement {
 
             this.navItems = navItems;
 
+
             if (this.autoPlay) {
                 this.setAutoPlay();
             }
@@ -111,23 +146,28 @@ export default class HcpCarousel extends LightningElement {
     }
 
     setAutoPlay() {
+        clearTimeout(this.autoPlayTimer);
         // eslint-disable-next-line @lwc/lwc/no-async-operation
-        this._autoPlayTimer = setInterval(this._changeNextSlide, this.autoPlaySpeed);
+        this.autoPlayTimer = setTimeout(this._changeNextSlide, this.autoPlaySpeed);
     }
 
     appendClonedSlides(slot) {
         const lastAssignedNodesIndex = slot.assignedNodes().length;
         const clonedFirstSlides = slot.assignedNodes()
             .slice(0, this.slidesToShow)
-            .map((item) => {return item.cloneNode(true)});
+            .map((item) => {
+                return item.cloneNode(true)
+            });
 
         const clonedLastSlides = slot.assignedNodes()
             .slice(lastAssignedNodesIndex - this.slidesToShow, lastAssignedNodesIndex)
-            .map((item) => {return item.cloneNode(true)})
+            .map((item) => {
+                return item.cloneNode(true)
+            })
             .reverse();
 
         clonedLastSlides.forEach((clonedSlide, index) => {
-            if(index === 0) {
+            if (index === 0) {
                 slot.insertBefore(clonedSlide, slot.assignedNodes()[0]);
             } else {
                 slot.insertBefore(clonedSlide, clonedLastSlides[index - 1]);
@@ -140,38 +180,48 @@ export default class HcpCarousel extends LightningElement {
     }
 
     stopAutoPlay() {
-        clearInterval(this._autoPlayTimer);
+        clearTimeout(this.autoPlayTimer);
+        clearTimeout(this.loopBackTimer);
     }
 
     _changeNextSlide = () => {
-        try {
+        if (!this.hasLoopBackTimerStarted) {
             this.changeSlide(1);
-        } catch (e) {
-            console.error(e);
         }
 
+        this.setAutoPlay();
     }
 
     //Use wrapping method, because after query selector component, lambda method cannot be called
     @api
     changeNextSlide() {
-        this.changeSlide(1);
+        this._debouncedChangeSlide(1);
     }
 
     @api
     changePrevSlide() {
-        this.changeSlide(-1);
+        this._debouncedChangeSlide(-1);
+    }
+
+    @api
+    hasNextSlide() {
+        return this.currSlideNumber !== this.navItems.length - 1;
+    }
+
+    @api
+    hasPrevSlide() {
+        return this.currSlideNumber !== 0;
     }
 
     changeSlide(dir) {
-        if (this.isShiftingBack)
-            this.isShiftingBack = false;
+        if (this.isLoopingBack)
+            this.isLoopingBack = false;
 
         let nextSlideNumber = this.currSlideNumber + dir;
 
         if (nextSlideNumber === this.navItems.length) {
             nextSlideNumber = 0;
-        } else if(nextSlideNumber < 0) {
+        } else if (nextSlideNumber < 0) {
             nextSlideNumber = this.navItems.length - 1;
         }
 
@@ -182,10 +232,35 @@ export default class HcpCarousel extends LightningElement {
         this.activateSlide(prevSlide);
 
         this.currSlideNumber += dir;
+        try {
+            this.loopBack();
+        } catch (e) {
+            console.error(e);
+        }
+
     }
 
+    loopBack() {
+        clearTimeout(this.loopBackTimer);
+        this.hasLoopBackTimerStarted = true;
+
+        this.loopBackTimer = setTimeout(() => {
+            if (this.currSlideNumber === this.navItems.length) {
+                this.isLoopingBack = true;
+                this.currSlideNumber = 0;
+            } else if (this.currSlideNumber < 0) {
+                this.isLoopingBack = true;
+                this.currSlideNumber = this.navItems.length - 1;
+            }
+
+            this.hasLoopBackTimerStarted = false;
+        }, this.scrollSlideSpeed + 50);
+
+    }
+
+
     handleSelectSlide(event) {
-        if (this._autoPlayTimer)
+        if (this.autoPlayTimer)
             this.stopAutoPlay();
 
         const nextSlideNumber = parseInt(event.currentTarget.dataset.index);
@@ -198,6 +273,27 @@ export default class HcpCarousel extends LightningElement {
         this.currSlideNumber = nextSlideNumber;
 
         event.target.blur();
+    }
+
+    handleTouchStart({changedTouches}) {
+        this.swipeXStart = (changedTouches && changedTouches[0].clientX) || 0;
+    }
+
+    handleTouchEnd(event) {
+        const {changedTouches} = event;
+        const swipeXEnd = (changedTouches && changedTouches[0].clientX) || 0;
+        const dx = swipeXEnd - this.swipeXStart;
+        const direction =
+            Math.sign(dx) === 1 ? DIRECTION_LEFT : DIRECTION_RIGHT;
+        if (Math.abs(dx) > SWIPE_DISTANCE_THRESHOLD) {
+            if (direction === DIRECTION_RIGHT) {
+                this.changeSlide(1);
+            } else {
+                this.changeSlide(-1);
+            }
+            event.preventDefault();
+        }
+        this.swipeXStart = 0;
     }
 
     findCurrSlide() {
@@ -220,13 +316,17 @@ export default class HcpCarousel extends LightningElement {
         return (typeof value === 'string' ? value === 'true' : value);
     }
 
-    handleTransitioned(event) {
-        if (this.currSlideNumber === this.navItems.length) {
-            this.isShiftingBack = true;
-            this.currSlideNumber = 0;
-        } else if (this.currSlideNumber < 0) {
-            this.isShiftingBack = true;
-            this.currSlideNumber = this.navItems.length - 1;
+    parseIntFromStr(value) {
+        return (typeof value === 'string' ? parseInt(value) : value);
+    }
+
+    debounce = (callback, wait) => {
+        let timeout = null;
+
+        return (...args) => {
+            const next = () => callback(...args)
+            clearTimeout(timeout)
+            timeout = setTimeout(next, wait)
         }
     }
 }

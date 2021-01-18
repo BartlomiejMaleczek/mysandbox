@@ -1,14 +1,33 @@
 <template>
     <div class="slds-carousel">
-        <div class="slds-carousel__stage" style={stageStyle}>
-            <div class={carouselPanelsClasses} style={carouselTranslate} ontransitionend={handleTransitioned}>
+        <div class="slds-carousel__stage"
+             style={stageStyle}
+        >
+
+<!--            ontransitionend={handleTransitioned}-->
+<!--            ontransitionstart={handleTransitionStart}-->
+<!--            ontransitionrun={handleTransitionRun}-->
+<!--            ontransitioncancel={handleTransitionCancel}-->
+
+            <div class={carouselPanelsClasses}
+                 style={carouselTranslate}
+                 ontouchstart={handleTouchStart}
+                 ontouchend={handleTouchEnd}
+            >
+
                 <slot onslotchange={handleSlotChange}></slot>
             </div>
 
             <template if:true={dots}>
-                <ul class="slds-carousel__indicators" role="tablist">
+
+                <ul class="slds-carousel__indicators"
+                    role="tablist"
+                >
                     <template for:each={navItems} for:item="navItem" for:index="index">
-                        <li key={navItem.key} class="slds-carousel__indicator" role="presentation">
+                        <li key={navItem.key}
+                            class="slds-carousel__indicator"
+                            role="presentation"
+                        >
                             <a class={navItem.styleClasses}
                                tabindex="0"
                                data-index={navItem.index}
