@@ -39,18 +39,17 @@ export default class CarouselUsage extends LightningElement {
 
     nextSlide() {
         const carousel = this.template.querySelector('.carousel-with-custom-next-prev');
-        carousel.changeNextSlide();
-        this.hasNextSlide = carousel.hasNextSlide();
-        this.hasPrevSlide = carousel.hasPrevSlide();
-        console.log('hasNextSlide', carousel.hasNextSlide());
-        console.log('hasPrevSlide', carousel.hasPrevSlide());
+        carousel.changeNextSlide().then(() => {
+            this.hasNextSlide = carousel.hasNextSlide();
+            this.hasPrevSlide = carousel.hasPrevSlide();
+        });
     }
 
     prevSlide() {
         const carousel = this.template.querySelector('.carousel-with-custom-next-prev');
-        carousel.changePrevSlide();
-        this.hasNextSlide = carousel.hasNextSlide();
-        this.hasPrevSlide = carousel.hasPrevSlide();
-        console.log('hasPrevSlide', carousel.hasPrevSlide());
+        carousel.changePrevSlide().then(() => {
+            this.hasNextSlide = carousel.hasNextSlide();
+            this.hasPrevSlide = carousel.hasPrevSlide();
+        });
     }
 }

@@ -152,7 +152,7 @@ export default class HcpCarousel extends LightningElement {
             if (this.autoPlay)
                 this.setAutoPlay();
 
-            if(this.infinite)
+            if (this.infinite)
                 this.appendClonedSlides(slot);
 
         }
@@ -197,9 +197,9 @@ export default class HcpCarousel extends LightningElement {
         clearTimeout(this.loopBackTimer);
     }
 
-    _changeNextSlide = () => {
+    _changeNextSlide = async () => {
         if (!this.hasLoopBackTimerStarted) {
-            this.changeSlide(1);
+            await this.changeSlide(1);
         }
 
         this.setAutoPlay();
@@ -208,69 +208,73 @@ export default class HcpCarousel extends LightningElement {
     //Use wrapping method, because after query selector component, lambda method cannot be called
     @api
     changeNextSlide() {
-        this._debouncedChangeSlide(1);
+        return this._debouncedChangeSlide(1);
     }
 
     @api
     changePrevSlide() {
-        this._debouncedChangeSlide(-1);
+        return this._debouncedChangeSlide(-1);
     }
 
     @api
     hasNextSlide() {
-        return this.currSlideNumber <= this.navItems.length - 1;
+        return(this.infinite || this.currSlideNumber !== this.navItems.length - 1);
     }
 
     @api
     hasPrevSlide() {
-        return this.currSlideNumber !== 0;
+        return (this.infinite || this.currSlideNumber !== 0);
     }
 
     changeSlide(dir) {
-        if (this.isLoopingBack)
-            this.isLoopingBack = false;
+        return new Promise(async (resolve) => {
+            if (this.isLoopingBack)
+                this.isLoopingBack = false;
 
-        let nextSlideNumber = this.currSlideNumber + dir;
+            let nextSlideNumber = this.currSlideNumber + dir;
 
+            if (this.infinite && nextSlideNumber === this.navItems.length) {
+                nextSlideNumber = 0;
+            } else if (this.infinite && nextSlideNumber < 0) {
+                nextSlideNumber = this.navItems.length - 1;
+            }
 
-        if (this.infinite && nextSlideNumber === this.navItems.length) {
-            nextSlideNumber = 0;
-        } else if (this.infinite && nextSlideNumber < 0) {
-            nextSlideNumber = this.navItems.length - 1;
-        }
+            if (this.infinite || (nextSlideNumber < this.navItems.length && nextSlideNumber >= 0)) {
+                const currentSlide = this.findCurrSlide();
+                const prevSlide = this.findSlideByNumber(nextSlideNumber);
 
-        if(this.infinite || (nextSlideNumber < this.navItems.length && nextSlideNumber >= 0)) {
-            const currentSlide = this.findCurrSlide();
-            const prevSlide = this.findSlideByNumber(nextSlideNumber);
+                this.deactivateSlide(currentSlide);
+                this.activateSlide(prevSlide);
 
-            this.deactivateSlide(currentSlide);
-            this.activateSlide(prevSlide);
+                this.currSlideNumber += dir;
+            }
 
-            this.currSlideNumber += dir;
-        }
+            if (this.infinite) {
+                await this.loopBack();
+            }
 
-        if(this.infinite) {
-            this.loopBack();
-        }
-
+            resolve();
+        });
     }
 
     loopBack() {
-        clearTimeout(this.loopBackTimer);
-        this.hasLoopBackTimerStarted = true;
+        return new Promise((resolve) => {
+            clearTimeout(this.loopBackTimer);
+            this.hasLoopBackTimerStarted = true;
 
-        this.loopBackTimer = setTimeout(() => {
-            if (this.currSlideNumber === this.navItems.length) {
-                this.isLoopingBack = true;
-                this.currSlideNumber = 0;
-            } else if (this.currSlideNumber < 0) {
-                this.isLoopingBack = true;
-                this.currSlideNumber = this.navItems.length - 1;
-            }
+            this.loopBackTimer = setTimeout(() => {
+                if (this.currSlideNumber === this.navItems.length) {
+                    this.isLoopingBack = true;
+                    this.currSlideNumber = 0;
+                } else if (this.currSlideNumber < 0) {
+                    this.isLoopingBack = true;
+                    this.currSlideNumber = this.navItems.length - 1;
+                }
 
-            this.hasLoopBackTimerStarted = false;
-        }, this.scrollSlideSpeed + 50);
-
+                this.hasLoopBackTimerStarted = false;
+                resolve();
+            }, this.scrollSlideSpeed + 50);
+        });
     }
 
 
@@ -294,7 +298,10 @@ export default class HcpCarousel extends LightningElement {
         this.swipeXStart = (changedTouches && changedTouches[0].clientX) || 0;
     }
 
-    handleTouchEnd(event) {
+    async handleTouchEnd(event) {
+        if (this.autoPlayTimer)
+            this.stopAutoPlay();
+
         const {changedTouches} = event;
         const swipeXEnd = (changedTouches && changedTouches[0].clientX) || 0;
         const dx = swipeXEnd - this.swipeXStart;
@@ -302,9 +309,9 @@ export default class HcpCarousel extends LightningElement {
             Math.sign(dx) === 1 ? DIRECTION_LEFT : DIRECTION_RIGHT;
         if (Math.abs(dx) > SWIPE_DISTANCE_THRESHOLD) {
             if (direction === DIRECTION_RIGHT) {
-                this.changeSlide(1);
+                await this.changeSlide(1);
             } else {
-                this.changeSlide(-1);
+                await this.changeSlide(-1);
             }
             event.preventDefault();
         }
@@ -337,11 +344,14 @@ export default class HcpCarousel extends LightningElement {
 
     debounce = (callback, wait) => {
         let timeout = null;
-
-        return (...args) => {
-            const next = () => callback(...args)
-            clearTimeout(timeout)
-            timeout = setTimeout(next, wait)
-        }
+        return (...args) =>  {
+            clearTimeout(timeout);
+            return new Promise((resolve) => {
+                timeout = setTimeout(
+                    () => resolve(callback(...args)),
+                    wait,
+                );
+            });
+        };
     }
 }
