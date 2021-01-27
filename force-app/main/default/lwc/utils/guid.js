@@ -31,6 +31,6 @@ class Guid {
   }
 }
 
-const _guid = new Guid();
+const guid = new Guid();
 
-export { _guid };
+export { guid };

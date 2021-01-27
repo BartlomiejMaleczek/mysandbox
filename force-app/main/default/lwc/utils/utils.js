@@ -6,15 +6,15 @@ import { _event } from "./event";
 import { _navigation } from "./navigation";
 import { _jsUtils } from "./jsUtils";
 import { _promises } from "./promises";
-import { _guid } from "./guid";
+import { guid } from "./guid";
 
 const _utils = {
   event: _event,
   navigation: _navigation,
   jsUtils: _jsUtils,
-  promises: _promises,
-  guid: _guid
+  promises: _promises
+  // guid: _guid
 };
 
-export { _utils };
+export {guid};
 export * as classUtils from './classUtils';

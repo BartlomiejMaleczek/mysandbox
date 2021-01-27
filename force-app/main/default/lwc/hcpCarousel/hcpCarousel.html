@@ -3,14 +3,10 @@
         <div class="slds-carousel__stage"
              style={stageStyle}
         >
-
-<!--            ontransitionend={handleTransitioned}-->
-<!--            ontransitionstart={handleTransitionStart}-->
-<!--            ontransitionrun={handleTransitionRun}-->
-<!--            ontransitioncancel={handleTransitionCancel}-->
-
             <div class={carouselPanelsClasses}
                  style={carouselTranslate}
+                 role="tabpanel"
+                 aria-hidden="false"
                  ontouchstart={handleTouchStart}
                  ontouchend={handleTouchEnd}
             >

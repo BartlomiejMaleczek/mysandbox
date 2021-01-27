@@ -3,7 +3,9 @@ import {classUtils} from "c/utils";
 
 export default class HcpCarouselItem extends LightningElement {
     connectedCallback() {
-        classUtils.listMutation(this.classList, )
-        this.classList.add('slds-carousel__panel');
+        classUtils.listMutation(this.classList, {
+            'slds-carousel__content': true,
+            'slds-carousel__panel': true
+        });
     }
 }

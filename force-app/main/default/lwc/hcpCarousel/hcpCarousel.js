@@ -1,5 +1,5 @@
 import {LightningElement, track, api} from 'lwc';
-import {_utils, classUtils} from "c/utils";
+import {guid, classUtils} from "c/utils";
 
 const SLDS_IS_ACTIVE = 'slds-is-active';
 const SLDS_CAROUSEL_INDICATION_ACTION = 'slds-carousel__indicator-action';
@@ -25,9 +25,9 @@ export default class HcpCarousel extends LightningElement {
 
     _autoPlaySpeed = 2000;
     _scrollSlideSpeed = 500;
+    _slidesToShow = 1;
+    _slidesToScroll = 1;
 
-    @api slidesToShow = 1;
-    @api slidesToScroll = 1;
     @api paddings = '';
 
     constructor() {
@@ -94,6 +94,24 @@ export default class HcpCarousel extends LightningElement {
         this._dots = this.normalizeBoolean(dots);
     }
 
+    @api
+    get slidesToShow() {
+        return this._slidesToShow;
+    }
+
+    set slidesToShow(slidesToShow) {
+        this._slidesToShow = this.parseIntFromStr(slidesToShow);
+    }
+
+    @api
+    get slidesToScroll() {
+        return this._slidesToScroll;
+    }
+
+    set slidesToScroll(slidesToScroll) {
+        this._slidesToScroll = this.parseIntFromStr(slidesToScroll);
+    }
+
     get stageStyle() {
         return this.paddings;
     }
@@ -119,16 +137,22 @@ export default class HcpCarousel extends LightningElement {
 
         let styleClasses;
         let slideNumber = 0;
+        let slidesAmount;
 
         if (slot.assignedNodes() && slot.assignedNodes().length && !this.navItems.length) {
+
+            if(!this.infinite)
+                slidesAmount = this.getSlidesAmount(slot.assignedNodes().length);
+
             slot.assignedNodes().forEach((carouselItem, index) => {
+                carouselItem.setAttribute("aria-hidden", true);
                 styleClasses = [];
 
                 classUtils.listMutation(carouselItem.classList, {
                     [`slds-size--1-of-${this.slidesToShow}`]: true
                 });
 
-                if (index % this.slidesToScroll === 0) {
+                if ((this.infinite && index % this.slidesToScroll === 0) || (!this.infinite && slidesAmount >= index)) {
                     styleClasses.push(SLDS_CAROUSEL_INDICATION_ACTION);
 
                     if (slideNumber == 0) {
@@ -136,7 +160,7 @@ export default class HcpCarousel extends LightningElement {
                     }
 
                     navItems.push({
-                        key: _utils.guid.generate(),
+                        key: guid.generate(),
                         tabindex: 0,
                         ariaControls: `carousel-item-${slideNumber}`,
                         index: slideNumber,
@@ -156,6 +180,20 @@ export default class HcpCarousel extends LightningElement {
                 this.appendClonedSlides(slot);
 
         }
+    }
+
+    getSlidesAmount(assignedNodesLength) {
+        let leftRange = 1;
+        let rightRange = this.slidesToShow;
+        let slideNumber = 0;
+
+        while (leftRange > assignedNodesLength || assignedNodesLength > rightRange) {
+            slideNumber += 1;
+            leftRange += this.slidesToScroll;
+            rightRange += this.slidesToScroll;
+        }
+
+        return slideNumber;
     }
 
     setAutoPlay() {
@@ -226,7 +264,7 @@ export default class HcpCarousel extends LightningElement {
         return (this.infinite || this.currSlideNumber !== 0);
     }
 
-    changeSlide(dir) {
+    async changeSlide(dir) {
         return new Promise(async (resolve) => {
             if (this.isLoopingBack)
                 this.isLoopingBack = false;
