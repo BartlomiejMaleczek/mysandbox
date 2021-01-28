@@ -131,75 +131,14 @@ export default class HcpCarousel extends LightningElement {
         return (this.infinite ? (this.slidesToShow / this.slidesToScroll) : 0);
     }
 
-    handleSlotChange(evt) {
+    handleSlotChange() {
         const slot = this.template.querySelector('slot');
-        const navItems = [];
-
-        let styleClasses;
 
         if (slot.assignedNodes() && slot.assignedNodes().length && !this.navItems.length) {
-            const slidesAmount = this.getSlidesAmount(slot.assignedNodes().length);
 
+            this.initProcessingAssignedNodes(slot.assignedNodes());
 
-            // console.log('slidesAmount', slidesAmount);
-            //
-            // slot.assignedNodes().forEach((carouselItem, index) => {
-            //     carouselItem.setAttribute("aria-hidden", true);
-            //     styleClasses = [];
-            //
-            //     classUtils.listMutation(carouselItem.classList, {
-            //         [`slds-size--1-of-${this.slidesToShow}`]: true
-            //     });
-            //
-            //     if ((this.infinite && index % this.slidesToScroll === 0) || (!this.infinite && slidesAmount >= index)) {
-            //         styleClasses.push(SLDS_CAROUSEL_INDICATION_ACTION);
-            //
-            //         if (slideNumber == 0) {
-            //             styleClasses.push(SLDS_IS_ACTIVE);
-            //         }
-            //
-            //         navItems.push({
-            //             key: guid.generate(),
-            //             tabindex: 0,
-            //             ariaControls: `carousel-item-${slideNumber}`,
-            //             index: slideNumber,
-            //             styleClasses: styleClasses.join(' ')
-            //         });
-            //
-            //         slideNumber += 1;
-            //     }
-            // });
-            //
-            // console.log('SLIDENUMBER', slideNumber);
-
-
-            // ---------------------SECOND VERSION--------------------
-            slot.assignedNodes().forEach((carouselItem, index) => {
-                classUtils.listMutation(carouselItem.classList, {
-                    [`slds-size--1-of-${this.slidesToShow}`]: true
-                });
-            });
-
-
-            for (let i = 0; i <= slidesAmount; i += 1) {
-                styleClasses = [];
-                styleClasses.push(SLDS_CAROUSEL_INDICATION_ACTION);
-
-                if (i === 0) {
-                    styleClasses.push(SLDS_IS_ACTIVE);
-                }
-
-                navItems.push({
-                    key: guid.generate(),
-                    tabindex: 0,
-                    ariaControls: `carousel-item-${i}`,
-                    index: i,
-                    styleClasses: styleClasses.join(' ')
-                });
-            }
-
-
-            this.navItems = navItems;
+            this.generateNavItems(slot.assignedNodes().length);
 
             if (this.autoPlay)
                 this.setAutoPlay();
@@ -208,6 +147,40 @@ export default class HcpCarousel extends LightningElement {
                 this.appendClonedSlides(slot);
 
         }
+    }
+
+    initProcessingAssignedNodes(assignedNodes) {
+        assignedNodes.forEach((carouselItem, index) => {
+            classUtils.listMutation(carouselItem.classList, {
+                [`slds-size--1-of-${this.slidesToShow}`]: true
+            });
+        });
+    }
+
+    generateNavItems(assignedNodesLength) {
+        const navItems = [];
+        const slidesAmount = this.getSlidesAmount(assignedNodesLength);
+
+        let styleClasses;
+
+        for (let i = 0; i <= slidesAmount; i += 1) {
+            styleClasses = [];
+            styleClasses.push(SLDS_CAROUSEL_INDICATION_ACTION);
+
+            if (i === 0) {
+                styleClasses.push(SLDS_IS_ACTIVE);
+            }
+
+            navItems.push({
+                key: guid.generate(),
+                tabindex: 0,
+                ariaControls: `carousel-item-${i}`,
+                index: i,
+                styleClasses: styleClasses.join(' ')
+            });
+        }
+
+        this.navItems = navItems;
     }
 
     getSlidesAmount(assignedNodesLength) {
@@ -220,11 +193,6 @@ export default class HcpCarousel extends LightningElement {
             leftRange += this.slidesToScroll;
             rightRange += this.slidesToScroll;
 
-            console.log('leftRange', leftRange);
-            console.log('rightRange', rightRange);
-            console.log('slidesAmount', slidesAmount);
-            console.log('assignedNodesLength', assignedNodesLength);
-
             if (this.isInfiniteCondFulfilled(leftRange, assignedNodesLength)) {
                 break;
             }
@@ -236,9 +204,6 @@ export default class HcpCarousel extends LightningElement {
 
             slidesAmount += 1;
 
-            if (slidesAmount === 100) {
-                break;
-            }
         }
 
         return slidesAmount;
@@ -299,7 +264,6 @@ export default class HcpCarousel extends LightningElement {
         this.setAutoPlay();
     }
 
-//Use wrapping method, because after query selector component, lambda method cannot be called
     @api
     changeNextSlide() {
         return this._debouncedChangeSlide(1);
@@ -426,12 +390,6 @@ export default class HcpCarousel extends LightningElement {
 
     deactivateSlide(slide) {
         slide.styleClasses = slide.styleClasses.replace(SLDS_IS_ACTIVE, '');
-    }
-
-    getAssignedNodes() {
-        const slot = this.template.querySelector('slot');
-
-        return slot.assignedNodes();
     }
 
     normalizeBoolean(value) {
