@@ -136,7 +136,6 @@ export default class HcpCarousel extends LightningElement {
         const navItems = [];
 
         let styleClasses;
-        // let slideNumber = 0;
 
         if (slot.assignedNodes() && slot.assignedNodes().length && !this.navItems.length) {
             const slidesAmount = this.getSlidesAmount(slot.assignedNodes().length);
@@ -221,8 +220,14 @@ export default class HcpCarousel extends LightningElement {
             leftRange += this.slidesToScroll;
             rightRange += this.slidesToScroll;
 
-            if (this.isInfiniteCondFulfilled(leftRange && assignedNodesLength))
+            console.log('leftRange', leftRange);
+            console.log('rightRange', rightRange);
+            console.log('slidesAmount', slidesAmount);
+            console.log('assignedNodesLength', assignedNodesLength);
+
+            if (this.isInfiniteCondFulfilled(leftRange, assignedNodesLength)) {
                 break;
+            }
 
             if (this.isFiniteCondFulfilled(leftRange, assignedNodesLength, rightRange)) {
                 slidesAmount += 1;
@@ -244,7 +249,7 @@ export default class HcpCarousel extends LightningElement {
     }
 
     isInfiniteCondFulfilled(leftRange, assignedNodesLength) {
-        return this.infinite && leftRange < assignedNodesLength;
+        return this.infinite && leftRange > assignedNodesLength;
     }
 
     setAutoPlay() {
