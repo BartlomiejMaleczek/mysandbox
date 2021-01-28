@@ -136,40 +136,69 @@ export default class HcpCarousel extends LightningElement {
         const navItems = [];
 
         let styleClasses;
-        let slideNumber = 0;
-        let slidesAmount;
+        // let slideNumber = 0;
 
         if (slot.assignedNodes() && slot.assignedNodes().length && !this.navItems.length) {
+            const slidesAmount = this.getSlidesAmount(slot.assignedNodes().length);
 
-            if(!this.infinite)
-                slidesAmount = this.getSlidesAmount(slot.assignedNodes().length);
 
+            // console.log('slidesAmount', slidesAmount);
+            //
+            // slot.assignedNodes().forEach((carouselItem, index) => {
+            //     carouselItem.setAttribute("aria-hidden", true);
+            //     styleClasses = [];
+            //
+            //     classUtils.listMutation(carouselItem.classList, {
+            //         [`slds-size--1-of-${this.slidesToShow}`]: true
+            //     });
+            //
+            //     if ((this.infinite && index % this.slidesToScroll === 0) || (!this.infinite && slidesAmount >= index)) {
+            //         styleClasses.push(SLDS_CAROUSEL_INDICATION_ACTION);
+            //
+            //         if (slideNumber == 0) {
+            //             styleClasses.push(SLDS_IS_ACTIVE);
+            //         }
+            //
+            //         navItems.push({
+            //             key: guid.generate(),
+            //             tabindex: 0,
+            //             ariaControls: `carousel-item-${slideNumber}`,
+            //             index: slideNumber,
+            //             styleClasses: styleClasses.join(' ')
+            //         });
+            //
+            //         slideNumber += 1;
+            //     }
+            // });
+            //
+            // console.log('SLIDENUMBER', slideNumber);
+
+
+            // ---------------------SECOND VERSION--------------------
             slot.assignedNodes().forEach((carouselItem, index) => {
-                carouselItem.setAttribute("aria-hidden", true);
-                styleClasses = [];
-
                 classUtils.listMutation(carouselItem.classList, {
                     [`slds-size--1-of-${this.slidesToShow}`]: true
                 });
-
-                if ((this.infinite && index % this.slidesToScroll === 0) || (!this.infinite && slidesAmount >= index)) {
-                    styleClasses.push(SLDS_CAROUSEL_INDICATION_ACTION);
-
-                    if (slideNumber == 0) {
-                        styleClasses.push(SLDS_IS_ACTIVE);
-                    }
-
-                    navItems.push({
-                        key: guid.generate(),
-                        tabindex: 0,
-                        ariaControls: `carousel-item-${slideNumber}`,
-                        index: slideNumber,
-                        styleClasses: styleClasses.join(' ')
-                    });
-
-                    slideNumber += 1;
-                }
             });
+
+
+            for (let i = 0; i <= slidesAmount; i += 1) {
+                styleClasses = [];
+                styleClasses.push(SLDS_CAROUSEL_INDICATION_ACTION);
+
+                if (i === 0) {
+                    styleClasses.push(SLDS_IS_ACTIVE);
+                }
+
+                navItems.push({
+                    key: guid.generate(),
+                    tabindex: 0,
+                    ariaControls: `carousel-item-${i}`,
+                    index: i,
+                    styleClasses: styleClasses.join(' ')
+                });
+            }
+
 
             this.navItems = navItems;
 
@@ -185,15 +214,37 @@ export default class HcpCarousel extends LightningElement {
     getSlidesAmount(assignedNodesLength) {
         let leftRange = 1;
         let rightRange = this.slidesToShow;
-        let slideNumber = 0;
+        let slidesAmount = 0;
 
-        while (leftRange > assignedNodesLength || assignedNodesLength > rightRange) {
-            slideNumber += 1;
+        while (true) {
+
             leftRange += this.slidesToScroll;
             rightRange += this.slidesToScroll;
+
+            if (this.isInfiniteCondFulfilled(leftRange && assignedNodesLength))
+                break;
+
+            if (this.isFiniteCondFulfilled(leftRange, assignedNodesLength, rightRange)) {
+                slidesAmount += 1;
+                break;
+            }
+
+            slidesAmount += 1;
+
+            if (slidesAmount === 100) {
+                break;
+            }
         }
 
-        return slideNumber;
+        return slidesAmount;
+    }
+
+    isFiniteCondFulfilled(leftRange, assignedNodesLength, rightRange) {
+        return !this.infinite && (leftRange <= assignedNodesLength && assignedNodesLength <= rightRange)
+    }
+
+    isInfiniteCondFulfilled(leftRange, assignedNodesLength) {
+        return this.infinite && leftRange < assignedNodesLength;
     }
 
     setAutoPlay() {
@@ -243,7 +294,7 @@ export default class HcpCarousel extends LightningElement {
         this.setAutoPlay();
     }
 
-    //Use wrapping method, because after query selector component, lambda method cannot be called
+//Use wrapping method, because after query selector component, lambda method cannot be called
     @api
     changeNextSlide() {
         return this._debouncedChangeSlide(1);
@@ -256,7 +307,7 @@ export default class HcpCarousel extends LightningElement {
 
     @api
     hasNextSlide() {
-        return(this.infinite || this.currSlideNumber !== this.navItems.length - 1);
+        return (this.infinite || this.currSlideNumber !== this.navItems.length - 1);
     }
 
     @api
@@ -372,6 +423,12 @@ export default class HcpCarousel extends LightningElement {
         slide.styleClasses = slide.styleClasses.replace(SLDS_IS_ACTIVE, '');
     }
 
+    getAssignedNodes() {
+        const slot = this.template.querySelector('slot');
+
+        return slot.assignedNodes();
+    }
+
     normalizeBoolean(value) {
         return (typeof value === 'string' ? value === 'true' : value);
     }
@@ -382,7 +439,7 @@ export default class HcpCarousel extends LightningElement {
 
     debounce = (callback, wait) => {
         let timeout = null;
-        return (...args) =>  {
+        return (...args) => {
             clearTimeout(timeout);
             return new Promise((resolve) => {
                 timeout = setTimeout(
