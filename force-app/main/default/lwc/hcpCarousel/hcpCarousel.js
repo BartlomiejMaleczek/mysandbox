@@ -6,12 +6,17 @@ const SLDS_CAROUSEL_INDICATION_ACTION = 'slds-carousel__indicator-action';
 const SWIPE_DISTANCE_THRESHOLD = 20;
 const DIRECTION_LEFT = 'left';
 const DIRECTION_RIGHT = 'right';
+const DATA_INDEX_ATTR = 'data-node-index';
+const ARIA_HIDDEN_ATTR = 'aria-hidden';
 
 export default class HcpCarousel extends LightningElement {
     @track navItems = [];
+    @track assignedNodes = [];
 
     currSlideNumber = 0;
     swipeXStart = 0;
+    initPosition = 0;
+    initDataNodeIndex = 0;
 
     autoPlayTimer;
     loopBackTimer;
@@ -117,7 +122,7 @@ export default class HcpCarousel extends LightningElement {
     }
 
     get carouselTranslate() {
-        return `transition: transform ${this.scrollSlideSpeed}ms ease-in;transform:translateX(-${(this.currSlideNumber + this.getInitPosition()) * (100 * (this.slidesToScroll / this.slidesToShow))}%);`
+        return `transition: transform ${this.scrollSlideSpeed}ms ease-in;transform:translateX(-${(this.currSlideNumber + this.initPosition) * (100 * (this.slidesToScroll / this.slidesToShow))}%);`
     }
 
     get carouselPanelsClasses() {
@@ -131,21 +136,28 @@ export default class HcpCarousel extends LightningElement {
         return (this.infinite ? (this.slidesToShow / this.slidesToScroll) : 0);
     }
 
+    getInitDataIndex() {
+        return (this.infinite ? this.slidesToShow : 0);
+    }
+
     handleSlotChange() {
         const slot = this.getSlot();
 
         if (slot.assignedNodes() && slot.assignedNodes().length && !this.navItems.length) {
+            this.initPosition = this.getInitPosition();
+            this.initDataNodeIndex = this.getInitDataIndex();
 
             this.initProcessingAssignedNodes(slot.assignedNodes());
-
             this.generateNavItems(slot.assignedNodes().length);
 
             if (this.autoPlay)
                 this.setAutoPlay();
 
-            if (this.infinite)
+            if (this.infinite) {
                 this.appendClonedSlides(slot);
-
+            } else {
+                this.assignedNodes = slot.assignedNodes();
+            }
         }
     }
 
@@ -156,10 +168,12 @@ export default class HcpCarousel extends LightningElement {
             });
 
             if(index < this.slidesToShow) {
-                node.setAttribute("aria-hidden", false);
+                node.setAttribute(ARIA_HIDDEN_ATTR, false);
             } else {
-                node.setAttribute("aria-hidden", true);
+                node.setAttribute(ARIA_HIDDEN_ATTR, true);
             }
+
+            node.setAttribute(DATA_INDEX_ATTR, index + this.initDataNodeIndex);
         });
     }
 
@@ -230,19 +244,23 @@ export default class HcpCarousel extends LightningElement {
 
     appendClonedSlides(slot) {
         const lastAssignedNodesIndex = slot.assignedNodes().length;
+        const shiftPosition = this.initDataNodeIndex + slot.assignedNodes().length;
+        console.log(this.initDataNodeIndex);
         const clonedFirstSlides = slot.assignedNodes()
             .slice(0, this.slidesToShow)
-            .map((item) => {
+            .map((item, index) => {
                 const clonedNode = item.cloneNode(true);
-                clonedNode.setAttribute("aria-hidden", true);
+                clonedNode.setAttribute(ARIA_HIDDEN_ATTR, true);
+                clonedNode.setAttribute(DATA_INDEX_ATTR, shiftPosition + index);
                 return clonedNode;
             });
 
         const clonedLastSlides = slot.assignedNodes()
             .slice(lastAssignedNodesIndex - this.slidesToShow, lastAssignedNodesIndex)
-            .map((item) => {
+            .map((item, index) => {
                 const clonedNode = item.cloneNode(true);
-                clonedNode.setAttribute("aria-hidden", true);
+                clonedNode.setAttribute(ARIA_HIDDEN_ATTR, true);
+                clonedNode.setAttribute(DATA_INDEX_ATTR, index);
                 return clonedNode;
             })
             .reverse();
@@ -258,6 +276,8 @@ export default class HcpCarousel extends LightningElement {
         clonedFirstSlides.forEach((clonedSlide) => {
             slot.appendChild(clonedSlide);
         });
+
+        this.assignedNodes = clonedLastSlides.concat(slot.assignedNodes()).concat(clonedFirstSlides);
     }
 
     stopAutoPlay() {
@@ -327,20 +347,19 @@ export default class HcpCarousel extends LightningElement {
     }
 
     setAriaAttributes() {
-        const slot = this.getSlot();
-        const leftRange = 1 + (this.slidesToScroll * this.currSlideNumber);
-        const rightRange = this.slidesToShow + (this.slidesToScroll * this.currSlideNumber);
+        const leftRange = this.initDataNodeIndex + (this.slidesToScroll * this.currSlideNumber);
+        const rightRange = (this.initDataNodeIndex + this.slidesToShow) + (this.slidesToScroll * this.currSlideNumber);
 
         console.log('leftRange', leftRange);
-        console.log('this.currSlideNumber', this.currSlideNumber);
-        console.log('this.rightRange', rightRange);
-        console.log(slot.assignedNodes().length);
+        console.log('rightRange', rightRange);
 
-        slot.assignedNodes().forEach((node, index) => {
-            if(index >= (leftRange - 1) && index <= (rightRange - 1)) {
-                node.setAttribute("aria-hidden", false);
+        this.assignedNodes.forEach((node) => {
+            const nodeIndex = node.dataset.nodeIndex
+
+            if(nodeIndex >= (leftRange) && nodeIndex <= (rightRange - 1)) {
+                node.setAttribute(ARIA_HIDDEN_ATTR, false);
             } else {
-                node.setAttribute("aria-hidden", true);
+                node.setAttribute(ARIA_HIDDEN_ATTR, true);
             }
         });
     }
@@ -378,6 +397,13 @@ export default class HcpCarousel extends LightningElement {
         this.activateSlide(nextSlide);
 
         this.currSlideNumber = nextSlideNumber;
+
+        try {
+            this.setAriaAttributes();
+        } catch (e) {
+            console.error(e);
+        }
+
 
         event.target.blur();
     }
