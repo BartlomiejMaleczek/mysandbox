@@ -182,13 +182,16 @@ export default class HcpCarousel extends LightningElement {
         const slidesAmount = this.getSlidesAmount(assignedNodesLength);
 
         let styleClasses;
+        let isSelected;
 
         for (let i = 0; i <= slidesAmount; i += 1) {
             styleClasses = [];
+            isSelected = false;
             styleClasses.push(SLDS_CAROUSEL_INDICATION_ACTION);
 
             if (i === 0) {
                 styleClasses.push(SLDS_IS_ACTIVE);
+                isSelected = true;
             }
 
             navItems.push({
@@ -196,7 +199,8 @@ export default class HcpCarousel extends LightningElement {
                 tabindex: 0,
                 ariaControls: `carousel-item-${i}`,
                 index: i,
-                styleClasses: styleClasses.join(' ')
+                styleClasses: styleClasses.join(' '),
+                isSelected: isSelected
             });
         }
 
@@ -442,10 +446,12 @@ export default class HcpCarousel extends LightningElement {
 
     activateSlide(slide) {
         slide.styleClasses = [slide.styleClasses, SLDS_IS_ACTIVE].join(' ');
+        slide.isSelected = true;
     }
 
     deactivateSlide(slide) {
         slide.styleClasses = slide.styleClasses.replace(SLDS_IS_ACTIVE, '');
+        slide.isSelected = false;
     }
 
     normalizeBoolean(value) {
