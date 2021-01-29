@@ -8,6 +8,8 @@ const DIRECTION_LEFT = 'left';
 const DIRECTION_RIGHT = 'right';
 const DATA_INDEX_ATTR = 'data-node-index';
 const ARIA_HIDDEN_ATTR = 'aria-hidden';
+const ARIA_CONTROLS_ATTR = 'aria-controls';
+const ARIA_LABELLED_BY = 'aria-labelledby';
 
 export default class HcpCarousel extends LightningElement {
     @track navItems = [];
@@ -17,6 +19,7 @@ export default class HcpCarousel extends LightningElement {
     swipeXStart = 0;
     initPosition = 0;
     initDataNodeIndex = 0;
+    hasAriaControlsBeenSet = false;
 
     autoPlayTimer;
     loopBackTimer;
@@ -42,6 +45,53 @@ export default class HcpCarousel extends LightningElement {
 
     disconnectedCallback() {
         this.stopAutoPlay();
+    }
+
+    renderedCallback() {
+        if (this.dots && !this.hasAriaControlsBeenSet) {
+            this.setAriaControls();
+        }
+    }
+
+    setAriaControls() {
+        const anchors = this.template.querySelectorAll('a');
+
+        if (anchors && anchors.length) {
+            let initAssignedNodeIndex = 0;
+            let endAssignedNodeIndex = this.assignedNodes.length;
+            let dataIndexAttr;
+
+            if (this.infinite) {
+                this.setAriaControlsForClonedNodes(anchors);
+                initAssignedNodeIndex = 1;
+                endAssignedNodeIndex = this.assignedNodes.length - 1;
+            }
+
+            for (let i = initAssignedNodeIndex; i < endAssignedNodeIndex; i++) {
+                for (let j = 0; j < anchors.length; j++) {
+                    dataIndexAttr = this.assignedNodes[i].getAttribute(DATA_INDEX_ATTR);
+
+                    if (this.getLeftRange(j) <= dataIndexAttr && this.getRightRange(j) > dataIndexAttr) {
+                        this.assignedNodes[i].setAttribute(
+                            ARIA_LABELLED_BY,
+                            anchors[j].getAttribute(ARIA_CONTROLS_ATTR)
+                        );
+                        break;
+                    }
+                }
+            }
+
+            this.hasAriaControlsBeenSet = true;
+        }
+    }
+
+    setAriaControlsForClonedNodes(anchors) {
+        this.assignedNodes[0]
+            .setAttribute(ARIA_LABELLED_BY, anchors[anchors.length - 1].getAttribute(ARIA_CONTROLS_ATTR));
+
+        this.assignedNodes[this.assignedNodes.length - 1]
+            .setAttribute(ARIA_LABELLED_BY, anchors[0].getAttribute(ARIA_CONTROLS_ATTR));
+
     }
 
     @api
@@ -167,7 +217,7 @@ export default class HcpCarousel extends LightningElement {
                 [`slds-size--1-of-${this.slidesToShow}`]: true
             });
 
-            if(index < this.slidesToShow) {
+            if (index < this.slidesToShow) {
                 node.setAttribute(ARIA_HIDDEN_ATTR, false);
             } else {
                 node.setAttribute(ARIA_HIDDEN_ATTR, true);
@@ -183,21 +233,24 @@ export default class HcpCarousel extends LightningElement {
 
         let styleClasses;
         let isSelected;
+        let tabIndex;
 
         for (let i = 0; i <= slidesAmount; i += 1) {
-            styleClasses = [];
+            styleClasses = [SLDS_CAROUSEL_INDICATION_ACTION];
             isSelected = false;
-            styleClasses.push(SLDS_CAROUSEL_INDICATION_ACTION);
+            tabIndex = -1;
 
             if (i === 0) {
                 styleClasses.push(SLDS_IS_ACTIVE);
                 isSelected = true;
+                tabIndex = 0;
             }
 
             navItems.push({
                 key: guid.generate(),
-                tabindex: 0,
+                tabIndex: tabIndex,
                 ariaControls: `carousel-item-${i}`,
+                slideNumber: i,
                 index: i,
                 styleClasses: styleClasses.join(' '),
                 isSelected: isSelected
@@ -249,7 +302,6 @@ export default class HcpCarousel extends LightningElement {
     appendClonedSlides(slot) {
         const lastAssignedNodesIndex = slot.assignedNodes().length;
         const shiftPosition = this.initDataNodeIndex + slot.assignedNodes().length;
-        console.log(this.initDataNodeIndex);
         const clonedFirstSlides = slot.assignedNodes()
             .slice(0, this.slidesToShow)
             .map((item, index) => {
@@ -351,16 +403,11 @@ export default class HcpCarousel extends LightningElement {
     }
 
     setAriaAttributes() {
-        const leftRange = this.initDataNodeIndex + (this.slidesToScroll * this.currSlideNumber);
-        const rightRange = (this.initDataNodeIndex + this.slidesToShow) + (this.slidesToScroll * this.currSlideNumber);
-
-        console.log('leftRange', leftRange);
-        console.log('rightRange', rightRange);
-
         this.assignedNodes.forEach((node) => {
             const nodeIndex = node.dataset.nodeIndex
 
-            if(nodeIndex >= (leftRange) && nodeIndex <= (rightRange - 1)) {
+            if (nodeIndex >= this.getLeftRange(this.currSlideNumber)
+                && nodeIndex <= (this.getRightRange(this.currSlideNumber) - 1)) {
                 node.setAttribute(ARIA_HIDDEN_ATTR, false);
             } else {
                 node.setAttribute(ARIA_HIDDEN_ATTR, true);
@@ -402,13 +449,7 @@ export default class HcpCarousel extends LightningElement {
 
         this.currSlideNumber = nextSlideNumber;
 
-        try {
-            this.setAriaAttributes();
-        } catch (e) {
-            console.error(e);
-        }
-
-
+        this.setAriaAttributes();
         event.target.blur();
     }
 
@@ -437,7 +478,7 @@ export default class HcpCarousel extends LightningElement {
     }
 
     findCurrSlide() {
-        return this.navItems.find(item => item.index === Math.abs(this.currSlideNumber) % this.navItems.length);
+        return this.navItems.find(item => item.index === this.currSlideNumber % this.navItems.length);
     }
 
     findSlideByNumber(slideNumber) {
@@ -447,11 +488,13 @@ export default class HcpCarousel extends LightningElement {
     activateSlide(slide) {
         slide.styleClasses = [slide.styleClasses, SLDS_IS_ACTIVE].join(' ');
         slide.isSelected = true;
+        slide.tabIndex = 0;
     }
 
     deactivateSlide(slide) {
         slide.styleClasses = slide.styleClasses.replace(SLDS_IS_ACTIVE, '');
         slide.isSelected = false;
+        slide.tabIndex = -1;
     }
 
     normalizeBoolean(value) {
@@ -477,5 +520,13 @@ export default class HcpCarousel extends LightningElement {
                 );
             });
         };
+    }
+
+    getLeftRange = (index) => {
+        return this.initDataNodeIndex + (this.slidesToScroll * index);
+    }
+
+    getRightRange(index) {
+        return (this.initDataNodeIndex + this.slidesToShow) + (this.slidesToScroll * index);
     }
 }
