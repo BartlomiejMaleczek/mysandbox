@@ -9,7 +9,7 @@ const DIRECTION_RIGHT = 'right';
 const DATA_INDEX_ATTR = 'data-node-index';
 const ARIA_HIDDEN_ATTR = 'aria-hidden';
 const ARIA_CONTROLS_ATTR = 'aria-controls';
-const ARIA_LABELLED_BY = 'aria-labelledby';
+const ARIA_LABELLED_BY_ATTR = 'aria-labelledby';
 
 export default class HcpCarousel extends LightningElement {
     @track navItems = [];
@@ -63,8 +63,8 @@ export default class HcpCarousel extends LightningElement {
 
             if (this.infinite) {
                 this.setAriaControlsForClonedNodes(anchors);
-                initAssignedNodeIndex = 1;
-                endAssignedNodeIndex = this.assignedNodes.length - 1;
+                initAssignedNodeIndex = this.initDataNodeIndex;
+                endAssignedNodeIndex = this.assignedNodes.length - this.initDataNodeIndex;
             }
 
             for (let i = initAssignedNodeIndex; i < endAssignedNodeIndex; i++) {
@@ -73,7 +73,7 @@ export default class HcpCarousel extends LightningElement {
 
                     if (this.getLeftRange(j) <= dataIndexAttr && this.getRightRange(j) > dataIndexAttr) {
                         this.assignedNodes[i].setAttribute(
-                            ARIA_LABELLED_BY,
+                            ARIA_LABELLED_BY_ATTR,
                             anchors[j].getAttribute(ARIA_CONTROLS_ATTR)
                         );
                         break;
@@ -86,11 +86,16 @@ export default class HcpCarousel extends LightningElement {
     }
 
     setAriaControlsForClonedNodes(anchors) {
-        this.assignedNodes[0]
-            .setAttribute(ARIA_LABELLED_BY, anchors[anchors.length - 1].getAttribute(ARIA_CONTROLS_ATTR));
+        const firstAnchorAriaControlsAttr = anchors[0].getAttribute(ARIA_CONTROLS_ATTR);
+        const lastAnchorAriaControlsAttr = anchors[anchors.length - 1].getAttribute(ARIA_CONTROLS_ATTR);
 
-        this.assignedNodes[this.assignedNodes.length - 1]
-            .setAttribute(ARIA_LABELLED_BY, anchors[0].getAttribute(ARIA_CONTROLS_ATTR));
+        for(let i = 0; i < this.slidesToShow; i++) {
+            this.assignedNodes[i].setAttribute(ARIA_LABELLED_BY_ATTR, lastAnchorAriaControlsAttr);
+        }
+
+        for(let i = this.assignedNodes.length - this.slidesToShow; i < this.assignedNodes.length; i++) {
+            this.assignedNodes[i].setAttribute(ARIA_LABELLED_BY_ATTR, firstAnchorAriaControlsAttr);
+        }
 
     }
 
@@ -250,7 +255,6 @@ export default class HcpCarousel extends LightningElement {
                 key: guid.generate(),
                 tabIndex: tabIndex,
                 ariaControls: `carousel-item-${i}`,
-                slideNumber: i,
                 index: i,
                 styleClasses: styleClasses.join(' '),
                 isSelected: isSelected
