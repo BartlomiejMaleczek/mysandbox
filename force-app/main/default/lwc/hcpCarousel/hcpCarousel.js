@@ -10,6 +10,9 @@ const DATA_INDEX_ATTR = 'data-node-index';
 const ARIA_HIDDEN_ATTR = 'aria-hidden';
 const ARIA_CONTROLS_ATTR = 'aria-controls';
 const ARIA_LABELLED_BY_ATTR = 'aria-labelledby';
+const keyCodes = {
+    enter: 13,
+};
 
 export default class HcpCarousel extends LightningElement {
     @track navItems = [];
@@ -218,6 +221,7 @@ export default class HcpCarousel extends LightningElement {
 
     initProcessingAssignedNodes(assignedNodes) {
         assignedNodes.forEach((node, index) => {
+            // node.setAttribute('lwc:dom', "manual");
             classUtils.listMutation(node.classList, {
                 [`slds-size--1-of-${this.slidesToShow}`]: true
             });
@@ -243,12 +247,12 @@ export default class HcpCarousel extends LightningElement {
         for (let i = 0; i <= slidesAmount; i += 1) {
             styleClasses = [SLDS_CAROUSEL_INDICATION_ACTION];
             isSelected = false;
-            tabIndex = -1;
+            tabIndex = 0;
 
             if (i === 0) {
                 styleClasses.push(SLDS_IS_ACTIVE);
                 isSelected = true;
-                tabIndex = 0;
+                tabIndex = -1;
             }
 
             navItems.push({
@@ -306,6 +310,9 @@ export default class HcpCarousel extends LightningElement {
     appendClonedSlides(slot) {
         const lastAssignedNodesIndex = slot.assignedNodes().length;
         const shiftPosition = this.initDataNodeIndex + slot.assignedNodes().length;
+        const beforeClonedSlideContainer = this.template.querySelector('.before-cloned-slide-container');
+        const afterClonedSlideContainer = this.template.querySelector('.after-cloned-slide-container');
+
         const clonedFirstSlides = slot.assignedNodes()
             .slice(0, this.slidesToShow)
             .map((item, index) => {
@@ -327,14 +334,14 @@ export default class HcpCarousel extends LightningElement {
 
         clonedLastSlides.forEach((clonedSlide, index) => {
             if (index === 0) {
-                slot.insertBefore(clonedSlide, slot.assignedNodes()[0]);
+                beforeClonedSlideContainer.appendChild(clonedSlide);
             } else {
-                slot.insertBefore(clonedSlide, clonedLastSlides[index - 1]);
+                beforeClonedSlideContainer.insertBefore(clonedSlide, clonedLastSlides[index - 1]);
             }
         });
 
         clonedFirstSlides.forEach((clonedSlide) => {
-            slot.appendChild(clonedSlide);
+            afterClonedSlideContainer.appendChild(clonedSlide);
         });
 
         this.assignedNodes = clonedLastSlides.concat(slot.assignedNodes()).concat(clonedFirstSlides);
@@ -441,6 +448,16 @@ export default class HcpCarousel extends LightningElement {
 
 
     handleSelectSlide(event) {
+        this.selectSlide(event);
+    }
+
+    handleButtonKeyDown(event) {
+        if(event.keyCode === keyCodes.enter) {
+            this.selectSlide(event);
+        }
+    }
+
+    selectSlide(event) {
         if (this.autoPlayTimer)
             this.stopAutoPlay();
 
@@ -492,13 +509,13 @@ export default class HcpCarousel extends LightningElement {
     activateSlide(slide) {
         slide.styleClasses = [slide.styleClasses, SLDS_IS_ACTIVE].join(' ');
         slide.isSelected = true;
-        slide.tabIndex = 0;
+        slide.tabIndex = -1;
     }
 
     deactivateSlide(slide) {
         slide.styleClasses = slide.styleClasses.replace(SLDS_IS_ACTIVE, '');
         slide.isSelected = false;
-        slide.tabIndex = -1;
+        slide.tabIndex = 0;
     }
 
     normalizeBoolean(value) {

@@ -2,6 +2,10 @@ div.slds-carousel__panels {
     transition: transform 500ms ease-in;
 }
 
+.before-cloned-slide {
+    height: 100%;
+}
+
 /*a.slds-is-active {*/
 /*    background: var(--c-mucinexBrandBlueColor, rgb(0, 112, 210)) !important;*/
 /*    border-color: var(--c-mucinexBrandBlueColor, rgb(0, 112, 210)) !important;*/

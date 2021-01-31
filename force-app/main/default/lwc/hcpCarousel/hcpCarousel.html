@@ -11,7 +11,9 @@
                  ontouchend={handleTouchEnd}
             >
 
+                <div class="before-cloned-slide-container slds-size--1-of-1 slds-carousel__panels" lwc:dom="manual"></div>
                 <slot onslotchange={handleSlotChange}></slot>
+                <div class="after-cloned-slide-container slds-size--1-of-1 slds-carousel__panels" lwc:dom="manual"></div>
             </div>
 
             <template if:true={dots}>
@@ -30,7 +32,9 @@
                                aria-controls={navItem.ariaControls}
                                aria-selected={navItem.isSelected}
                                role="tab"
-                               onclick={handleSelectSlide}>
+                               onclick={handleSelectSlide}
+                               onkeydown={handleButtonKeyDown}
+                            >
                             </a>
                         </li>
                     </template>
