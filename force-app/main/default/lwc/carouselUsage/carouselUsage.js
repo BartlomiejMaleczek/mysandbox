@@ -9,15 +9,15 @@ import carousel03jpg from '@salesforce/contentAssetUrl/carousel03jpg';
 
 export default class CarouselUsage extends LightningElement {
     items = [
-        {ariaLabelledBy: 'carousel-item-1'},
-        {ariaLabelledBy: 'carousel-item-2'},
-        {ariaLabelledBy: 'carousel-item-3'},
-        {ariaLabelledBy: 'carousel-item-4'},
-        {ariaLabelledBy: 'carousel-item-5'},
-        {ariaLabelledBy: 'carousel-item-6'},
-        {ariaLabelledBy: 'carousel-item-7'},
-        {ariaLabelledBy: 'carousel-item-8'},
-        {ariaLabelledBy: 'carousel-item-9'}
+        {ariaLabelledBy: '1'},
+        {ariaLabelledBy: '2'},
+        {ariaLabelledBy: '3'},
+        {ariaLabelledBy: '4'},
+        {ariaLabelledBy: '5'},
+        {ariaLabelledBy: '6'},
+        {ariaLabelledBy: '7'},
+        {ariaLabelledBy: '8'},
+        {ariaLabelledBy: '9'}
     ];
 
     images = {

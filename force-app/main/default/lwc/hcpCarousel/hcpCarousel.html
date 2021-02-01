@@ -11,9 +11,19 @@
                  ontouchend={handleTouchEnd}
             >
 
-                <div class="before-cloned-slide-container slds-size--1-of-1 slds-carousel__panels" lwc:dom="manual"></div>
+                <div if:true={infinite}
+                     class="before-cloned-slide-container slds-size--1-of-1 slds-carousel__panels"
+                     lwc:dom="manual">
+
+                </div>
+
                 <slot onslotchange={handleSlotChange}></slot>
-                <div class="after-cloned-slide-container slds-size--1-of-1 slds-carousel__panels" lwc:dom="manual"></div>
+
+                <div if:true={infinite}
+                     class="after-cloned-slide-container slds-size--1-of-1 slds-carousel__panels"
+                     lwc:dom="manual">
+
+                </div>
             </div>
 
             <template if:true={dots}>
@@ -26,10 +36,10 @@
                             class="slds-carousel__indicator"
                             role="presentation"
                         >
-                            <a class={navItem.styleClasses}
+                            <a id={navItem.id}
+                               class={navItem.styleClasses}
                                tabindex={navItem.tabIndex}
                                data-index={navItem.index}
-                               aria-controls={navItem.ariaControls}
                                aria-selected={navItem.isSelected}
                                role="tab"
                                onclick={handleSelectSlide}

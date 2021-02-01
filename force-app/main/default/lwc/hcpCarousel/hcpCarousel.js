@@ -2,6 +2,7 @@ import {LightningElement, track, api} from 'lwc';
 import {guid, classUtils} from "c/utils";
 
 const SLDS_IS_ACTIVE = 'slds-is-active';
+const TOO_MANY_SLIDES_EXC = 'Too many slides amount.';
 const SLDS_CAROUSEL_INDICATION_ACTION = 'slds-carousel__indicator-action';
 const SWIPE_DISTANCE_THRESHOLD = 20;
 const DIRECTION_LEFT = 'left';
@@ -9,6 +10,7 @@ const DIRECTION_RIGHT = 'right';
 const DATA_INDEX_ATTR = 'data-node-index';
 const ARIA_HIDDEN_ATTR = 'aria-hidden';
 const ARIA_CONTROLS_ATTR = 'aria-controls';
+const ID_ATTR = 'id';
 const ARIA_LABELLED_BY_ATTR = 'aria-labelledby';
 const keyCodes = {
     enter: 13,
@@ -70,6 +72,20 @@ export default class HcpCarousel extends LightningElement {
                 endAssignedNodeIndex = this.assignedNodes.length - this.initDataNodeIndex;
             }
 
+            let leftRange;
+            anchors.forEach((anchor, index) => {
+                leftRange = this.getLeftRange(index);
+
+                if (leftRange >= this.assignedNodes.length)
+                    leftRange = this.assignedNodes.length - 1;
+
+                anchor.setAttribute(
+                    ARIA_CONTROLS_ATTR,
+                    this.assignedNodes[leftRange].getAttribute(ID_ATTR)
+                );
+            });
+
+
             for (let i = initAssignedNodeIndex; i < endAssignedNodeIndex; i++) {
                 for (let j = 0; j < anchors.length; j++) {
                     dataIndexAttr = this.assignedNodes[i].getAttribute(DATA_INDEX_ATTR);
@@ -77,8 +93,9 @@ export default class HcpCarousel extends LightningElement {
                     if (this.getLeftRange(j) <= dataIndexAttr && this.getRightRange(j) > dataIndexAttr) {
                         this.assignedNodes[i].setAttribute(
                             ARIA_LABELLED_BY_ATTR,
-                            anchors[j].getAttribute(ARIA_CONTROLS_ATTR)
+                            anchors[j].getAttribute(ID_ATTR)
                         );
+
                         break;
                     }
                 }
@@ -89,14 +106,17 @@ export default class HcpCarousel extends LightningElement {
     }
 
     setAriaControlsForClonedNodes(anchors) {
-        const firstAnchorAriaControlsAttr = anchors[0].getAttribute(ARIA_CONTROLS_ATTR);
-        const lastAnchorAriaControlsAttr = anchors[anchors.length - 1].getAttribute(ARIA_CONTROLS_ATTR);
+        const firstAnchor = anchors[0];
+        const firstAnchorAriaControlsAttr = firstAnchor.getAttribute(ID_ATTR);
 
-        for(let i = 0; i < this.slidesToShow; i++) {
+        const lastAnchor = anchors[anchors.length - 1];
+        const lastAnchorAriaControlsAttr = lastAnchor.getAttribute(ID_ATTR);
+
+        for (let i = 0; i < this.slidesToShow; i++) {
             this.assignedNodes[i].setAttribute(ARIA_LABELLED_BY_ATTR, lastAnchorAriaControlsAttr);
         }
 
-        for(let i = this.assignedNodes.length - this.slidesToShow; i < this.assignedNodes.length; i++) {
+        for (let i = this.assignedNodes.length - this.slidesToShow; i < this.assignedNodes.length; i++) {
             this.assignedNodes[i].setAttribute(ARIA_LABELLED_BY_ATTR, firstAnchorAriaControlsAttr);
         }
 
@@ -220,8 +240,9 @@ export default class HcpCarousel extends LightningElement {
     }
 
     initProcessingAssignedNodes(assignedNodes) {
+        let dataIndex;
+
         assignedNodes.forEach((node, index) => {
-            // node.setAttribute('lwc:dom', "manual");
             classUtils.listMutation(node.classList, {
                 [`slds-size--1-of-${this.slidesToShow}`]: true
             });
@@ -232,7 +253,10 @@ export default class HcpCarousel extends LightningElement {
                 node.setAttribute(ARIA_HIDDEN_ATTR, true);
             }
 
-            node.setAttribute(DATA_INDEX_ATTR, index + this.initDataNodeIndex);
+            dataIndex = index + this.initDataNodeIndex;
+
+            node.setAttribute(DATA_INDEX_ATTR, dataIndex);
+            node.setAttribute(ID_ATTR, this.getContentId(dataIndex));
         });
     }
 
@@ -258,6 +282,7 @@ export default class HcpCarousel extends LightningElement {
             navItems.push({
                 key: guid.generate(),
                 tabIndex: tabIndex,
+                id: `indicator-carousel-id-${i}`,
                 ariaControls: `carousel-item-${i}`,
                 index: i,
                 styleClasses: styleClasses.join(' '),
@@ -274,7 +299,6 @@ export default class HcpCarousel extends LightningElement {
         let slidesAmount = 0;
 
         while (true) {
-
             leftRange += this.slidesToScroll;
             rightRange += this.slidesToScroll;
 
@@ -288,13 +312,18 @@ export default class HcpCarousel extends LightningElement {
             }
 
             slidesAmount += 1;
+
+            if (slidesAmount > assignedNodesLength) {
+                throw TOO_MANY_SLIDES_EXC;
+            }
         }
 
         return slidesAmount;
     }
 
     isFiniteCondFulfilled(leftRange, assignedNodesLength, rightRange) {
-        return !this.infinite && (leftRange <= assignedNodesLength && assignedNodesLength <= rightRange)
+        return !this.infinite &&
+            ((leftRange <= assignedNodesLength && assignedNodesLength <= rightRange) || leftRange > assignedNodesLength)
     }
 
     isInfiniteCondFulfilled(leftRange, assignedNodesLength) {
@@ -313,12 +342,16 @@ export default class HcpCarousel extends LightningElement {
         const beforeClonedSlideContainer = this.template.querySelector('.before-cloned-slide-container');
         const afterClonedSlideContainer = this.template.querySelector('.after-cloned-slide-container');
 
+        let dataIndexValue;
         const clonedFirstSlides = slot.assignedNodes()
             .slice(0, this.slidesToShow)
             .map((item, index) => {
+                dataIndexValue = shiftPosition + index;
+
                 const clonedNode = item.cloneNode(true);
                 clonedNode.setAttribute(ARIA_HIDDEN_ATTR, true);
-                clonedNode.setAttribute(DATA_INDEX_ATTR, shiftPosition + index);
+                clonedNode.setAttribute(DATA_INDEX_ATTR, dataIndexValue);
+                clonedNode.setAttribute(ID_ATTR, this.getContentId(dataIndexValue))
                 return clonedNode;
             });
 
@@ -328,6 +361,7 @@ export default class HcpCarousel extends LightningElement {
                 const clonedNode = item.cloneNode(true);
                 clonedNode.setAttribute(ARIA_HIDDEN_ATTR, true);
                 clonedNode.setAttribute(DATA_INDEX_ATTR, index);
+                clonedNode.setAttribute(ID_ATTR, this.getContentId(index))
                 return clonedNode;
             })
             .reverse();
@@ -384,6 +418,9 @@ export default class HcpCarousel extends LightningElement {
         return new Promise(async (resolve) => {
             if (this.isLoopingBack)
                 this.isLoopingBack = false;
+
+            if (this.autoPlayTimer)
+                this.stopAutoPlay();
 
             let nextSlideNumber = this.currSlideNumber + dir;
 
@@ -452,12 +489,15 @@ export default class HcpCarousel extends LightningElement {
     }
 
     handleButtonKeyDown(event) {
-        if(event.keyCode === keyCodes.enter) {
+        if (event.keyCode === keyCodes.enter) {
             this.selectSlide(event);
         }
     }
 
     selectSlide(event) {
+        if (this.isLoopingBack)
+            this.isLoopingBack = false;
+
         if (this.autoPlayTimer)
             this.stopAutoPlay();
 
@@ -549,5 +589,9 @@ export default class HcpCarousel extends LightningElement {
 
     getRightRange(index) {
         return (this.initDataNodeIndex + this.slidesToShow) + (this.slidesToScroll * index);
+    }
+
+    getContentId(index) {
+        return `content-carousel-item-${index}`;
     }
 }
