@@ -1,39 +1,39 @@
 <template>
     Basic version with dots at the bottom
     <p class="slds-m-top_xx-large">Basic version with dots at the bottom</p>
-    <c-hcp-carousel class="carousel" dots infinite>
+    <c-carousel class="carousel" dots infinite>
         <template for:each={items} for:item="navItem" for:index="index">
-            <c-hcp-carousel-item key={navItem.ariaLabelledBy} class="slds-align--absolute-center" >
+            <c-carousel-item key={navItem.ariaLabelledBy} class="slds-align--absolute-center" >
                 <div class="slds-size_1-of-1 slds-col slds-align--absolute-center slds-grid number">
                     <p>{navItem.ariaLabelledBy}</p>
                 </div>
-            </c-hcp-carousel-item>
+            </c-carousel-item>
         </template>
-    </c-hcp-carousel>
+    </c-carousel>
 
     <p class="slds-m-top_xx-large">Version with 3 items per slide, moved by 1 slide. Padding shows elements not in first slide.</p>
-    <c-hcp-carousel class="carousel carousel-with-custom-next-prev" slides-to-show="3" slides-to-scroll="1" dots paddings="padding-right: 150px">
+    <c-carousel class="carousel carousel-with-custom-next-prev" slides-to-show="3" slides-to-scroll="1" dots paddings="padding-right: 150px">
         <template for:each={items} for:item="navItem" for:index="index">
-            <c-hcp-carousel-item key={navItem.ariaLabelledBy} class="slds-align--absolute-center" >
+            <c-carousel-item key={navItem.ariaLabelledBy} class="slds-align--absolute-center" >
                 <div class="slds-size_1-of-1 slds-col slds-align--absolute-center slds-grid number">
                     <p>{navItem.ariaLabelledBy}</p>
                 </div>
-            </c-hcp-carousel-item>
+            </c-carousel-item>
         </template>
-    </c-hcp-carousel>
+    </c-carousel>
 
     <lightning-button disabled={isPrevDisabled} label='previous' onclick={prevSlide}></lightning-button>
     <lightning-button disabled={isNextDisabled} label='next' onclick={nextSlide}></lightning-button>
 
     <p class="slds-m-top_xx-large">Version with 3 items per slide, moved by 3 slide. Without dots. Auto play with specified speed</p>
-    <c-hcp-carousel class="carousel" slides-to-show="3" slides-to-scroll="3" auto-play auto-play-speed="3000" infinite>
+    <c-carousel class="carousel" slides-to-show="3" slides-to-scroll="3" auto-play auto-play-speed="3000" infinite>
         <template for:each={items} for:item="navItem" for:index="index">
-            <c-hcp-carousel-item key={navItem.ariaLabelledBy} class="slds-align--absolute-center" >
+            <c-carousel-item key={navItem.ariaLabelledBy} class="slds-align--absolute-center" >
                 <div class="slds-size_1-of-1 slds-col slds-align--absolute-center slds-grid number">
                     <p>{navItem.ariaLabelledBy}</p>
                 </div>
-            </c-hcp-carousel-item>
+            </c-carousel-item>
         </template>
-    </c-hcp-carousel>
+    </c-carousel>
 
 </template>
