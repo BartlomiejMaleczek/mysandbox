@@ -1,7 +1,6 @@
 <template>
-    Basic version with dots at the bottom
     <p class="slds-m-top_xx-large">Basic version with dots at the bottom</p>
-    <c-carousel class="carousel" dots>
+    <c-carousel class="carousel" dots infinite>
         <template for:each={items} for:item="navItem" for:index="index">
             <c-carousel-item key={navItem.ariaLabelledBy} class="slds-align--absolute-center" >
                 <div class="slds-size_1-of-1 slds-col slds-align--absolute-center slds-grid number">
@@ -35,5 +34,4 @@
             </c-carousel-item>
         </template>
     </c-carousel>
-
 </template>

@@ -221,29 +221,22 @@ export default class Carousel extends LightningElement {
     handleSlotChange() {
         const slot = this.getSlot();
 
-        try {
-            console.log('guid', guid.generate());
-            if (slot.assignedNodes() && slot.assignedNodes().length && !this.navItems.length) {
-                this.initPosition = this.getInitPosition();
-                this.initDataNodeIndex = this.getInitDataIndex();
+        if (slot.assignedNodes() && slot.assignedNodes().length && !this.navItems.length) {
+            this.initPosition = this.getInitPosition();
+            this.initDataNodeIndex = this.getInitDataIndex();
 
-                this.initProcessingAssignedNodes(slot.assignedNodes());
-                this.generateNavItems(slot.assignedNodes().length);
+            this.initProcessingAssignedNodes(slot.assignedNodes());
+            this.generateNavItems(slot.assignedNodes().length);
 
-                if (this.autoPlay)
-                    this.setAutoPlay();
+            if (this.autoPlay)
+                this.setAutoPlay();
 
-                if (this.infinite) {
-                    this.appendClonedSlides(slot);
-                } else {
-                    this.assignedNodes = slot.assignedNodes();
-                }
+            if (this.infinite) {
+                this.appendClonedSlides(slot);
+            } else {
+                this.assignedNodes = slot.assignedNodes();
             }
-        } catch (e) {
-            console.error(e);
         }
-
-
     }
 
     initProcessingAssignedNodes(assignedNodes) {
@@ -304,21 +297,23 @@ export default class Carousel extends LightningElement {
         let leftRange = 1;
         let rightRange = this.slidesToShow;
         let slidesAmount = 0;
+        let isNotOutOfRange = true;
 
-        while (true) {
+        while (isNotOutOfRange) {
             leftRange += this.slidesToScroll;
             rightRange += this.slidesToScroll;
 
             if (this.isInfiniteCondFulfilled(leftRange, assignedNodesLength)) {
-                break;
+                isNotOutOfRange = false;
             }
 
             if (this.isFiniteCondFulfilled(leftRange, assignedNodesLength, rightRange)) {
                 slidesAmount += 1;
-                break;
+                isNotOutOfRange = false;
             }
 
-            slidesAmount += 1;
+            if(isNotOutOfRange)
+                slidesAmount += 1;
 
             if (slidesAmount > assignedNodesLength) {
                 throw TOO_MANY_SLIDES_EXC;
