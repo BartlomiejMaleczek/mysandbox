@@ -297,21 +297,23 @@ export default class Carousel extends LightningElement {
         let leftRange = 1;
         let rightRange = this.slidesToShow;
         let slidesAmount = 0;
+        let isNotOutOfRange = true;
 
-        while (true) {
+        while (isNotOutOfRange) {
             leftRange += this.slidesToScroll;
             rightRange += this.slidesToScroll;
 
             if (this.isInfiniteCondFulfilled(leftRange, assignedNodesLength)) {
-                break;
+                isNotOutOfRange = false;
             }
 
             if (this.isFiniteCondFulfilled(leftRange, assignedNodesLength, rightRange)) {
                 slidesAmount += 1;
-                break;
+                isNotOutOfRange = false;
             }
 
-            slidesAmount += 1;
+            if(isNotOutOfRange)
+                slidesAmount += 1;
 
             if (slidesAmount > assignedNodesLength) {
                 throw TOO_MANY_SLIDES_EXC;
