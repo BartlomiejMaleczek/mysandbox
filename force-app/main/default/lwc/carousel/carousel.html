@@ -1,0 +1,56 @@
+<template>
+    <div class="slds-carousel">
+        <div class="slds-carousel__stage"
+             style={stageStyle}
+        >
+            <div class={carouselPanelsClasses}
+                 style={carouselTranslate}
+                 role="tabpanel"
+                 aria-hidden="false"
+                 ontouchstart={handleTouchStart}
+                 ontouchend={handleTouchEnd}
+            >
+
+                <div if:true={infinite}
+                     class="before-cloned-slide-container slds-size--1-of-1 slds-carousel__panels"
+                     lwc:dom="manual">
+
+                </div>
+
+                <slot onslotchange={handleSlotChange}></slot>
+
+                <div if:true={infinite}
+                     class="after-cloned-slide-container slds-size--1-of-1 slds-carousel__panels"
+                     lwc:dom="manual">
+
+                </div>
+            </div>
+
+            <template if:true={dots}>
+
+                <ul class="slds-carousel__indicators"
+                    role="tablist"
+                >
+                    <template for:each={navItems} for:item="navItem" for:index="index">
+                        <li key={navItem.key}
+                            class="slds-carousel__indicator"
+                            role="presentation"
+                        >
+                            <a id={navItem.id}
+                               class={navItem.styleClasses}
+                               tabindex={navItem.tabIndex}
+                               data-index={navItem.index}
+                               aria-selected={navItem.isSelected}
+                               role="tab"
+                               onclick={handleSelectSlide}
+                               onkeydown={handleButtonKeyDown}
+                            >
+                            </a>
+                        </li>
+                    </template>
+                </ul>
+            </template>
+
+        </div>
+    </div>
+</template>

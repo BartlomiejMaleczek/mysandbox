@@ -1,0 +1,12 @@
+div.slds-carousel__panels {
+    transition: transform 500ms ease-in;
+}
+
+.before-cloned-slide, .after-cloned-slide-container {
+    height: 100%;
+    width: 100%;
+}
+
+.shifting-back {
+    transition: none !important;
+}
