@@ -43,6 +43,12 @@ export default class Carousel extends LightningElement {
 
     @api paddings = '';
 
+    movePosition = 0;
+    isTouchStarted = false;
+    carouselWidth;
+    mobileTransition = 'none';
+
+
     constructor() {
         super();
         this._debouncedChangeSlide = this.debounce(this.changeSlide.bind(this), 200);
@@ -200,7 +206,11 @@ export default class Carousel extends LightningElement {
     }
 
     get carouselTranslate() {
-        return `transition: transform ${this.scrollSlideSpeed}ms ease-in;transform:translateX(-${(this.currSlideNumber + this.initPosition) * (100 * (this.slidesToScroll / this.slidesToShow))}%);`
+        if (!this.isTouchStarted) {
+            return `transition: transform ${this.scrollSlideSpeed}ms ease-in;transform:translateX(-${(this.currSlideNumber + this.initPosition) * (100 * (this.slidesToScroll / this.slidesToShow))}%);`
+        } else {
+            return `transition: ${this.mobileTransition};transform:translateX(-${this.movePosition}px);`
+        }
     }
 
     get carouselPanelsClasses() {
@@ -312,7 +322,7 @@ export default class Carousel extends LightningElement {
                 isNotOutOfRange = false;
             }
 
-            if(isNotOutOfRange)
+            if (isNotOutOfRange)
                 slidesAmount += 1;
 
             if (slidesAmount > assignedNodesLength) {
@@ -488,6 +498,7 @@ export default class Carousel extends LightningElement {
 
     handleSelectSlide(event) {
         this.selectSlide(event);
+        this.setMobileTouchPosition();
     }
 
     handleButtonKeyDown(event) {
@@ -516,28 +527,53 @@ export default class Carousel extends LightningElement {
         event.target.blur();
     }
 
+    setMobileTouchPosition() {
+        this.carouselWidth = this.template.querySelector('.slds-carousel').clientWidth;
+
+        this.movePosition = (this.currSlideNumber + this.getInitPosition()) * this.carouselWidth;
+    }
+
     handleTouchStart({changedTouches}) {
-        this.swipeXStart = (changedTouches && changedTouches[0].clientX) || 0;
+        this.carouselWidth = this.template.querySelector('.slds-carousel').clientWidth;
+
+        this.isTouchStarted = true;
+        this.swipeXStart = changedTouches[0].pageX;
+    }
+
+    handleTouchMove({changedTouches}) {
+        this.touchmovex = changedTouches[0].pageX;
+        const _currSlideNumber = this.currSlideNumber + this.getInitPosition();
+        this.movePosition = _currSlideNumber * this.carouselWidth + (this.swipeXStart - this.touchmovex);
     }
 
     async handleTouchEnd(event) {
         if (this.autoPlayTimer)
             this.stopAutoPlay();
 
-        const {changedTouches} = event;
-        const swipeXEnd = (changedTouches && changedTouches[0].clientX) || 0;
-        const dx = swipeXEnd - this.swipeXStart;
-        const direction =
-            Math.sign(dx) === 1 ? DIRECTION_LEFT : DIRECTION_RIGHT;
-        if (Math.abs(dx) > SWIPE_DISTANCE_THRESHOLD) {
-            if (direction === DIRECTION_RIGHT) {
+        let _currSlideNumber = this.currSlideNumber + this.getInitPosition();
+
+        const absMove = Math.abs(_currSlideNumber * this.carouselWidth - this.movePosition);
+        this.mobileTransition = `transform ${this.scrollSlideSpeed}ms ease-in`;
+    //TODO  && (this.infinite || this.currSlideNumber < this.navItems - 1)
+        if (absMove > this.carouselWidth / 2) {
+            if (this.movePosition > _currSlideNumber * this.carouselWidth) {
+                _currSlideNumber += 1;
+                this.movePosition = _currSlideNumber * this.carouselWidth;
                 await this.changeSlide(1);
-            } else {
+            } else if (this.movePosition < _currSlideNumber * this.carouselWidth) {
+                _currSlideNumber -= 1;
+                this.movePosition = _currSlideNumber * this.carouselWidth;
                 await this.changeSlide(-1);
             }
-            event.preventDefault();
+        } else {
+            this.movePosition = _currSlideNumber * this.carouselWidth;
         }
-        this.swipeXStart = 0;
+
+        setTimeout(() => {
+            this.mobileTransition = 'none';
+            this.isTouchStarted = false;
+        }, this.scrollSlideSpeed);
+
     }
 
     findCurrSlide() {
